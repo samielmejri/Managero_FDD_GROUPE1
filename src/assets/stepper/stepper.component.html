@@ -1,0 +1,184 @@
+<nb-stepper orientation="horizontal">
+  <nb-step label="Why">
+    <ng-template #labelOne>Why</ng-template>
+    <div id="why" class="section">
+      <div>
+        <h2 class="section-title">Introduction to Feature-Driven Development (FDD)</h2>
+        <img src="assets/images/fdd_overview.png" alt="Overview of FDD" class="responsive-image">
+        <div class="introduction-text">{{ methode.introduction }}</div>
+      </div>
+      <br>
+      <div *ngIf="isEditingIntroduction">
+        <textarea [(ngModel)]="temporaryIntroduction" class="large-textarea"></textarea>
+        <button (click)="confirmEditIntroduction()">Save</button>
+        <button (click)="cancelEditIntroduction()">Cancel</button>
+      </div>
+      <div *ngIf="!isEditingIntroduction">
+        <button (click)="startEditIntroduction()">Edit Introduction</button>
+      </div>
+      <br>
+      <div>
+        <h2 class="section-title">Advantages and Limitations of FDD</h2>
+        <div class="advantages-text">{{ methode.advantages }}</div>
+      </div>
+      <br>
+      <div *ngIf="isEditingAdvantages">
+        <textarea [(ngModel)]="temporaryAdvantages" class="large-textarea"></textarea>
+        <button (click)="confirmEditAdvantages()">Save</button>
+        <button (click)="cancelEditAdvantages()">Cancel</button>
+      </div>
+      <div *ngIf="!isEditingAdvantages">
+        <button (click)="startEditAdvantages()">Edit Advantages / Limitations</button>
+      </div>
+    </div>
+    <br>
+    <button nbButton disabled nbStepperPrevious>prev</button>
+    <button nbButton nbStepperNext>next</button>
+  </nb-step>
+
+  <!-- other steps -->
+
+
+  <!-- 
+
+
+
+
+  
+
+
+
+  <nb-step label="What">
+    <ng-template #labelTwo>What</ng-template>
+    <div id="what" class="section">
+      <div>
+        <h2 class="section-title">What: Key Processes and Practices of Feature-Driven Development</h2>
+        {{ methode.what }}
+        <div class="fdd-processes">
+          <img src="assets/images/fdd-feature-list.webp" alt="Feature List in FDD" class="responsive-image">
+        </div>
+      </div>
+      <div>
+        <angular-editor [(ngModel)]="methode.what"></angular-editor>
+        <button (click)="saveMethode()">Save</button>
+      </div>
+    </div>
+    <button nbButton nbStepperPrevious>prev</button>
+    <button nbButton nbStepperNext>next</button>
+  </nb-step>
+
+  <nb-step label="How">
+    <div id="how" class="section">
+      <div>
+        <h2 class="section-title">How: Practical Application of FDD with Examples</h2>
+        <h3>Step-by-Step Application</h3>
+        <p>Let's explore the practical application of FDD through a step-by-step example of developing an e-commerce application.</p>
+        <img src="assets/images/e-commerce.jpg" alt="Overview of FDD" class="ecommerce responsive-image">
+
+        <h4>1. Develop an Overall Model</h4>
+        <p>Create an overall model that includes entities like <code>Customer</code>, <code>Order</code>, <code>Product</code>, and <code>Payment</code>. This model serves as a high-level blueprint for the system.</p>
+        <img src="assets/images/fdd-overall-model.png" alt="Overall Model in FDD" class="image">
+
+        <h4>2. Build a Feature List</h4>
+        <p>Break down the e-commerce application into features. Examples of features include:</p>
+        <ul>
+          <li><code>Add Product to Cart</code></li>
+          <li><code>Process Payment</code></li>
+          <li><code>Generate Invoice</code></li>
+          <li><code>User Registration</code></li>
+          <li><code>User Login</code></li>
+        </ul>
+
+        <h4>3. Plan by Feature</h4>
+        <p>Create a development plan based on the feature list. Prioritize features such as <code>User Registration</code> and <code>User Login</code> to be developed first, followed by <code>Product Browsing</code> and <code>Shopping Cart Management</code>.</p>
+
+        <h4>4. Design by Feature</h4>
+        <p>Design each feature in detail before implementation. For the <code>Add Product to Cart</code> feature, design the necessary UI components, backend logic, and database interactions. Conduct design inspections to ensure completeness and accuracy.</p>
+        <img src="assets/images/fdd-design-by-feature.png" alt="Design by Feature in FDD" class="image">
+
+        <h4>5. Build by Feature</h4>
+        <p>Implement and test each feature iteratively. For the <code>Add Product to Cart</code> feature:</p>
+        <ul>
+          <li>Write the required code for the UI and backend.</li>
+          <li>Perform unit tests to ensure the feature works as intended.</li>
+          <li>Integrate the feature with the existing system.</li>
+          <li>Conduct acceptance tests to validate the feature.</li>
+        </ul>
+        <img src="assets/images/fdd-build-by-feature.png" alt="Build by Feature in FDD" class="image">
+      </div>
+      <div>
+        <angular-editor [(ngModel)]="methode.how"></angular-editor>
+        <button (click)="saveMethode()">Save</button>
+      </div>
+    </div>
+    <button nbButton nbStepperPrevious>prev</button>
+    <button nbButton nbStepperNext>next</button>
+  </nb-step>
+
+  <nb-step label="What if">
+    <ng-template #labelFour>What If</ng-template>
+    <div id="what-if" class="section">
+      <div>
+        <h2 class="section-title">What If: Adaptations of FDD for Different Projects</h2>
+        <p>Feature-Driven Development (FDD) is versatile and can be adapted to various types of projects, each with unique requirements and challenges. Here are some scenarios and how FDD can be tailored to fit them:</p>
+
+        <h3>1. Large-Scale Enterprise Systems</h3>
+        <p>For large-scale enterprise systems, FDD’s structured and feature-centric approach helps manage complexity and ensures high-value features are delivered promptly. Adaptations might include:</p>
+        <ul>
+          <li><strong>Extended Planning:</strong> Detailed initial modeling and extended feature planning phases to accommodate the complexity of enterprise systems.</li>
+          <li><strong>Feature Teams:</strong> Creation of multiple feature teams to work on different parts of the system concurrently, ensuring parallel development streams.</li>
+          <li><strong>Integration Points:</strong> Frequent integration points to ensure that various components developed by different teams work together seamlessly.</li>
+        </ul>
+
+        <h3>2. Startups and Small Projects</h3>
+        <p>Startups and small projects benefit from FDD’s focus on rapid delivery and customer-centric development. Adaptations might include:</p>
+        <ul>
+          <li><strong>Lightweight Modeling:</strong> Simplified initial modeling to quickly start feature development and iterate based on feedback.</li>
+          <li><strong>Minimal Documentation:</strong> Reducing the amount of documentation to maintain agility and speed, focusing instead on delivering working features.</li>
+          <li><strong>Flexible Planning:</strong> Adapting the planning phase to be more flexible and responsive to change, allowing for quick pivots based on market feedback.</li>
+        </ul>
+
+        <h3>3. Legacy System Modernization</h3>
+        <p>When modernizing legacy systems, FDD can be used to incrementally add new features while refactoring existing code. Adaptations might include:</p>
+        <ul>
+          <li><strong>Incremental Refactoring:</strong> Incorporating refactoring tasks into the feature list to gradually improve the legacy codebase while adding new features.</li>
+          <li><strong>Backward Compatibility:</strong> Ensuring that new features maintain backward compatibility with existing systems until full migration is achieved.</li>
+          <li><strong>Risk Management:</strong> Close monitoring and management of risks associated with integrating new features into the legacy system.</li>
+        </ul>
+
+        <h3>4. Distributed Teams</h3>
+        <p>For projects involving distributed teams, FDD’s clear structure and defined processes can help manage coordination and communication. Adaptations might include:</p>
+        <ul>
+          <li><strong>Clear Communication Channels:</strong> Establishing robust communication channels and tools to ensure consistent and clear communication across distributed teams.</li>
+          <li><strong>Regular Syncs:</strong> Scheduling regular synchronization meetings to keep all team members aligned and address any issues promptly.</li>
+          <li><strong>Distributed Version Control:</strong> Utilizing distributed version control systems to manage code contributions from multiple locations effectively.</li>
+        </ul>
+
+        <h3>5. Regulated Industries</h3>
+        <p>In regulated industries, compliance and documentation are critical. FDD can be adapted to ensure that all regulatory requirements are met. Adaptations might include:</p>
+        <ul>
+          <li><strong>Comprehensive Documentation:</strong> Ensuring that all features are thoroughly documented to meet regulatory standards.</li>
+          <li><strong>Compliance Reviews:</strong> Incorporating compliance reviews into the design and build phases to ensure that all regulatory requirements are addressed early.</li>
+          <li><strong>Audit Trails:</strong> Maintaining detailed audit trails of all changes and feature implementations to provide transparency and accountability.</li>
+        </ul>
+      </div>
+      <div>
+        <angular-editor [(ngModel)]="methode.what_if"></angular-editor>
+        <button (click)="saveMethode()">Save</button>
+      </div>
+    </div>
+    <button nbButton nbStepperPrevious>prev</button>
+    <button nbButton nbStepperNext>next</button>
+  </nb-step>
+
+  <nb-step label="Conclusion">
+    <ng-template #labelFour>Conclusion</ng-template>
+    <div>
+      <h3>Conclusion</h3>
+      <p>Feature-Driven Development is a flexible and adaptable methodology that can be tailored to fit the needs of various projects and industries. By understanding the unique challenges and requirements of different scenarios, teams can effectively implement FDD to deliver high-value features in a structured and efficient manner.</p>
+    </div>
+    <button nbButton nbStepperPrevious>prev</button>
+    <button nbButton disabled nbStepperNext>next</button>
+  </nb-step>
+   -->
+</nb-stepper>
