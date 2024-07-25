@@ -4,6 +4,6 @@ export class methodePayload {
     why : string = '';
     what : string = '';
     how : string = '';
-    what_if : string = '';
+    whatif : string = '';
 
 }

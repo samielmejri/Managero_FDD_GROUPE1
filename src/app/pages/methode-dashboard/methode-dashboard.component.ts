@@ -71,14 +71,14 @@ this.createMethodeForm = new FormGroup({
   why : new FormControl('',Validators.required),
     what : new FormControl('',Validators.required),
     how : new FormControl('',Validators.required),
-    what_if: new FormControl('',Validators.required)
+    whatif: new FormControl('',Validators.required)
 })
 this.methodePayload = {
   introduction: '',
   why: '',
   what: '',
   how:'',
-  what_if: ''
+  whatif: ''
 };
 }
 ngOnInit() {
@@ -98,14 +98,14 @@ createMethode() {
     const whyControl = this.createMethodeForm.get('why');
     const whatControl = this.createMethodeForm.get('what');
     const howControl = this.createMethodeForm.get('how');
-    const what_ifControl = this.createMethodeForm.get('what_if');
+    const whatifControl = this.createMethodeForm.get('whatif');
     console.log(introductionControl.value)
 
       this.methodePayload.introduction = introductionControl.value || '';
       this.methodePayload.why = whyControl.value || '';
       this.methodePayload.what = whatControl.value || '';
       this.methodePayload.how = howControl.value || '';
-      this.methodePayload.what_if = what_ifControl.value || '';
+      this.methodePayload.whatif = whatifControl.value || '';
 
       this.methodeService.createMethode(this.methodePayload).subscribe(
         data => {
