@@ -1,0 +1,32 @@
+.container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    grid-gap: 1rem;
+  }
+  
+  .quiz-item {
+    background-color: #f8f9fa;
+    border-radius: 5px;
+    padding: 1rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .quiz-card {
+    cursor: pointer;
+  }
+  
+  .quiz-details {
+    margin-top: 1rem;
+  }
+  
+  .question-list {
+    margin-top: 1rem;
+  }
+  
+  .no-questions {
+    margin-top: 1rem;
+  }
+  
+  .no-quizzes {
+    margin-top: 1rem;
+  }

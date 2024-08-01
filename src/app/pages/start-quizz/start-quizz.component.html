@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quizz Wizard</title>
+</head>
+
+<body>
+ <!-- breadcrumb start -->
+ <div class="breadcrumb-area bg-overlay" style="background-image:url('assets/img/bg/3.png')">
+    <div class="container">
+        <div class="breadcrumb-inner">
+            <div class="section-title mb-0 text-center">
+                <h2 class="page-title">start quizz</h2>
+                <ul class="page-list">
+                    <li><a routerLink="" href="index.html">Home</a></li>
+                    <li>Start Your Quizz</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="quiz-container">
+  <div class="quiz-item" *ngFor="let quiz of quizzes">
+    <div class="quiz-content">
+      <h2 class="quiz-title">{{ quiz.title }}</h2>
+      <h1 class="quiz-description">Number of Questions {{ quiz.numQ }}</h1>
+    </div>
+    <button mat-raised-button color="primary" class="start-button" (click)="selectedQuizz = quiz;navigateToQuizzPage()">Start Quiz</button>
+  </div>
+</div>
+</body>

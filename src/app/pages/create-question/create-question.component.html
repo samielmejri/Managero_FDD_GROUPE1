@@ -1,0 +1,53 @@
+<div class="modal-container">
+    <h2>Add New Question</h2>
+    <form [formGroup]="questionForm" (ngSubmit)="addQuestion()">
+      <div appearance="fill" class="form-field">
+        <label for="questionTitle">Question Title</label>
+        <input placeholder="Enter your text..." id="questionTitle" formControlName="questionTitle" class="input" name="text" type="text">
+
+        <div *ngIf="questionForm.get('questionTitle')?.errors?.['required']">Required</div>
+      </div>
+      <div class="options-container">
+        <div class="option-field">
+          <label for="option1">Option 1</label>
+          <input placeholder="Enter your text..." id="option1" formControlName="option1" class="input" name="text" type="text">
+
+        </div>
+        <div class="option-field">
+          <label for="option2">Option 2</label>
+          <input placeholder="Enter your text..." id="option2" formControlName="option2" class="input" name="text" type="text">
+        </div>
+        <div class="option-field">
+          <label for="option3">Option 3</label>
+          <input placeholder="Enter your text..." id="option3" formControlName="option3" class="input" name="text" type="text">
+
+        </div>
+        <div class="option-field">
+          <label for="option4">Option 4</label>
+          <input placeholder="Enter your text..." id="option4" formControlName="option4" class="input" name="text" type="text">
+
+        </div>
+      </div>
+      <div appearance="fill" class="form-field">
+        <label for="rightAnswer">Right Answer</label>
+        <input placeholder="Enter your text..." id="rightAnswer" formControlName="rightAnswer" class="input" name="text" type="text">
+
+      </div>
+      <div class="select-field">
+        <label for="difficultyLevel">Difficulty Level</label>
+        <select id="difficultyLevel" formControlName="difficultyLevel">
+          <option *ngFor="let level of difficultyLevels" [value]="level">
+            {{ level }}
+          </option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="category">Category</label>
+        <input placeholder="Enter your text..." id="category" formControlName="category" class="input" name="text" type="text">
+
+      </div>
+      <button type="submit" [disabled]="questionForm.invalid">
+        Submit
+      </button>
+    </form>
+  </div>

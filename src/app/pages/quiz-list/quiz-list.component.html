@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <app-homepage></app-homepage>
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quiz List</title>
+  <style>
+    /* Add your custom styles here */
+    .app-header {
+      margin-top: 100px;
+      margin-left: -200px;
+      margin-bottom: 100px;
+    }
+    .quiz-container {
+      max-width: 600px; /* Adjust width as needed */
+      margin: 0 auto;
+    }
+    .quiz-info {
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      padding: 10px;
+      margin-bottom: 20px;
+      display: flex; /* Arrange quiz details inline */
+      align-items: center; /* Vertically align items */
+      justify-content: space-between; /* Add space between quiz details and buttons */
+    }
+    .quiz-info h3 {
+      margin: 5px 0;
+      font-weight: bold;
+      flex: 1; /* Allow title to take up available space */
+    }
+    .quiz-info .details {
+      display: flex; /* Arrange quiz details inline */
+      margin-bottom: 5px;
+    }
+    .quiz-info .details p {
+      margin: 0 5px;
+    }
+    .quiz-info .actions {
+      display: flex; /* Arrange buttons inline */
+      align-items: center; /* Vertically align buttons */
+    }
+    .quiz-info button {
+      margin-left: 10px;
+      padding: 5px 10px;
+      border: none;
+      border-radius: 3px;
+      cursor: pointer;
+    }
+    .quiz-info .edit-button {
+      background-color: #4CAF50;
+      color: white;
+    }
+    .quiz-info .edit-button:hover {
+      background-color: #45a049;
+    }
+    .quiz-info .cancel-button {
+      background-color: #f44336;
+      color: white;
+    }
+    .quiz-info .cancel-button:hover {
+      background-color: #e53935;
+    }
+    .quiz-info .update-button {
+      background-color: #2196F3;
+      color: white;
+    }
+    .quiz-info .update-button:hover {
+      background-color: #1e88e5;
+    }
+    .update-form {
+      display: flex;
+      flex-wrap: wrap;
+      margin-top: 20px;
+    }
+    .update-form label {
+      display: block;
+      width: 100%;
+      margin-bottom: 5px;
+    }
+    .update-form input[type="text"],
+    .update-form input[type="number"] {
+      flex: 1;
+      padding: 5px;
+      margin-bottom: 15px;
+      border: 1px solid #ccc;
+      border-radius: 3px;
+    }
+    .update-form button[type="submit"],
+    .update-form button[type="button"] {
+      margin-top: 15px;
+      padding: 5px 10px;
+      border: none;
+      border-radius: 3px;
+      cursor: pointer;
+    }
+    .update-form button[type="submit"] {
+      background-color: #2196F3;
+      color: white;
+    }
+    .update-form button[type="button"] {
+      background-color: #f44336;
+      color: white;
+    }
+  </style>
+</head>
+<body>
+  <div >
+    <div class="quiz-container">
+      <div *ngFor="let quiz of quizzes" class="quiz-info">
+        <h3>{{ quiz.title }}</h3>
+        <div class="details">
+          <p>Category: {{ quiz.category}}</p>
+          <p>Number Of Questions: {{ quiz.numQ }}</p>
+        </div>
+        <div class="actions">
+          <button *ngIf="!selectedQuiz" class="edit-button" (click)="selectQuizForUpdate(quiz)">Edit Quiz</button>
+          <button mat-icon-button color="warn" aria-label="Delete" (click)="deleteQuiz(quiz._id!)" class="cancel-button">delete_forever</button>
+
+          <form [formGroup]="updateForm" *ngIf="selectedQuiz === quiz" (ngSubmit)="updateQuiz()">
+            <input type="hidden" formControlName="_id" [value]="selectedQuiz._id">
+            <div class="update-form">
+              <label>Title:</label>
+              <input type="text" formControlName="title" [value]="selectedQuiz.title">
+              <label>Score:</label>
+              <input type="text" formControlName="category" [value]="selectedQuiz.category">
+              <label>Number of Questions:</label>
+              <input type="number" formControlName="numQ" [value]="selectedQuiz.numQ">
+              <button type="submit" class="update-button">Update</button>
+              <button type="button" class="cancel-button" (click)="selectedQuiz = null">Cancel</button>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div *ngIf="quizzes.length === 0">No quizzes found.</div>
+    </div>
+  </div>
+</body>
+</html>

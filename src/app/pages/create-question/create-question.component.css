@@ -1,0 +1,148 @@
+body {
+    font-family: Arial, sans-serif;
+  }
+  
+  .modal-container {
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #e2e4f4;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  h2 {
+    margin-bottom: 20px;
+  }
+  
+  .form-field {
+    margin-bottom: 20px;
+  }
+  
+  .form-field label {
+    display: block;
+    margin-bottom: 5px;
+  }
+  
+  .form-field input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+  }
+  
+  .form-field input:focus {
+    outline: none;
+    border-color: #007bff;
+  }
+  
+  .form-field .error {
+    color: #dc3545;
+    margin-top: 5px;
+  }
+  
+  .options-container {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  
+  .option-field {
+    width: 100%;
+    margin-bottom: 20px;
+  }
+  
+  .option-field label {
+    display: block;
+    margin-bottom: 5px;
+  }
+  
+  .option-field input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+  }
+  
+  .option-field input:focus {
+    outline: none;
+    border-color: #007bff;
+  }
+  
+  .select-field {
+    margin-bottom: 20px;
+    border-color: #212121;
+  }
+  
+  .select-field label {
+    display: block;
+    margin-bottom: 5px;
+  }
+  
+  .select-field select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #212121;
+    border-radius: 3px;
+  }
+  
+  .select-field select:focus {
+    outline: none;
+    border-color: #212121;
+  }
+  
+  .form-group {
+    margin-bottom: 20px;
+  }
+  
+  .form-group label {
+    display: block;
+    margin-bottom: 5px;
+  }
+  
+  .form-group input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+  }
+  
+  .form-group input:focus {
+    outline: none;
+    border-color: #007bff;
+  }
+  
+  button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    border: none;
+    color: #fff;
+    border-radius: 3px;
+    cursor: pointer;
+  }
+  
+  button:disabled {
+    background-color: #c9c9c9;
+    cursor: not-allowed;
+  }
+  .input {
+    background-color: #212121;
+    max-width: 190px;
+    height: 40px;
+    padding: 10px;
+    /* text-align: center; */
+    border: 2px solid white;
+    border-radius: 5px;
+    /* box-shadow: 3px 3px 2px rgb(249, 255, 85); */
+  }
+  
+  .input:focus {
+    color: rgb(0, 255, 255);
+    background-color: #212121;
+    outline-color: rgb(0, 255, 255);
+    box-shadow: -3px -3px 15px rgb(0, 255, 255);
+    transition: .1s;
+    transition-property: box-shadow;
+  }
+  
+  

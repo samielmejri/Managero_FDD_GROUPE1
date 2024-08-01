@@ -1,0 +1,51 @@
+.result-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    margin-top: 50px;
+  }
+  
+  .large-text {
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+  
+  .score {
+    font-size: 20px;
+    margin-bottom: 20px;
+  }
+  
+  .pdf-button {
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .certificate {
+    margin-top: 20px;
+    padding: 20px;
+    border: 2px solid #4CAF50;
+    border-radius: 10px;
+  }
+  
+  .certificate h2 {
+    font-size: 24px;
+    margin-bottom: 10px;
+  }
+  
+  .certificate p {
+    font-size: 16px;
+    margin-bottom: 5px;
+  }
+  
+  .certificate strong {
+    font-weight: bold;
+    color: #4CAF50;
+  }
+  

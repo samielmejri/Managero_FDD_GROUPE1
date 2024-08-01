@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Question Information</title>
+  <style>
+    /* CSS for question information */
+    .question-info {
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        padding: 10px;
+        margin-bottom: 20px;
+    }
+
+    .question-info p {
+        margin: 5px 0;
+    }
+
+    .question-info p:first-child {
+        font-weight: bold;
+    }
+
+    /* CSS for question container */
+    .question-container {
+        max-width: 600px;
+        margin: 0 auto;
+    }
+  </style>
+</head>
+<body>
+  <div class="app-header" style="margin-top: 100px; margin-left: -200px; margin-bottom: 100px;">
+
+<div class="question-container">
+  <div class="question-info" *ngFor="let question of questions">
+    <p> Question ID :{{question._id!}}  </p>
+    <p>Question Text: {{ question.questionText }}</p>
+    <div *ngFor="let option of question.options; let i=index">
+
+      <p>Option {{ i + 1 }}: {{ option }}</p>
+    </div>
+    <p>Score: {{ question.score }}</p>
+    <p>Correct Option Index: {{ question.correctOption }}</p>
+    <p>Explanation: {{ question.explication }}</p>
+    <p>Note: {{ question.notequstion }}</p>
+    <p>Duration: {{ question.dureequestion }}</p>
+    <button (click)="addQuestionsToQuiz()" class="custom-button">Add Questions to Quiz</button>
+
+  </div>
+  
+  </div>

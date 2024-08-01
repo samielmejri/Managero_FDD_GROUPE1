@@ -1,0 +1,18 @@
+<div class="container mt-4">
+    <h2>Schedule Quiz</h2>
+    
+    <div class="form-group">
+      <label for="quizSelect">Select Quiz:</label>
+      <select class="form-control" id="quizSelect" [(ngModel)]="selectedQuizId">
+        <option *ngFor="let quiz of quizzes" [value]="quiz._id">{{ quiz.title }}</option>
+      </select>
+    </div>
+  
+    <div class="form-group">
+      <label for="scheduledAt">Select Scheduled Time:</label>
+      <!-- Change ngModel to bind to scheduledAt -->
+      <input type="datetime-local" class="form-control" id="scheduledAt" [(ngModel)]="scheduledAt">
+    </div>
+    <button type="button" (click)="scheduleQuiz()">Schedule Quiz</button>
+  </div>
+  

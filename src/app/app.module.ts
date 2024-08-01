@@ -30,8 +30,39 @@ import { ConfirmationDialogComponent } from './confirmation-dialog/confirmation-
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
+
+import { QuizListComponent } from './pages/quiz-list/quiz-list.component';
+import { CreateQuizComponent } from './pages/create-quiz/create-quiz.component';
+import { CreateQuestionComponent } from './pages/create-question/create-question.component';
+import { QuestionListComponent } from './pages/question-list/question-list.component';
+import { QuizafficheComponent } from './pages/quizaffiche/quizaffiche.component';
+import { QuestionafficheComponent } from './pages/questionaffiche/questionaffiche.component';
+import { StartQuizzComponent } from './pages/start-quizz/start-quizz.component';
+import { QuizzComponent } from './pages/quizz/quizz.component';
+import { SubmitQuizzComponent } from './pages/submit-quizz/submit-quizz.component';
+import { QuizStatisticsComponent } from './pages/quiz-statistics/quiz-statistics.component';
+import { CalendarComponent } from './pages/FullCalendar/FullCalendar.component';
+import { HomepageComponent } from './pages/homepage/homepage.component';
+import { QuizScheduleComponent } from './pages/schedule-quiz/schedule-quiz.component';
+
+
+
 @NgModule({
-  declarations: [AppComponent, StepperComponent,FddComponent, ConfirmationDialogComponent],
+  declarations: [AppComponent, StepperComponent,FddComponent, ConfirmationDialogComponent,
+    QuizListComponent,
+    CreateQuizComponent,
+    CreateQuestionComponent,
+    QuestionListComponent,
+    QuizafficheComponent,
+    QuestionafficheComponent,
+    StartQuizzComponent,
+    QuizzComponent,
+    SubmitQuizzComponent,
+    QuizStatisticsComponent,
+    CalendarComponent,
+    QuizScheduleComponent,
+    HomepageComponent
+  ],
   imports: [
     NbStepperModule,
     NbAccordionModule,

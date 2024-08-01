@@ -15,6 +15,10 @@ export const MENU_ITEMS: NbMenuItem[] = [
         {
           title: 'Dashboard',
           link: '/pages/methodeDashboard',
+        },
+        {
+          title: 'Quizz',
+          link: '/pages/home',
         }
         ]
 

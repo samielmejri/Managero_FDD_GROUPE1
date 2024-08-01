@@ -9,9 +9,8 @@
     "moduleResolution": "node",
     "experimentalDecorators": true,
     "target": "ES2022",
-    "typeRoots": [
-      "node_modules/@types"
-    ],
+    "typeRoots": ["node_modules/@types"],
+    "types": ["chart.js"],
     "lib": [
       "es2017",
       "dom"
@@ -21,6 +20,11 @@
         "name": "tslint-language-service"
       }
     ],
-    "useDefineForClassFields": false
+    "useDefineForClassFields": false,
+    "baseUrl": "./",
+    "paths": {
+      "src/*": ["src/*"],
+      "@angular/*": ["node_modules/@angular/*"]
+    }
   }
 }

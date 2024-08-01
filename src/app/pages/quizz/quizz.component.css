@@ -1,0 +1,96 @@
+/* Overall styles */
+body {
+    font-family: sans-serif;
+    margin: 0;
+    padding: 20px;
+    background-color: #f0f0f0;
+  }
+  
+  /* Quiz container */
+  .quiz-container {
+    
+        --mask: radial-gradient(40px at 40px 40px,#0000 98%,#000) -40px -40px;
+        -webkit-mask: var(--mask);
+                mask: var(--mask);
+      
+  }
+  
+  /* Question title */
+  .question-title {
+    font-size: 1.5em;
+    margin-bottom: 15px;
+  }
+  
+  /* Answer options */
+  .answer-options {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  /* Radio buttons and labels */
+  .answer-options input[type="radio"] {
+    display: none;
+  }
+  
+  .answer-options label {
+    cursor: pointer;
+    padding: 10px 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    display: block;
+  }
+  
+  .answer-options label:hover {
+    background-color: #f5f5f5;
+  }
+  
+  /* Selected answer styling */
+  .answer-options input[type="radio"]:checked + label {
+    background-color: #11ed77;
+  }
+  
+  /* Next button */
+  .next-button {
+    margin-top: 20px;
+    padding: 10px 20px;
+    border: 1px solid #e50b0b;
+    border-radius: 5px;
+    cursor: pointer;
+    text-align: center;
+
+    background-color: #460ee1;
+    color: #333;
+
+  }
+  
+  /* Disabled button styling */
+  .next-button[disabled] {
+    cursor: not-allowed; /* Indicate disabled state visually */
+    opacity: 0.5; /* Reduce opacity for disabled button */
+
+  }
+
+  .previous-button {
+    margin-top: 20px;
+    padding: 10px 20px;
+    border: 1px solid #140303;
+    border-radius: 5px;
+    cursor: pointer;
+    text-align: center;
+
+    background-color: #0bcfbb;
+    color: #333;
+
+  }
+  .previous-button[disabled] {
+    cursor: not-allowed; /* Indicate disabled state visually */
+    opacity: 0.5; /* Reduce opacity for disabled button */
+
+  }
+
+  .button-container {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+  }

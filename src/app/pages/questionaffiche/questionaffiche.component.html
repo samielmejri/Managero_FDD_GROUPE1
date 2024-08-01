@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Question List</title>
+  <style>
+    /* Add your custom styles here */
+    .question-container {
+      max-width: 600px; /* Adjust width as needed */
+      margin: 0 auto;
+    }
+
+    .question-info {
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      padding: 10px;
+      margin-bottom: 20px;
+      display: flex; /* Arrange question details inline */
+      align-items: center; /* Vertically align items */
+      justify-content: space-between; /* Add space between question details and buttons */
+    }
+
+    .question-info h3 {
+      margin: 3px 0;
+      font-weight: bold;
+      flex: 1; /* Allow title to take up available space */
+    }
+
+    .question-info .details {
+      display: flex; /* Arrange question details inline */
+      margin-bottom: 5px;
+    }
+
+    .question-info .details p {
+      margin: 0 5px;
+    }
+
+    .question-info .actions {
+      display: flex; /* Arrange buttons inline */
+      align-items: center; /* Vertically align buttons */
+    }
+
+    .question-info button {
+      margin-left: 10px;
+      padding: 5px 10px;
+      border: none;
+      border-radius: 3px;
+      cursor: pointer;
+    }
+
+    .question-info .edit-button {
+      background-color: #4CAF50;
+      color: white;
+    }
+
+    .question-info .edit-button:hover {
+      background-color: #45a049;
+    }
+
+    .question-info .cancel-button {
+      background-color: #f44336;
+      color: white;
+    }
+
+    .question-info .cancel-button:hover {
+      background-color: #e53935;
+    }
+
+    .question-info .update-button {
+      background-color: #2196F3;
+      color: white;
+    }
+
+    .question-info .update-button:hover {
+      background-color: #1e88e5;
+    }
+
+    .update-form {
+      display: flex;
+      flex-wrap: wrap;
+      margin-top: 30px;
+    }
+
+    .update-form label {
+      display: block;
+      width: 100%;
+      margin-bottom: 5px;
+    }
+
+    .update-form input[type="text"],
+    .update-form input[type="number"] {
+      flex: 1;
+      padding: 5px;
+      margin-bottom: 15px;
+      border: 1px solid #ccc;
+      border-radius: 3px;
+    }
+
+    .update-form button[type="submit"] {
+      margin-top: 15px;
+      padding: 5px 10px;
+      border: none;
+      border-radius: 3px;
+      cursor: pointer;
+      background-color: #2196F3;
+      color: white;
+    }
+
+    .update-form button[type="button"] {
+      margin-top: 15px;
+      padding: 5px 10px;
+      border: none;
+      border-radius: 3px;
+      cursor: pointer;
+      background-color: #f44336;
+      color: white;
+    }
+  </style>
+</head>
+<body>
+    <div class="forum-area" style="margin-top: 50px; margin-left: -200px; margin-bottom: 100px;">
+
+<div class="question-container">
+
+  <div *ngFor="let question of questions" class="question-info">
+  
+    <h3>{{ question.questionTitle }}</h3>
+
+    <div class="details">
+      <p>option1: {{ question.option1 }}</p>
+      <p>option2: {{ question.option2 }}</p>
+      <p>option2: {{ question.option3 }}</p>
+      <p>option2: {{ question.option4 }}</p>
+      <p>RightAnswer: {{ question.rightAnswer }}</p>
+ 
+    </div>
+  
+    <div class="actions">
+      <button mat-icon-button color="warn" aria-label="Delete" (click)="deleteQuestion(question._id!)" class="cancel-button">delete</button>
+      
+      <button *ngIf="!selectedQuestion" class="edit-button" (click)="selectQuestionForUpdate(question)">Edit </button>
+      
+      <form [formGroup]="updateForm" *ngIf="selectedQuestion === question" (ngSubmit)="updateQuestion(selectedQuestion._id)">
+
+        <input type="hidden" formControlName="_id" [value]="selectedQuestion._id">
+        <div class="update-form">
+          <label>Question Text:</label>
+          <input type="text" formControlName="questionTitle" [value]="selectedQuestion.questionTitle">
+          <label>Option1:</label>
+          <input type="text" formControlName="option1" [value]="selectedQuestion.option1">
+          <label>Option2:</label>
+          <input type="text" formControlName="option2" [value]="selectedQuestion.option2">
+          <label>Option3:</label>
+          <input type="text" formControlName="option3" [value]="selectedQuestion.option3">
+          <label>Option4:</label>
+          <input type="text" formControlName="option4" [value]="selectedQuestion.option4">
+     
+         
+          <button type="submit" class="update-button">Update</button>
+          <button type="button" class="cancel-button" (click)="selectedQuestion = null">Cancel</button>
+        </div>
+      </form>
+    </div>
+  </div>
+  
+  <div *ngIf="questions.length === 0">
+    No questions found.
+  </div>
+</div>
+</div>
+
+</body>
+</html>
