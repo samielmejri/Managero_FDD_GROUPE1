@@ -6,9 +6,7 @@ import * as annyang from 'annyang';
 @Component({
   selector: 'app-start-quizz',
   templateUrl: './start-quizz.component.html',
-  styleUrls: ['./start-quizz.component.css'],
-  
-
+  styleUrls: ['./start-quizz.component.css']
 })
 export class StartQuizzComponent implements OnInit {
   selectedQuizz: any;
@@ -34,7 +32,7 @@ export class StartQuizzComponent implements OnInit {
 
   navigateToQuizzPage(): void {
     console.log("Selected quiz:", this.selectedQuizz);
-    this.router.navigate(['/quizz', this.selectedQuizz.category + '/' + this.selectedQuizz.title + '/' + this.selectedQuizz.userId], {
+    this.router.navigate(['/pages/quizz', this.selectedQuizz.category + '/' + this.selectedQuizz.title + '/' + this.selectedQuizz.userId], {
       state: { _id: this.selectedQuizz._id, userId: this.selectedQuizz.userId }
     });
   }

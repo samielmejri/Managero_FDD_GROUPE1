@@ -8,7 +8,7 @@ import { QuestionPlay } from './pages/create-question/create-question.playload';
   providedIn: 'root'
 })
 export class QuizService {
-  private API_URL = 'http://localhost:8080';
+  private API_URL = 'http://localhost:8089';
 
   constructor(private HttpClient: HttpClient) { }
 

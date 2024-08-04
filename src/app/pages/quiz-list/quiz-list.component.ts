@@ -8,8 +8,6 @@ import Swal from 'sweetalert2';
   selector: 'app-quiz-list',
   templateUrl: './quiz-list.component.html',
   styleUrls: ['./quiz-list.component.css'],
-  
-
 })
 export class QuizListComponent implements OnInit {
   quizzes: QuizPlay[] = [];
@@ -40,6 +38,22 @@ export class QuizListComponent implements OnInit {
     });
   }
 
+  confirmUpdateQuiz() {
+    Swal.fire({
+      title: 'Are you sure?',
+      text: 'Do you really want to update this quiz?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, update it!'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.updateQuiz();
+      }
+    });
+  }
+
   updateQuiz() {
     const quizToUpdate = this.updateForm.value;
     const quizId = quizToUpdate._id;
@@ -48,6 +62,7 @@ export class QuizListComponent implements OnInit {
       updatedQuiz => {
         Swal.fire('Quiz updated successfully');
         this.loadQuizzes(); // Reload quizzes after update
+        this.selectedQuiz = null; // Reset selectedQuiz to show the edit button again
       },
       error => {
         console.error('Error updating quiz:', error);
@@ -55,22 +70,31 @@ export class QuizListComponent implements OnInit {
     );
   }
 
-   deleteQuiz(quizId: string): void {
+  confirmDeleteQuiz(quizId: string) {
+    Swal.fire({
+      title: 'Are you sure?',
+      text: 'You won\'t be able to revert this!',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.deleteQuiz(quizId);
+      }
+    });
+  }
+
+  deleteQuiz(quizId: string): void {
     this.quizService.deleteQuiz(quizId).subscribe(
-      () => {
-        // Remove the deleted quiz from the list
-        this.quizzes = this.quizzes.filter(quiz => quiz._id !== quizId);
-        console.log('Quiz deleted successfully');
+      response => {
+        Swal.fire('Deleted!', 'Quiz has been deleted.', 'success');
+        this.loadQuizzes(); // Refresh the quiz list after deletion
       },
       error => {
         console.error('Error deleting quiz:', error);
       }
     );
-
   }
-  refreshPage() {
-    window.location.reload();
-  }
-
-  }
-
+}

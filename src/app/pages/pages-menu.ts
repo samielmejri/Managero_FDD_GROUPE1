@@ -13,13 +13,14 @@ export const MENU_ITEMS: NbMenuItem[] = [
           link: '/pages/fdd',
         },
         {
-          title: 'Dashboard',
-          link: '/pages/methodeDashboard',
-        },
-        {
-          title: 'Quizz',
+          title: 'Quizz Dashboard',
           link: '/pages/home',
+        },        {
+          title: 'Start Quizz',
+          link: '/pages/startquiz',
         }
+
+      
         ]
 
       },

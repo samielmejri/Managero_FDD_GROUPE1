@@ -15,7 +15,7 @@ import { CreateQuestionComponent } from '../pages/create-question/create-questio
 import { QuestionListComponent } from '../pages/question-list/question-list.component'; // Import here
 import { QuizafficheComponent } from '../pages/quizaffiche/quizaffiche.component';
 import { QuestionafficheComponent } from '../pages/questionaffiche/questionaffiche.component';
-//import { StartQuizzComponent } from '../start-quizz.component';
+import { StartQuizzComponent } from '../pages/start-quizz/start-quizz.component';
 import { QuizzComponent } from '../pages/quizz/quizz.component';
 import { SubmitQuizzComponent } from '../pages/submit-quizz/submit-quizz.component';
 import { QuizStatisticsComponent } from '../pages/quiz-statistics/quiz-statistics.component';
@@ -33,7 +33,7 @@ const routes: Routes = [{
     { path: 'questionlist', component: QuestionListComponent },
     { path: 'quizaffiche', component: QuizafficheComponent },
     { path: 'questionaffiche', component: QuestionafficheComponent },
-    //{ path: 'startquiz', component: StartQuizzComponent },
+    { path: 'startquiz', component: StartQuizzComponent },
     { path: 'quizz/:title', component: QuizzComponent },
     { path: 'submit-quizz/:userId/:quizId', component: SubmitQuizzComponent },
     { path: 'quizstat', component: QuizStatisticsComponent },
@@ -42,14 +42,14 @@ const routes: Routes = [{
 
 
 
-    {
-      path: 'dashboard',
-      component: ECommerceComponent,
-    },
-    {
-      path: 'iot-dashboard',
-      component: DashboardComponent,
-    },
+    //{
+    //  path: 'dashboard',
+     // component: ECommerceComponent,
+    //},
+   // {
+   //   path: 'iot-dashboard',
+   //   component: DashboardComponent,
+  //  },
     {
       path: 'fdd',
       component: FddComponent,
@@ -112,15 +112,15 @@ const routes: Routes = [{
       loadChildren: () => import('./miscellaneous/miscellaneous.module')
         .then(m => m.MiscellaneousModule),
     },
-    {
-      path: '',
-      redirectTo: 'dashboard',
-      pathMatch: 'full',
-    },
-    {
-      path: '**',
-      component: NotFoundComponent,
-    },
+    //{
+     // path: '',
+     // redirectTo: 'dashboard',
+     // pathMatch: 'full',
+    //},
+   // {
+   //   path: '**',
+    //  component: NotFoundComponent,
+   // },
   ],
 }];
 

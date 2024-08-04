@@ -9,8 +9,7 @@ import { HintService } from '../../service/hint-service/hint.service';
 @Component({
   selector: 'app-quizz',
   templateUrl: './quizz.component.html',
-  styleUrls: ['./quizz.component.css'],
-  
+  styleUrls: ['./quizz.component.css']
 })
 export class QuizzComponent implements OnInit {
   questions: any[] = [];
@@ -145,7 +144,7 @@ export class QuizzComponent implements OnInit {
       next: (response) => {
         try {
           const responseData = JSON.parse(response); // Try to parse the response
-          this.router.navigate(['/submit-quizz'+'/'+this.userId+'/'+this.quizId], { state: { 
+          this.router.navigate(['/pages/submit-quizz'+'/'+this.userId+'/'+this.quizId], { state: { 
             responseData: responseData,
             totalQuestions: this.questions.length,
             userId:this.userId,

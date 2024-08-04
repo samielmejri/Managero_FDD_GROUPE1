@@ -7,7 +7,7 @@ import { QuestionPlay } from '../../pages/create-question/create-question.playlo
   providedIn: 'root',
 })
 export class QuestionService {
-  private apiUrl = 'http://localhost:8080/questions'; 
+  private apiUrl = 'http://localhost:8089/questions'; 
 
   constructor(private http: HttpClient) {}
 

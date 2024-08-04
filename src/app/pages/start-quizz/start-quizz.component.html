@@ -22,13 +22,15 @@
         </div>
     </div>
 </div>
+
 <div class="quiz-container">
   <div class="quiz-item" *ngFor="let quiz of quizzes">
     <div class="quiz-content">
       <h2 class="quiz-title">{{ quiz.title }}</h2>
       <h1 class="quiz-description">Number of Questions {{ quiz.numQ }}</h1>
     </div>
-    <button mat-raised-button color="primary" class="start-button" (click)="selectedQuizz = quiz;navigateToQuizzPage()">Start Quiz</button>
+    <button mat-raised-button color="primary" class="start-button" (click)="selectedQuizz = quiz; navigateToQuizzPage()">Start Quiz</button>
   </div>
 </div>
+
 </body>

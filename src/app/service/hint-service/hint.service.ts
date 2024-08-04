@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class HintService {
-  private apiUrl = 'http://localhost:8080/bot/chat'; // Update the URL according to your backend endpoint
+  private apiUrl = 'http://localhost:8089/bot/chat'; // Update the URL according to your backend endpoint
 
   constructor(private http: HttpClient) {}
 

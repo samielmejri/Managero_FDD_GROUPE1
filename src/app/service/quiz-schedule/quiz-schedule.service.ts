@@ -7,7 +7,7 @@ import { QuizSchedule } from '../../pages/FullCalendar/quiz-schedule';
   providedIn: 'root'
 })
 export class QuizScheduleService {
-  private apiUrl = 'http://localhost:8080/quiz-schedules';
+  private apiUrl = 'http://localhost:8089/quiz-schedules';
 
   constructor(private http: HttpClient) { }
 
