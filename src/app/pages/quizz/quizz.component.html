@@ -1,60 +1,56 @@
 <ng-container *ngIf="questions.length > 0; else noQuestionsTemplate">
-    <div>
-      <h2>
-        <span class="question-index">Question {{ currentQuestionIndex + 1 }} :</span> 
-        <span class="question-title">{{ questions[currentQuestionIndex].questionTitle }}</span>
-      </h2>
-     
-      <div class="answer-options">
-        <input type="radio" id="option1" name="answer" [value]="questions[currentQuestionIndex].option1" [(ngModel)]="userAnswers[currentQuestionIndex]">
-        <label for="option1">{{ questions[currentQuestionIndex].option1 }}</label><br>
-        
-        <input type="radio" id="option2" name="answer" [value]="questions[currentQuestionIndex].option2" [(ngModel)]="userAnswers[currentQuestionIndex]">
-        <label for="option2">{{ questions[currentQuestionIndex].option2 }}</label><br>
-        
-        <input type="radio" id="option3" name="answer" [value]="questions[currentQuestionIndex].option3" [(ngModel)]="userAnswers[currentQuestionIndex]">
-        <label for="option3">{{ questions[currentQuestionIndex].option3 }}</label><br>
-        
-        <input type="radio" id="option4" name="answer" [value]="questions[currentQuestionIndex].option4" [(ngModel)]="userAnswers[currentQuestionIndex]">
-        <label for="option4">{{ questions[currentQuestionIndex].option4 }}</label><br>
-      </div>
+  <div>
+    <h2>
+      <span class="question-index">Question {{ currentQuestionIndex + 1 }} :</span>
+      <span class="question-title">{{ questions[currentQuestionIndex].questionTitle }}</span>
+    </h2>
+
+    <div class="answer-options">
+      <input type="radio" id="option1" name="answer" [value]="questions[currentQuestionIndex].option1" (change)="selectAnswer($event)">
+      <label for="option1">{{ questions[currentQuestionIndex].option1 }}</label><br>
+
+      <input type="radio" id="option2" name="answer" [value]="questions[currentQuestionIndex].option2" (change)="selectAnswer($event)">
+      <label for="option2">{{ questions[currentQuestionIndex].option2 }}</label><br>
+
+      <input type="radio" id="option3" name="answer" [value]="questions[currentQuestionIndex].option3" (change)="selectAnswer($event)">
+      <label for="option3">{{ questions[currentQuestionIndex].option3 }}</label><br>
+
+      <input type="radio" id="option4" name="answer" [value]="questions[currentQuestionIndex].option4" (change)="selectAnswer($event)">
+      <label for="option4">{{ questions[currentQuestionIndex].option4 }}</label><br>
     </div>
-      <div class="button-container">
-        <button mat-stroked-button color="primary" class="hint-button" (click)="showHint()">
-          Get Hint
-        </button>
+  </div>
+  <div class="button-container">
+    <button mat-stroked-button color="primary" class="hint-button" (click)="showHint()">
+      Get Hint
+    </button>
     <button mat-stroked-button color="primary" class="previous-button" (click)="navigateToPreviousQuestion()" [disabled]="currentQuestionIndex === 0">
       Previous Question
     </button>
     <button mat-stroked-button color="primary" class="next-button"
-          (click)="currentQuestionIndex === questions.length - 1 ? submitAnswers() : navigateToNextQuestion()"
-          [disabled]="!userAnswers[currentQuestionIndex]">
+      (click)="currentQuestionIndex === questions.length - 1 ? submitAnswers() : navigateToNextQuestion()"
+      [disabled]="!isAnswerSelected()">
       {{ currentQuestionIndex === questions.length - 1 ? 'Submit' : 'Next Question' }}
     </button>
+  </div>
+  <div class="timer">
+    Time Remaining: {{ formatTime(totalTime - timer) }}
+  </div>
+</ng-container>
+
+<div class="col-md-3">
+  <div class="card" style="margin-top: 70px;">
+    <div class="card-header">
+      <div class="card-title">
+        <b>Quiz Progress</b>
+      </div>
+      <div class="card-subtitle">Quiz will automatically submitted after time finishes to <b>10:00</b>.</div>
     </div>
-    <div class="timer">
+    <div class="card-body">
       Time Remaining: {{ formatTime(totalTime - timer) }}
     </div>
-
-
-
-  </ng-container>
-
-
-  <div class="col-md-3">
-    <div class="card" style="margin-top: 70px;">
-        <div class="card-header">
-            <div class="card-title">
-                <b>Quiz Progress</b>
-            </div>
-            <div class="card-subtitle">Quiz will automatically submitted after time finishes to <b>10:00</b>.</div>
-        </div>
-        <div class="card-body">
-          Time Remaining: {{ formatTime(totalTime - timer) }}        </div>
-         
-    </div>
-    <video #videoElement></video>
+  </div>
+  <video #videoElement></video>
   <ng-template #noQuestionsTemplate>
     <p>No questions available.</p>
   </ng-template>
-  
+</div>
