@@ -44,6 +44,11 @@ export class QuizzComponent implements OnInit {
   ngOnInit() {
     this.fetchQuestions();
     this.startTimer();
+    this.resetAnswers();
+  }
+  
+  resetAnswers(): void {
+    this.userAnswers = this.questions.map(() => ({ response: '' }));
   }
 
   stopWebcam(): void {
@@ -168,15 +173,20 @@ export class QuizzComponent implements OnInit {
 
   navigateToNextQuestion(): void {
     if (this.isAnswerSelected()) {
+      // Reset the selected answer for the current question
+      this.userAnswers[this.currentQuestionIndex].response = '';
       this.currentQuestionIndex++;
     }
   }
-
+  
   navigateToPreviousQuestion(): void {
     if (this.currentQuestionIndex > 0) {
+      // Reset the selected answer for the current question
+      this.userAnswers[this.currentQuestionIndex].response = '';
       this.currentQuestionIndex--;
     }
   }
+  
 
   isAnswerSelected(): boolean {
     return !!this.userAnswers[this.currentQuestionIndex]?.response;

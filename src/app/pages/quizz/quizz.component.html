@@ -6,19 +6,32 @@
     </h2>
 
     <div class="answer-options">
-      <input type="radio" id="option1" name="answer" [value]="questions[currentQuestionIndex].option1" (change)="selectAnswer($event)">
+      <input type="radio" id="option1" name="answer"
+        [value]="questions[currentQuestionIndex].option1"
+        [checked]="userAnswers[currentQuestionIndex]?.response === questions[currentQuestionIndex].option1"
+        (change)="selectAnswer($event)">
       <label for="option1">{{ questions[currentQuestionIndex].option1 }}</label><br>
 
-      <input type="radio" id="option2" name="answer" [value]="questions[currentQuestionIndex].option2" (change)="selectAnswer($event)">
+      <input type="radio" id="option2" name="answer"
+        [value]="questions[currentQuestionIndex].option2"
+        [checked]="userAnswers[currentQuestionIndex]?.response === questions[currentQuestionIndex].option2"
+        (change)="selectAnswer($event)">
       <label for="option2">{{ questions[currentQuestionIndex].option2 }}</label><br>
 
-      <input type="radio" id="option3" name="answer" [value]="questions[currentQuestionIndex].option3" (change)="selectAnswer($event)">
+      <input type="radio" id="option3" name="answer"
+        [value]="questions[currentQuestionIndex].option3"
+        [checked]="userAnswers[currentQuestionIndex]?.response === questions[currentQuestionIndex].option3"
+        (change)="selectAnswer($event)">
       <label for="option3">{{ questions[currentQuestionIndex].option3 }}</label><br>
 
-      <input type="radio" id="option4" name="answer" [value]="questions[currentQuestionIndex].option4" (change)="selectAnswer($event)">
+      <input type="radio" id="option4" name="answer"
+        [value]="questions[currentQuestionIndex].option4"
+        [checked]="userAnswers[currentQuestionIndex]?.response === questions[currentQuestionIndex].option4"
+        (change)="selectAnswer($event)">
       <label for="option4">{{ questions[currentQuestionIndex].option4 }}</label><br>
     </div>
   </div>
+
   <div class="button-container">
     <button mat-stroked-button color="primary" class="hint-button" (click)="showHint()">
       Get Hint
