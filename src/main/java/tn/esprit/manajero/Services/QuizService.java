@@ -1,7 +1,6 @@
 package tn.esprit.manajero.Services;
 
 import jakarta.persistence.EntityNotFoundException;
-import org.apache.catalina.connector.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -31,7 +30,7 @@ public class QuizService {
     QuizSubmissionRepository quizSubmissionRepository;
     @Autowired
     QuizStatisticsRepository quizStatisticsRepository;
-    private final String baseUrl = "http://localhost:8089/quiz"; // Base URL for the quiz service API
+    private final String baseUrl = "http://localhost:9098/quiz"; // Base URL for the quiz service API
     private RestTemplate restTemplate;
 
     public ResponseEntity<String> createQuiz(String category, Integer numQ, String title) {
@@ -201,17 +200,4 @@ public class QuizService {
     }
 
 
-
-    public ResponseEntity<String> deleteQuiz(String _id) {
-        Optional<Quiz> quizOptional = quizDao.findById(_id);
-        if (quizOptional.isPresent()) {
-            quizDao.deleteById(_id);
-            return ResponseEntity.status(HttpStatus.OK).body("Quiz deleted successfully");
-        } else {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Quiz not found with ID: " + _id);
-        }
-    }
-
-
 }
-

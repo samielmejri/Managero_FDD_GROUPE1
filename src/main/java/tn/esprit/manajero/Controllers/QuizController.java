@@ -1,11 +1,11 @@
 package tn.esprit.manajero.Controllers;
 
-import org.apache.catalina.connector.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import tn.esprit.manajero.Entities.*;
+import tn.esprit.manajero.Services.QuestionService;
 import tn.esprit.manajero.Services.QuizService;
 
 import java.util.List;
@@ -21,11 +21,9 @@ public class QuizController {
 
     @PostMapping("/quiz/create")
     public ResponseEntity<String> createQuiz(@RequestParam String category, @RequestParam Integer numQ, @RequestParam String title) {
-        // Assuming quizService.createQuiz returns a success message
-        String successMessage = quizService.createQuiz(category, numQ, title).getBody();
-        return ResponseEntity.status(HttpStatus.CREATED).body("{\"message\":\"" + successMessage + "\"}");
+        ResponseEntity<String> response = quizService.createQuiz(category, numQ, title);
+        return ResponseEntity.status(response.getStatusCode()).body(response.getBody());
     }
-
 
     @GetMapping("getById/{_id}")
     public List<QuestionWrapper> getQuizQuestions(@PathVariable String _id) {
@@ -35,7 +33,7 @@ public class QuizController {
 //    @GetMapping("getByCategory/{category}")
 //    public List<QuizWrapper> getQuizzesByCategory(@PathVariable String category) {
 //        return quizService.getQuizzesByCategory(category).getBody();
-//    }$
+//    }
 
     @GetMapping("getAll")
     public List<QuizWrapper> getAllQuizzes() {
@@ -55,8 +53,6 @@ public class QuizController {
     @PostMapping("/{_id}/submit")
     public Integer  submitQuiz(@PathVariable String _id, @RequestParam String userId, @RequestBody List<Response> responses) {
         return   quizService.submitQuiz(userId, _id, responses).getBody();
-
-
 
     }
 
@@ -79,16 +75,27 @@ public class QuizController {
     }
 
 
+//    @PostMapping("/submission")
+//    public ResponseEntity<String> saveQuizSubmission(@RequestParam String userId, @RequestParam String quizId, @RequestParam int score) {
+//        quizService.saveQuizSubmission(userId, quizId, score);
+//        return ResponseEntity.status(HttpStatus.CREATED).body("Quiz submission saved successfully");
+//    }
+
+//        <button mat-icon-button color="warn" aria-label="Delete" (click)="deleteQuiz(quiz._id)" class="cancel-button">delete_forever</button>
 
 
-    @DeleteMapping("/delete/{_id}")
-    public ResponseEntity<String> deleteQuiz(@PathVariable String _id) {
-        return quizService.deleteQuiz(_id);
-    }
+
+
+
+
+
+
+
+//    @PostMapping("/evaluate-quiz")
+//    public ResponseEntity<Integer> evaluateQuiz(@RequestBody UserAttempt userAttempt) {
+//        int score = iService.evaluateQuiz(userAttempt);
+//        return ResponseEntity.ok(score);
+//    }
 
 }
-
-
-
-
 
