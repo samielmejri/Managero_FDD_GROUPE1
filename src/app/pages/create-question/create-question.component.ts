@@ -1,15 +1,18 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { throwError } from 'rxjs';
 import { QuestionService } from '../../service/question-service/question.service';
 import Swal from 'sweetalert2';
+import { QuizService } from '../../quiz.service';
+import { QuestionPlay } from './create-question.playload';
+
 
 @Component({
   selector: 'app-create-question',
   templateUrl: './create-question.component.html',
-  styleUrls: ['./create-question.component.css'],
+  styleUrls: ['./create-question.component.css']
 })
-export class CreateQuestionComponent {
+export class CreateQuestionComponent  {
 
   questionForm = new FormGroup({
     questionTitle: new FormControl('', [Validators.required, Validators.maxLength(255)]),
@@ -21,8 +24,9 @@ export class CreateQuestionComponent {
     difficultyLevel: new FormControl('Easy', Validators.required),
     category: new FormControl('', Validators.required)
   });
-
-  constructor(private questionService: QuestionService) {}
+  constructor(
+    private questionService: QuestionService,
+) {}
 
   difficultyLevels = ['Easy', 'Medium', 'Hard'];
 
@@ -32,15 +36,10 @@ export class CreateQuestionComponent {
       return;
     }
 
+
     this.questionService.addQuestion(this.questionForm.value).subscribe(
       (data) => {
         console.log('Question successfully created:', data);
-        Swal.fire({
-          title: 'Success!',
-          text: 'Question successfully created.',
-          icon: 'success',
-          confirmButtonText: 'OK'
-        });
       },
       (error) => {
         throwError(error);

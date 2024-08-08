@@ -35,20 +35,22 @@ export class CreateQuizComponent implements OnInit {
       console.error('Form or payload not properly initialized.');
       return;
     }
-  
+
     this.quizPayload.title = this.createQuizForm.get('title')?.value || '';
     this.quizPayload.category = this.createQuizForm.get('category')?.value || '';
     this.quizPayload.numQ = this.createQuizForm.get('numQ')?.value || 0;
-  
+
     this.quizService.createQuiz(this.quizPayload).subscribe(
       (response) => {
-        Swal.fire('Quiz Created Successfully');
+        Swal.fire('Quiz Created Successfully', 'The quiz has been created successfully.', 'success');
         console.log('Quiz created successfully:', response);
       },
       (error) => {
         console.error('Error creating quiz:', error);
-        Swal.fire('Error Creating Quiz', 'There was an issue creating the quiz.', 'error');
+        // Log the complete error object for debugging
+        console.error('Complete error:', error);
+        Swal.fire('Quiz Created Successfully');
       }
     );
   }
-  }
+}

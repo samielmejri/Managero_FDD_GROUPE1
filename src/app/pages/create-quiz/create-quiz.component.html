@@ -28,52 +28,54 @@
   
 
 
-<div class="forum-area" style="margin-top: 50px; margin-left: -200px; margin-bottom: 100px;">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-9">
-                <hr />
-                <div class="create-post-container">
-                    <form class="post-form" [formGroup]="createQuizForm" (ngSubmit)="createQuiz()">
-                        <div class="form-group">
-                            <div class="create-post-heading">Create Quiz</div>
-                            <hr />
-                            <input type="text" formControlName="title" class="form-control" style="margin-top: 5px"
-                                placeholder="Title">
-
-                            <input type="text" formControlName="category" class="form-control" style="margin-top: 5px"
-                                placeholder="Category">
-
-                            <input type="number" formControlName="numQ" class="form-control" style="margin-top: 5px"
-                                placeholder="Number of Questions">
-
-                            <div style="margin-top: 20px" class="text-right">
-                            </div>
-                        </div>
-                        <span>
-                            <div style="margin-top: 4px" class="float-right">
-                                <button class="btn btn-default">Discard</button>
-
-
-                                <button class="btn btn-default">Create Quiz</button>
-                            </div>
-                        </span>
-                    </form>
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="sidebar" style="margin-left: 20px;margin-top: 40px;">
+    <div class="forum-area" style="margin-top: 50px; margin-left: -200px; margin-bottom: 100px;">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-9">
                     <hr />
-                    <ul>
-                        <li>Remember the human</li>
+                    <div class="create-post-container">
+                        <form class="post-form" [formGroup]="createQuizForm" (ngSubmit)="createQuiz()">
+                            <div class="form-group">
+                                <div class="create-post-heading">Create Quiz</div>
+                                <hr />
+                                <input type="text" formControlName="title" class="form-control" style="margin-top: 5px"
+                                    placeholder="Title">
+    
+                                <input type="text" formControlName="category" class="form-control" style="margin-top: 5px"
+                                    placeholder="Category">
+    
+                                <input type="number" formControlName="numQ" class="form-control" style="margin-top: 5px"
+                                    placeholder="Number of Questions">
+    
+                                <div style="margin-top: 20px" class="text-right">
+                                </div>
+                            </div>
+                            <span>
+                                <div style="margin-top: 4px" class="float-right">
+                                    <button class="btn btn-default">Discard</button>
+    
+    
+                                    <button class="btn btn-default">Create Quiz</button>
+                                </div>
+                            </span>
+                        </form>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="sidebar" style="margin-left: 20px;margin-top: 40px;">
                         <hr />
-                        <li>Behave like you would in real life</li>
-                        <hr />
-                        <li>Don't spam</li>
-                        <hr />
-                    </ul>
+                        <ul>
+                            <li>Remember the human</li>
+                            <hr />
+                            <li>Behave like you would in real life</li>
+                            <hr />
+                            <li>Don't spam</li>
+                            <hr />
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
+    
+    

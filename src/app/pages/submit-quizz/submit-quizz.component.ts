@@ -7,9 +7,7 @@ import html2canvas from 'html2canvas'; // Import here
 @Component({
   selector: 'app-submit-quizz',
   templateUrl:'./submit-quizz.component.html',
-  styleUrls: ['./submit-quizz.component.css'],
-  
-
+  styleUrls: ['./submit-quizz.component.css']
 })
 export class SubmitQuizzComponent {
   @ViewChild('certificateElement') certificateElementRef: ElementRef | null = null; // Initialize to null

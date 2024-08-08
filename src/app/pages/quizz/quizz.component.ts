@@ -1,9 +1,11 @@
 import { Component, HostListener, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { QuizzService } from '../../service/quizz-service/quizz.service';
+import { initFlowbite } from 'flowbite';
 import { Subscription, interval } from 'rxjs';
 import Swal from 'sweetalert2';
 import { HintService } from '../../service/hint-service/hint.service';
+import { ChangeDetectorRef } from '@angular/core';
 
 @Component({
   selector: 'app-quizz',
@@ -16,13 +18,13 @@ export class QuizzComponent implements OnInit {
   userAnswers: any[] = [];
   category: string = '';
   userId!: string;
+
   quizId!: string;
   timerSubscription!: Subscription;
   timer: number = 0;
   totalTime: number = 1000;
-  warningCount = 0;
+  warningCount=0;
   videoStream: MediaStream | null = null;
-
   @ViewChild('videoElement', { static: true }) videoElementRef!: ElementRef<HTMLVideoElement>;
 
   constructor(
@@ -30,28 +32,52 @@ export class QuizzComponent implements OnInit {
     private quizzService: QuizzService,
     private router: Router,
     private hintService: HintService // Inject the HintService
+
   ) {
     this.startWebcam();
     const navigation = this.router.getCurrentNavigation();
     if (navigation && navigation.extras && navigation.extras.state) {
       const state = navigation.extras.state as { _id: string, userId: string }; // Get userId from state
       this.quizId = state._id;
-      this.userId = state.userId;
+      this.userId= state.userId
       console.log(state);
+ 
     }
   }
 
   ngOnInit() {
     this.fetchQuestions();
+    initFlowbite();
     this.startTimer();
-    this.resetAnswers();
-  }
-  
-  resetAnswers(): void {
-    this.userAnswers = this.questions.map(() => ({ response: '' }));
+    this.fetchHintsForQuestions();
   }
 
-  stopWebcam(): void {
+
+  async fetchHintsForQuestions() {
+    for (let i = 0; i < this.questions.length; i++) {
+      const question = this.questions[i];
+      this.hintService.getHint(question.questionTitle).subscribe(hint => {
+        console.log('Hint for question:', question.questionTitle, hint.hint); // Access the hint directly from the emitted value
+        // You can store the hint in your component or display it to the user
+      });
+    }
+  }
+
+  showHint(): void {
+    const currentQuestion = this.questions[this.currentQuestionIndex];
+    this.hintService.getHint(currentQuestion.questionTitle).subscribe(hint => {
+      // Display the hint using SweetAlert2
+      Swal.fire({
+        title: 'Hint for Question ' + (this.currentQuestionIndex + 1),
+        text: hint.hint, // Access the 'hint' property
+        icon: 'info',
+        confirmButtonText: 'OK'
+      });
+    });
+  }
+  
+
+  stopWebcam(): void {  
     if (this.videoStream) {
       this.videoStream.getTracks().forEach((track) => track.stop());
       this.videoStream = null;
@@ -73,7 +99,6 @@ export class QuizzComponent implements OnInit {
         });
     }
   }
-
   startTimer(): void {
     this.timerSubscription = interval(1000).subscribe(() => {
       if (this.timer < this.totalTime) {
@@ -84,7 +109,9 @@ export class QuizzComponent implements OnInit {
       }
     });
   }
-
+  ngOnDestroy() {
+    this.stopTimer();
+  }
   stopTimer(): void {
     if (this.timerSubscription) {
       this.timerSubscription.unsubscribe();
@@ -97,109 +124,85 @@ export class QuizzComponent implements OnInit {
     return `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
   }
 
-  fetchQuestions(): void {
-    if (!this.quizId) {
-      console.error('Quiz ID is undefined!');
-      return;
-    }
-  
-    this.quizzService.fetchQuestions(this.quizId).subscribe(
-      (questions: any) => {
-        console.log('Fetched questions:', questions); // Log the raw response
-        if (Array.isArray(questions)) {
-          this.questions = questions;
-          this.userAnswers = questions.map(() => ({ response: '' }));
-        } else {
-          console.error('Expected an array but received:', questions);
-        }
-      },
-      (error) => {
-        console.error('Failed to fetch questions:', error);
-      }
-    );
-  }
-    
 
+  fetchQuestions(): void {
+    this.quizzService.fetchQuestions(this.quizId).subscribe((questions: any[]) => {
+      this.questions = questions;
+    });
+  }
   submitAnswers(): void {
     Swal.fire({
-        title: 'Do you want to submit the quiz?',
-        showCancelButton: true,
-        confirmButtonText: `Submit`,
-    }).then((result) => {
-        if (result.isConfirmed) {
-            const userId = this.userId;
-            this.quizzService.submitAnswer(this.quizId, userId, this.userAnswers).subscribe({
-                next: (response) => {
-                    console.log('Submission successful:', response);
-                    
-                    // Assuming response is either a number or already a JavaScript object
-                    let responseData;
-                    try {
-                        // Check if response is a JSON string (starts with { or [)
-                        if (typeof response === 'string' && (response.startsWith('{') || response.startsWith('['))) {
-                            responseData = JSON.parse(response);
-                        } else {
-                            // Otherwise, assume it's a number or object
-                            responseData = response;
-                        }
-                    } catch (error) {
-                        console.error('Parsing response failed', error);
-                        return; // Exit if parsing failed
-                    }
-
-                    this.router.navigate(['/pages/submit-quizz/' + this.userId + '/' + this.quizId], {
-                        state: {
-                            responseData: responseData,  // Pass the data directly
-                            totalQuestions: this.questions.length,
-                            userId: this.userId,
-                            quizId: this.quizId
-                        }
-                    });
-                },
-                error: (error) => {
-                    console.error('Submission failed', error);
-                }
-            });
-        }
-    });
-}
+      title: 'Do you want to submit the quiz?',
+     
+      showCancelButton: true,
+      confirmButtonText: `Submit`,
+     
+    })
+    this.handleAnswer(this.userAnswers[this.currentQuestionIndex]);
+    const userId = this.userId; // Assuming userId is stored in this.userId
   
-  selectAnswer(event: any): void {
-    const selectedAnswer = event.target.value;
-    this.userAnswers[this.currentQuestionIndex].response = selectedAnswer;
-    console.log('Answer selected for question', this.currentQuestionIndex, 'is', selectedAnswer);
-    console.log('Updated userAnswers:', this.userAnswers);
+    this.quizzService.submitAnswer(this.quizId, userId, this.userAnswers).subscribe({
+      next: (response) => {
+        try {
+          const responseData = JSON.parse(response); // Try to parse the response
+          this.router.navigate(['/pages/submit-quizz'+'/'+this.userId+'/'+this.quizId], { state: { 
+            responseData: responseData,
+            totalQuestions: this.questions.length,
+            userId:this.userId,
+             quizId:this.quizId
+
+          } });
+        } catch (error) {
+          console.error('Parsing response failed', error);
+        }
+      },
+      error: (error) => {
+        console.error('Submission failed', error);
+      }
+    });
+    
+  }
+  
+
+  handleAnswer(selectedAnswer: string): void {
+    const currentQuestion = this.questions[this.currentQuestionIndex];
+    const answer = {
+      _id: currentQuestion._id,
+      response: selectedAnswer
+    };
+    this.userAnswers[this.currentQuestionIndex] = answer;
   }
 
   navigateToNextQuestion(): void {
-    if (this.isAnswerSelected()) {
-      // Reset the selected answer for the current question
-      this.userAnswers[this.currentQuestionIndex].response = '';
-      this.currentQuestionIndex++;
-    }
-  }
-  
+    this.handleAnswer(this.userAnswers[this.currentQuestionIndex]);
+    this.currentQuestionIndex++;
+  } 
+
   navigateToPreviousQuestion(): void {
     if (this.currentQuestionIndex > 0) {
-      // Reset the selected answer for the current question
-      this.userAnswers[this.currentQuestionIndex].response = '';
       this.currentQuestionIndex--;
     }
-  }
-  
+  } 
 
-  isAnswerSelected(): boolean {
-    return !!this.userAnswers[this.currentQuestionIndex]?.response;
+  prepareAnswersForSubmission() {
+    return this.questions.map((question, index) => ({
+      _id: question._id,
+      response: this.userAnswers[index]
+    }));
   }
-
   @HostListener('contextmenu', ['$event'])
   onRightClick(event: MouseEvent) {
     Swal.fire("warning", "You can't right-click. If you do, your exam will be canceled!!", "warning");
     this.warningCount++;
     if (this.warningCount > 5) {
       console.log("warning count number is:" + this.warningCount);
+     // this.submitAnswers();
       Swal.fire("warning", "This is your last warning. Now your exam will be automatically submitted!!", "warning");
+
     }
     event.preventDefault();
   }
+  
+ 
+
 }

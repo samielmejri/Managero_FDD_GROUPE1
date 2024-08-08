@@ -87,6 +87,6 @@ deleteQuestion(questionId: string): void {
   );
 }
 navigateToQuiz() {
-  this.router.navigate(['/quizaffiche']);
+  this.router.navigate(['/pages/quizaffiche']);
 }  
 }

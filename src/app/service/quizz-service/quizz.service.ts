@@ -1,9 +1,11 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { HttpClient, HttpErrorResponse, HttpHeaders, HttpParams, HttpResponse } from '@angular/common/http';
+import { Observable, throwError } from 'rxjs';
 import { QuizStatistics } from '../../pages/quiz-statistics/quiz-statistics'; 
 import { QuizPlay } from '../../pages/create-quiz/create-quiz.payload';
 import { QuestionPlay } from '../../pages/create-question/create-question.playload';
-import { HttpClient, HttpHeaders, HttpParams, HttpResponse } from '@angular/common/http';
+import { catchError } from 'rxjs/operators';
+
 
 @Injectable({
   providedIn: 'root',
@@ -35,17 +37,14 @@ export class QuizzService {
     getQuizStatistics(quizId: string): Observable<QuizStatistics> {
       return this.http.get<QuizStatistics>(`${this.apiUrl}/${quizId}/statistics`);
   }
-
-  createQuiz(quizPayload: QuizPlay): Observable<string> {
+  createQuiz(quizPayload: QuizPlay): Observable<any> {
     const params = new HttpParams()
       .set('category', quizPayload.category)
       .set('numQ', String(quizPayload.numQ))
       .set('title', quizPayload.title);
   
-    return this.http.post<string>(`${this.apiUrl}/quiz/create`, {}, { params, responseType: 'text' as 'json' });
+    return this.http.post<any>(`${this.apiUrl}/quiz/create`, {}, { params });
   }
-  
-  
   updateQuiz(quizId: string, updatedQuiz: QuizPlay): Observable<QuizPlay> {
     return this.http.put<QuizPlay>(`${this.apiUrl}/update/${quizId}`, updatedQuiz);
   }
@@ -55,8 +54,4 @@ export class QuizzService {
   }
 
 
-
-
-  
 }
-
