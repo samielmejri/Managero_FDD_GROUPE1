@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { QuizSchedule } from '../../pages/FullCalendar/quiz-schedule';
+import { QuizSchedule } from '../../pages/calendar/quiz-schedule';
 
 @Injectable({
   providedIn: 'root'

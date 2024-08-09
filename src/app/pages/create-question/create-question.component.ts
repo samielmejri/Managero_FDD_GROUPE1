@@ -7,6 +7,7 @@ import { QuizService } from '../../quiz.service';
 import { QuestionPlay } from './create-question.playload';
 
 
+
 @Component({
   selector: 'app-create-question',
   templateUrl: './create-question.component.html',
