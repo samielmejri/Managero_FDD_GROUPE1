@@ -23,7 +23,7 @@ import { MethodeDashboardComponent } from './methode-dashboard/methode-dashboard
 //import { QuizListComponent } from '../pages/quiz-list/quiz-list.component';
 //import { CreateQuizComponent } from '../pages/create-quiz/create-quiz.component';
 //import { CreateQuestionComponent } from '../pages/create-question/create-question.component'; // Import here
-import { QuestionListComponent } from '../pages/question-list/question-list.component'; // Import here
+//import { QuestionListComponent } from '../pages/question-list/question-list.component'; // Import here
 //import { QuizafficheComponent } from '../pages/quizaffiche/quizaffiche.component';
 //import { QuestionafficheComponent } from '../pages/questionaffiche/questionaffiche.component';
 import { StartQuizzComponent } from '../pages/start-quizz/start-quizz.component';
@@ -43,7 +43,7 @@ const routes: Routes = [{
   //  { path: 'quizl', component: QuizListComponent },
    // { path: 'newQuiz', component: CreateQuizComponent },
    // { path: 'newQuestion', component: CreateQuestionComponent },
-    { path: 'questionlist', component: QuestionListComponent },
+    //{ path: 'questionlist', component: QuestionListComponent },
     //{ path: 'quizaffiche', component: QuizafficheComponent },
    // { path: 'questionaffiche', component: QuestionafficheComponent },
     { path: 'startquiz', component: StartQuizzComponent },
@@ -95,11 +95,11 @@ const routes: Routes = [{
       loadChildren: () => import('./modal-overlays/modal-overlays.module')
         .then(m => m.ModalOverlaysModule),
     },
-    {
-      path: 'extra-components',
-      loadChildren: () => import('./extra-components/extra-components.module')
-        .then(m => m.ExtraComponentsModule),
-    },
+   // {
+   //   path: 'extra-components',
+   //   loadChildren: () => import('./extra-components/extra-components.module')
+   //     .then(m => m.ExtraComponentsModule),
+   // },
     {
       path: 'maps',
       loadChildren: () => import('./maps/maps.module')

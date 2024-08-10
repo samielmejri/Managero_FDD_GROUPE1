@@ -23,12 +23,12 @@ import { SubmitQuizzComponent } from '../pages/submit-quizz/submit-quizz.compone
 //import { QuizListComponent } from '../pages/quiz-list/quiz-list.component';
 //import { CreateQuizComponent } from '../pages/create-quiz/create-quiz.component'; // Import ReactiveFormsModule
 //import { CreateQuestionComponent } from '../pages/create-question/create-question.component';
-import { QuestionListComponent } from '../pages/question-list/question-list.component';
+//import { QuestionListComponent } from '../pages/question-list/question-list.component';
 //import { QuizafficheComponent } from '../pages/quizaffiche/quizaffiche.component';
 //import { QuestionafficheComponent } from '../pages/questionaffiche/questionaffiche.component';
 //import { QuizStatisticsComponent } from '../pages/quiz-statistics/quiz-statistics.component';
 import { CalendarComponent } from './calendar/calendar.component'; // Update path if necessary
-//import dayGridPlugin from '@fullcalendar/daygrid';
+import dayGridPlugin from '@fullcalendar/daygrid';
 import { FullCalendarModule } from '@fullcalendar/angular';
 //import { QuizScheduleComponent } from '../pages/schedule-quiz/schedule-quiz.component';
 import { HomepageComponent } from '../pages/homepage/homepage.component';
@@ -61,7 +61,7 @@ import { NbStepperModule } from '@nebular/theme';
     //QuizListComponent,
     //CreateQuizComponent,
     //CreateQuestionComponent,
-    QuestionListComponent,
+    //QuestionListComponent,
     //QuizafficheComponent,
     //QuestionafficheComponent,
     //QuizStatisticsComponent,
