@@ -58,10 +58,11 @@ footer {
 
 /* Breadcrumb Area Styling */
 .breadcrumb-area {
-    padding: 50px 0;
-    background-size: cover;
-    background-position: center;
-  }
+  background: linear-gradient(to right, #a9adb1, #ffffff); /* Cool gradient background */
+  padding: 30px 0; /* Padding around the breadcrumb area */
+  color: #645d5d; /* Text color */
+  margin-bottom: 20px; /* Space below the breadcrumb area */
+}
   
   .breadcrumb-inner {
     text-align: center;
@@ -72,17 +73,22 @@ footer {
     color: white;
     margin-bottom: 10px;
   }
+
+  .section-title {
+    margin-bottom: 0; /* Removes bottom margin from the section title */
+  }
   
   .page-list {
-    display: flex;
-    justify-content: center;
-    list-style: none;
-    padding: 0;
+    list-style-type: none; /* Removes default list styling */
+    padding: 0; /* Removes default padding */
+    margin: 10px 0 0; /* Adds margin to the top of the list */
+    font-size: 1.1em; /* Slightly larger font size for the breadcrumb list */
   }
   
   .page-list li {
-    color: white;
-    margin: 0 10px;
+    color: #e0e0e0; /* Light gray color for breadcrumb items */
+    display: inline; /* Displays list items in a line */
+    margin-right: 10px; /* Adds space between breadcrumb items */
   }
   
   .page-list li a {
@@ -90,6 +96,18 @@ footer {
     text-decoration: none;
   }
   
+  .page-list li::after {
+    content: '>'; /* Adds a separator between breadcrumb items */
+    margin-left: 10px; /* Space before the separator */
+    color: #e0e0e0; /* Color for the separator */
+  }
+
+  .page-list li:last-child::after {
+    content: ''; /* Removes separator for the last breadcrumb item */
+  }
+  
+  
+
   .page-list li a:hover {
     text-decoration: underline;
   }
@@ -130,29 +148,72 @@ footer {
   /* General Page Styling */
   .quiz-container,
   .forum-area {
-    margin-top: 30px;
-    padding: 20px;
-    background-color: #f2f2f2;
-    border-radius: 5px;
-  }
+    margin: 50px auto 100px auto; /* Center the form horizontally and add top/bottom margins */
+    width: 100%;
+    max-width: 600px; /* Control the maximum width of the form */
+    padding: 20px; /* Add padding to the container */
+    background-color: #f2f2f2; /* Set background color */
+    border-radius: 5px; /* Round the corners */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Add a slight shadow for better visibility */
+    margin-top: 20px;
+    
+}
   
   .quiz-container .quiz-info,
   .forum-area .create-post-container {
     background-color: white;
     padding: 20px;
     border-radius: 5px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Add shadow */
+    margin: 0 auto;
+    max-width: 600px;
+    position: relative;
+
   }
+
+  .guidelines-container {
+    width: 60%; /* Adjust the width of the container */
+    margin: 100px auto; /* Center the box horizontally and add some space from the top */
+    padding: 20px;
+    background-color: #f4f4f4;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    text-align: center; /* Center the text inside the box */
+}
+
+.guidelines-container h2 {
+    font-size: 30px;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.guidelines-container ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    text-align: left; /* Align text left inside the ul */
+    display: inline-block; /* This will help center the list within the container */
+    text-align: center;
+}
+
+.guidelines-container ul li {
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
+
   
   /* Additional Styling Adjustments */
   h2.page-title {
-    font-size: 28px;
-    color: white;
+    font-size: 2.5em; /* Larger font size for the page title */
+    font-weight: bold; /* Bold font weight */
+    color: #7c7373; /* White color for the page title */
   }
   
   .text-right {
     text-align: right;
-  }
+    margin-top: 20px;
+}
   
   body {
     font-family: Arial, sans-serif;
@@ -163,10 +224,11 @@ footer {
     max-width: 600px;
     margin: 0 auto;
     padding: 20px;
-    background-color: #e2e4f4;
+    background-color: #f9f9f9; /* Changed to a lighter color */
     border-radius: 5px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  }
+}
+
   
   h2 {
     margin-bottom: 20px;
@@ -186,7 +248,8 @@ footer {
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 3px;
-  }
+    background-color: #fff; /* Changed to white */
+}
   
   .form-field input:focus {
     outline: none;
@@ -218,7 +281,8 @@ footer {
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 3px;
-  }
+    background-color: #fff; /* Changed to white */
+}
   
   .option-field input:focus {
     outline: none;
@@ -238,18 +302,17 @@ footer {
   .select-field select {
     width: 100%;
     padding: 10px;
-    border: 1px solid #212121;
+    border: 1px solid #ccc;
     border-radius: 3px;
-  }
+    background-color: #fff; /* Changed to white */
+}
   
   .select-field select:focus {
     outline: none;
     border-color: #212121;
   }
   
-  .form-group {
-    margin-bottom: 20px;
-  }
+
   
   .form-group label {
     display: block;
@@ -261,7 +324,8 @@ footer {
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 3px;
-  }
+    background-color: #fff; /* Changed to white */
+}
   
   .form-group input:focus {
     outline: none;
@@ -281,25 +345,24 @@ footer {
     background-color: #c9c9c9;
     cursor: not-allowed;
   }
+
   .input {
-    background-color: #212121;
+    background-color: #fff; /* Changed to white */
     max-width: 190px;
     height: 40px;
     padding: 10px;
-    /* text-align: center; */
-    border: 2px solid white;
+    border: 2px solid #007bff; /* Changed border color */
     border-radius: 5px;
-    /* box-shadow: 3px 3px 2px rgb(249, 255, 85); */
-  }
+}
   
-  .input:focus {
-    color: rgb(0, 255, 255);
-    background-color: #212121;
+.input:focus {
+    color: rgb(0, 34, 255);
+    background-color: #fff; /* Changed to white */
     outline-color: rgb(0, 255, 255);
     box-shadow: -3px -3px 15px rgb(0, 255, 255);
     transition: .1s;
     transition-property: box-shadow;
-  }
+}
   
 
 main section h2 {
@@ -312,38 +375,89 @@ footer {
     text-align: center;
     color: white;
     margin-top: 20px;
-}.container {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    grid-gap: 1rem;
-  }
-  
-  .quiz-item {
-    background-color: #f8f9fa;
-    border-radius: 5px;
-    padding: 1rem;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  }
-  
-  .quiz-card {
-    cursor: pointer;
-  }
-  
-  .quiz-details {
-    margin-top: 1rem;
-  }
-  
-  .question-list {
-    margin-top: 1rem;
-  }
-  
-  .no-questions {
-    margin-top: 1rem;
-  }
-  
-  .no-quizzes {
-    margin-top: 1rem;
-  }
+}
+
+
+.container {
+  display: flex;
+  flex-direction: column; /* Stack items vertically */
+  align-items: center; /* Center items horizontally */
+}
+
+.quiz-item {
+  display: inline-block; /* Set display to inline-block */
+  text-align: left;      /* Align content inside the item to the left */
+  width: 100%;
+  max-width: 600px;
+  margin: 10px 0;        /* Space between items */
+}
+
+
+.question-list-container {
+  display: flex;
+  justify-content: center; /* Centers horizontally */
+  align-items: center;     /* Centers vertically */
+  flex-direction: column;  /* Stack items vertically */
+  width: 100%;            
+  text-align: center;
+}
+
+.quiz-card {
+  width: 100%;
+  max-width: 600px; /* Limit the max-width of the card */
+  border: 4px solid #fff5f5; /* Increase the border width and set color */
+  background-color: #ffffff; /* Background color of the card */
+  padding: 16px;
+  border-radius: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  text-align: center; 
+  margin: 0 auto;
+}
+
+
+.quiz-card h3 {
+  margin-bottom: 20px;
+  cursor: pointer;
+}
+
+
+.quiz-title {
+  font-size: 1.2rem;
+  font-weight: bold;
+  word-wrap: break-word; /* Breaks long words to fit in the box */
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap; /* Keeps text on a single line with ellipsis */
+  max-width: 100%; /* Prevents the title from extending beyond the box */
+}
+
+.quiz-details {
+  margin-bottom: 20px;
+}
+
+.question-list {
+  margin-bottom: 20px;
+}
+
+.no-questions {
+  font-style: italic;
+  color: #757575;
+}
+
+.step-navigation {
+  margin-top: 20px;
+  display: flex;
+  justify-content: space-between;
+}
+
+
+.no-quizzes {
+  text-align: center;
+  color: #dc3545;
+  font-style: italic;
+}
+
+
 
 
 
@@ -443,3 +557,568 @@ nav ul {
     margin-bottom: 20px; /* Add space below header */
   }
   /* To specify background color, color, and border */
+
+
+  .quiz-container {
+    max-width: 600px; /* Adjust width as needed */
+    margin: 0 auto;
+}
+
+.quiz-info {
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 20px; /* Increased padding for better spacing */
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background-color: #f9f9f9;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Slight shadow for better visibility */
+}
+
+
+.quiz-info h3 {
+  margin: 5px 0;
+  font-weight: bold;
+  width: 100%;
+  text-align: left; /* Align title to the left */
+}
+
+.quiz-info .details {
+  margin-bottom: 15px; /* Added spacing below details */
+  width: 100%;
+}
+
+.quiz-info .details p {
+  margin: 0 0 10px 0; /* Adjust margins for better spacing */
+  font-size: 14px; /* Adjusted font size for consistency */
+}
+
+.quiz-info .actions {
+    display: flex;
+    justify-content: flex-end; /* Align buttons to the right */
+    margin-top: 10px; /* Added margin to create space above buttons */
+    width: 100%;
+}
+
+.quiz-info button {
+  margin-left: 10px;
+  padding: 8px 15px;
+  border: none;
+  border-radius: 5px; /* Rounded corners for buttons */
+  cursor: pointer;
+  font-size: 14px; /* Adjusted font size */
+}
+
+.quiz-info .edit-button {
+    background-color: #4CAF50;
+    color: white;
+}
+
+.quiz-info .edit-button:hover {
+    background-color: #45a049;
+}
+
+.quiz-info .cancel-button {
+    background-color: #f44336;
+    color: white;
+}
+
+.quiz-info .cancel-button:hover {
+    background-color: #e53935;
+}
+
+.quiz-info .update-button {
+    background-color: #2196F3;
+    color: white;
+}
+
+.quiz-info .update-button:hover {
+    background-color: #1e88e5;
+}
+
+.update-form {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%; /* Ensure the form uses full width */
+    margin-top: 20px;
+}
+
+.update-form label {
+    display: block;
+    width: 100%;
+    margin-bottom: 5px;
+}
+
+.update-form input[type="text"],
+.update-form input[type="number"] {
+    width: calc(100% - 10px); /* Adjust width to account for padding */
+    padding: 5px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+}
+
+.update-form button[type="submit"],
+.update-form button[type="button"] {
+    margin-top: 15px;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+
+.create-post-heading {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+
+.post-form .form-control {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+}
+
+.post-form .form-group {
+  margin-bottom: 15px;
+}
+
+.float-right {
+  display: flex;
+  justify-content: flex-end;
+}
+
+
+.float-right button {
+  margin-left: 10px;
+}
+
+.btn-default {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+  background-color: #f1f1f1;
+  color: #333;
+  font-size: 16px;
+}
+
+
+.btn-default:hover {
+  background-color: #ddd;
+}
+
+.btn-discard {
+  background-color: #f44336;
+  color: white;
+}
+
+.btn-discard:hover {
+  background-color: #e53935;
+}
+
+.btn-create {
+  background-color: #4CAF50;
+  color: white;
+}
+
+.btn-create:hover {
+  background-color: #45a049;
+}
+
+
+
+
+
+
+
+
+/* Add your custom styles here */
+.question-container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.question-info {
+  border: 1px solid #ccc;
+  padding: 20px;
+  margin-bottom: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #f9f9f9;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 20px; /* Adjusted for less rounding */
+  width: 800px;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+  .question-info h3 {
+    margin-top: 0;
+    margin: 3px 0;
+    font-weight: bold;
+    flex: 1; /* Allow title to take up available space */
+  }
+
+  .question-info .details {
+    display: flex; /* Arrange question details inline */
+    margin-bottom: 5px;
+    margin-top: 10px;
+  }
+
+  .question-info .details p {
+    margin: 5px 0; 
+   }
+
+   .right-answer {
+    font-weight: bold;
+    color: #388e3c;
+  }
+  
+
+  .question-info .actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 15px;
+  }
+
+  .question-info button {
+    margin-left: 10px;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+  }
+
+  .question-info .edit-button {
+    background-color: #4CAF50;
+    color: white;
+  }
+
+  .question-info .edit-button:hover {
+    background-color: #45a049;
+  }
+
+  .question-info .cancel-button {
+    background-color: #f44336;
+    color: white;
+  }
+
+  .actions .edit-button,
+  .actions .cancel-button {
+    margin-right: 10px;
+  }
+  
+
+  .question-info .cancel-button:hover {
+    background-color: #e53935;
+  }
+
+  .question-info .update-button {
+    background-color: #2196F3;
+    color: white;
+  }
+
+  .question-info .update-button:hover {
+    background-color: #1e88e5;
+  }
+
+  .update-form {
+    display: grid;
+    gap: 10px;
+    margin-top: 10px;
+  }
+  
+  .update-form label {
+    display: block;
+    width: 100%;
+    margin-bottom: 5px;
+  }
+
+  .update-form input {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    border: 1px solid #ced4da;
+  }
+
+  .form-actions {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .form-actions .update-button,
+.form-actions .cancel-button {
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+
+.update-button, .cancel-button {
+  padding: 8px 12px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+  
+
+  .update-form input[type="text"],
+  .update-form input[type="number"] {
+    flex: 1;
+    padding: 5px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+  }
+
+  .update-form button[type="submit"] {
+    margin-top: 15px;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    background-color: #2196F3;
+    color: white;
+  }
+
+  .update-form button[type="button"] {
+    margin-top: 15px;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    background-color: #f44336;
+    color: white;
+  }
+
+
+  /* Custom styles for Question Affiche step */
+.custom-question-box {
+  border: 2px solid #007bff; /* Border color */
+  border-radius: 8px; /* Rounded corners */
+  background-color: #f8f9fa; /* Light background color */
+  padding: 15px; /* Padding inside the box */
+  margin-bottom: 15px; /* Space between boxes */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Shadow effect */
+}
+
+/* Increased font size for better readability */
+.custom-question-box h3 {
+  font-size: 1.25em;
+}
+
+/* Style for form elements */
+.custom-question-box .update-form input[type="text"] {
+  width: calc(100% - 20px); /* Full width minus padding */
+  padding: 10px; /* Padding inside inputs */
+  margin-bottom: 10px; /* Space between inputs */
+  border: 1px solid #ced4da; /* Input border */
+  border-radius: 4px; /* Rounded corners for inputs */
+}
+
+/* Button styles inside the question box */
+.custom-question-box .actions button,
+.custom-question-box .form-actions button {
+  margin-right: 10px; /* Space between buttons */
+}
+
+
+.fforum-area {
+  margin: 50px auto 100px auto; /* Center the form horizontally and add top/bottom margins */
+  width: 100%;
+  max-width: 900px; /* Control the maximum width of the form */
+  padding: 20px; /* Add padding to the container */
+  background-color: #f2f2f2; /* Set background color */
+  border-radius: 5px; /* Round the corners */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Add a slight shadow for better visibility */
+  margin-top: 20px;
+  
+}
+
+
+.step-navigation {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.step-navigation button {
+  margin: 0 10px; /* Adjust the space as needed */
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* Ensure no extra margins or paddings for body and h1 */
+body {
+  margin: 0;
+  padding: 0;
+}
+
+h1 {
+  margin: 0; /* Remove default margin from h1 */
+  padding: 0; /* Remove padding if any */
+  text-align: center; /* Center-align the title */
+}
+
+/* Center the container horizontally */
+.qqquiz-container {
+  display: flex;
+  justify-content: center; /* Center horizontally */
+  align-items: flex-start; /* Align items to start (top) */
+  min-height: 0;
+  height: 270px;
+}
+
+
+.radio-input input {
+  display: none;
+}
+/* Styles for the radio-input container */
+.radio-input {
+  display: flex;
+  flex-direction: column;
+  padding: 12px;
+  background: #fff;
+  color: #000;
+  border-radius: 10px;
+  box-shadow: 0px 87px 78px -39px rgba(0,0,0,0.4);
+  width: 320px;
+  max-width: 100%; /* Ensure it does not exceed the viewport width */
+}
+
+/* Info container styling */
+.info {
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* Question styling */
+.question {
+  color: rgb(49, 49, 49);
+  font-size: 1rem;
+  line-height: 1rem;
+  font-weight: 800;
+}
+
+/* Steps styling */
+.steps {
+  background-color: rgb(0, 0, 0);
+  padding: 4px;
+  color: #fff;
+  border-radius: 4px;
+  font-size: 12px;
+  line-height: 12px;
+  font-weight: 600;
+}
+
+/* Label styling for radio buttons */
+.radio-input label {
+  display: flex;
+  background-color: #fff;
+  padding: 14px;
+  margin: 8px 0 0 0; /* Margin to separate from other labels */
+  font-size: 13px;
+  font-weight: 600;
+  border-radius: 10px;
+  cursor: pointer;
+  border: 1px solid rgba(187, 187, 187, 0.164);
+  color: #000;
+  transition: .3s ease;
+}
+
+/* Hover state for labels */
+.radio-input label:hover {
+  background-color: rgba(24, 24, 24, 0.13);
+  border: 1px solid #bbb;
+}
+
+/* Result styling */
+.result {
+  margin-top: 10px; /* Slight margin for result messages */
+  font-weight: 600;
+  font-size: 12px;
+  display: none;
+  transition: display .4s ease;
+}
+
+/* Success result styling */
+.result.success {
+  color: green;
+}
+
+/* Error result styling */
+.result.error {
+  color: red;
+}
+
+/* Checked state for radio buttons */
+.radio-input input:checked + label {
+  border-color: red;
+  color: red;
+}
+
+/* Checked state for specific radio button value */
+.radio-input input[value="value-2"]:checked + label {
+  border-color: rgb(22, 245, 22);
+  color: rgb(16, 184, 16);
+}
+
+/* Display success result when correct radio button is checked */
+.radio-input:has(input[value="value-2"]:checked) .result.success {
+  display: flex;
+}
+
+/* Display error result when incorrect radio button is checked */
+.radio-input:has(input:not([value="value-2"]):checked ) .result.error {
+  display: flex;
+}
+
+
+
+
+
+

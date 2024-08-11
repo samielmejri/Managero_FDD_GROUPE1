@@ -59,8 +59,8 @@ body {
     cursor: pointer;
     text-align: center;
 
-    background-color: #460ee1;
-    color: #333;
+    background-color: #3501c5;
+    color: #ffffff;
 
   }
   
@@ -79,8 +79,8 @@ body {
     cursor: pointer;
     text-align: center;
 
-    background-color: #0bcfbb;
-    color: #333;
+    background-color: #03a898;
+    color: #ffffff;
 
   }
   .previous-button[disabled] {

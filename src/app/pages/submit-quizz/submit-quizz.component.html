@@ -1,5 +1,5 @@
 <div *ngIf="responseData !== undefined && totalQuestions !== undefined" class="result-container">
-  <h2 class="honk-font large-text" *ngIf="responseData > totalQuestions * 0.6">Congrats</h2>
+  <h2 class="honk-font large-text" *ngIf="responseData > totalQuestions * 0.6">Congratulations</h2>
   <h2 class="honk-font large-text" *ngIf="!(responseData > totalQuestions * 0.6)">Good luck next time</h2>
 
   <p class="score">Score: {{ responseData }} / {{ totalQuestions }}</p>
@@ -8,9 +8,14 @@
 
   <div *ngIf="responseData > totalQuestions * 0.6" #certificateElement class="certificate">
     <h2>Certificate of Completion</h2>
-    <p>This certificate is awarded to after a great effort to complete his test and the honor to have a certificat from courzelo :</p>
+    <p>This certificate is awarded to after a great effort to complete his test and the honor to have a certificat from Managero :</p>
     <p><strong>{{ userId }}</strong></p>
     <p>for successfully completing the quiz:</p>
     <p><strong>{{ quizTitle }}</strong></p>
+    <br>
+    <!-- Add a container for the signature -->
+    <div class="signature"></div>
+    <!-- Add a container for the badge -->
+    <div class="badge"></div>
   </div>
 </div>

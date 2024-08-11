@@ -1,51 +1,114 @@
+
+/* Style the result container and ensure it's above the confetti */
 .result-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    margin-top: 50px;
-  }
-  
-  .large-text {
-    font-size: 24px;
-    margin-bottom: 20px;
-  }
-  
-  .score {
-    font-size: 20px;
-    margin-bottom: 20px;
-  }
-  
-  .pdf-button {
-    padding: 10px 20px;
-    font-size: 16px;
-    background-color: #4CAF50;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-  }
-  
-  .certificate {
-    margin-top: 20px;
-    padding: 20px;
-    border: 2px solid #4CAF50;
-    border-radius: 10px;
-  }
-  
-  .certificate h2 {
-    font-size: 24px;
-    margin-bottom: 10px;
-  }
-  
-  .certificate p {
-    font-size: 16px;
-    margin-bottom: 5px;
-  }
-  
-  .certificate strong {
-    font-weight: bold;
-    color: #4CAF50;
-  }
-  
+  position: relative; /* Ensure it's not affected by the confetti */
+  z-index: 1001; /* Make sure it's above the confetti */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  margin-top: 50px; /* Adjust margin as needed */
+}
+
+.large-text {
+  font-size: 28px; /* Increased font size */
+  margin-bottom: 20px;
+  color: #333; /* Darker color for better contrast */
+}
+
+.score {
+  font-size: 22px; /* Increased font size */
+  margin-bottom: 20px;
+  color: #555; /* Slightly lighter color */
+}
+
+.pdf-button {
+  padding: 12px 24px; /* Increased padding */
+  font-size: 18px; /* Larger font size */
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 8px; /* Slightly larger border radius */
+  cursor: pointer;
+  transition: background-color 0.3s ease; /* Smooth color transition */
+}
+
+.pdf-button:hover {
+  background-color: #45a049; /* Darker green on hover */
+}
+
+.certificate {
+  margin-top: 30px;
+  padding: 30px;
+  border: 3px solid #4CAF50; /* Thicker border */
+  border-radius: 15px; /* Larger border radius */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+  background-color: #fff; /* White background for contrast */
+  position: relative; /* Required for positioning images */
+  overflow: hidden; /* Ensure images stay within bounds */
+}
+
+/* Title and content styling */
+.certificate h2 {
+  font-size: 26px; /* Increased font size */
+  margin-bottom: 15px; /* Increased margin */
+  color: #4CAF50; /* Matching color with border */
+}
+
+.certificate p {
+  font-size: 18px; /* Slightly larger font size */
+  margin-bottom: 10px; /* Increased margin */
+  line-height: 1.5; /* Improved readability */
+}
+
+.certificate strong {
+  font-weight: bold;
+  color: #4CAF50;
+}
+
+/* Logo in the bottom right */
+.certificate::after {
+  content: "";
+  display: block;
+  position: absolute;
+  bottom: 10px; /* Distance from the bottom */
+  right: 10px; /* Distance from the right */
+  width: 100px; /* Adjust width as needed */
+  height: 100px; /* Adjust height as needed */
+  background-image: url('/assets/images/logo.png'); /* Path to the logo */
+  background-size: contain; /* Ensure the logo scales correctly */
+  background-repeat: no-repeat; /* Prevent repeating */
+  background-position: center; /* Center the image */
+}
+
+/* Signature in the center bottom */
+.certificate .signature {
+  content: "";
+  display: block;
+  position: absolute;
+  bottom: 10px; /* Distance from the bottom */
+  left: 50%; /* Center horizontally */
+  transform: translateX(-50%); /* Center image horizontally */
+  width: 150px; /* Adjust width as needed */
+  height: 50px; /* Adjust height as needed */
+  background-image: url('/assets/images/signature.png'); /* Path to the signature */
+  background-size: contain; /* Ensure the signature scales correctly */
+  background-repeat: no-repeat; /* Prevent repeating */
+  background-position: center; /* Center the image */
+}
+
+/* Badge in the bottom left */
+.certificate .badge {
+  content: "";
+  display: block;
+  position: absolute;
+  bottom: 10px; /* Distance from the bottom */
+  left: 10px; /* Distance from the left */
+  width: 80px; /* Adjust width as needed */
+  height: 80px; /* Adjust height as needed */
+  background-image: url('/assets/images/badge.png'); /* Path to the badge */
+  background-size: contain; /* Ensure the badge scales correctly */
+  background-repeat: no-repeat; /* Prevent repeating */
+  background-position: center; /* Center the image */
+}

@@ -1,53 +1,129 @@
-.quiz-container {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-  }
+/* Unique styles for the Start Quiz component */
+.start-quiz-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.start-quiz-item {
+  flex-basis: calc(30% - 20px);
+  margin-bottom: 20px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  overflow: hidden;
+  transition: transform 0.3s ease-in-out;
+}
+
+.start-quiz-item:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 10px rgba(0, 0, 0, 0.2);
+}
+
+.start-quiz-content {
+  padding: 20px;
+  text-align: center;
+}
+
+.start-quiz-title {
+  margin-top: 0;
+  font-size: 1.5rem;
+  color: #3f51b5;
+}
+
+.start-quiz-description {
+  margin-bottom: 20px;
+  font-size: 1rem;
+  color: #666;
+}
+
+.start-quiz-button {
+  display: block;
+  width: 100%;
+  padding: 10px 20px;
+  background-color: #3f51b5;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease-in-out;
+}
+
+.start-quiz-button:hover {
+  background-color: #2e408b;
+}
+
+
+.breadcrumb-area {
+  background: linear-gradient(to right, #a9adb1, #ffffff); /* Cool gradient background */
+  padding: 30px 0; /* Padding around the breadcrumb area */
+  color: #645d5d; /* Text color */
+  margin-bottom: 20px; /* Space below the breadcrumb area */
+}
   
-  .quiz-item {
-    flex-basis: calc(30% - 20px);
-    margin-bottom: 20px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    overflow: hidden;
-    transition: transform 0.3s ease-in-out;
-  }
-  
-  .quiz-item:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 10px rgba(0, 0, 0, 0.2);
-  }
-  
-  .quiz-content {
-    padding: 20px;
+  .breadcrumb-inner {
     text-align: center;
   }
   
-  .quiz-title {
-    margin-top: 0;
-    font-size: 1.5rem;
-    color: #3f51b5;
+  .section-title h2 {
+    font-size: 32px;
+    color: white;
+    margin-bottom: 10px;
+  }
+
+  .section-title {
+    margin-bottom: 0; /* Removes bottom margin from the section title */
   }
   
-  .quiz-description {
-    margin-bottom: 20px;
-    font-size: 1rem;
-    color: #666;
+  .page-list {
+    list-style-type: none; /* Removes default list styling */
+    padding: 0; /* Removes default padding */
+    margin: 10px 0 0; /* Adds margin to the top of the list */
+    font-size: 1.1em; /* Slightly larger font size for the breadcrumb list */
   }
   
-  .start-button {
-    display: block;
-    width: 100%;
-    padding: 10px 20px;
-    background-color: #3f51b5;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    font-size: 1.2rem;
-    cursor: pointer;
-    transition: background-color 0.3s ease-in-out;
+  .page-list li {
+    color: #e0e0e0; /* Light gray color for breadcrumb items */
+    display: inline; /* Displays list items in a line */
+    margin-right: 10px; /* Adds space between breadcrumb items */
   }
   
-  .start-button:hover {
-    background-color: #2e408b;
+  .page-list li a {
+    color: white;
+    text-decoration: none;
+  }
+  
+  .page-list li::after {
+    content: '>'; /* Adds a separator between breadcrumb items */
+    margin-left: 10px; /* Space before the separator */
+    color: #e0e0e0; /* Color for the separator */
+  }
+
+  .page-list li:last-child::after {
+    content: ''; /* Removes separator for the last breadcrumb item */
+  }
+  
+  
+
+  .page-list li a:hover {
+    text-decoration: underline;
+  }
+
+
+  h2.page-title {
+    font-size: 2.5em; /* Larger font size for the page title */
+    font-weight: bold; /* Bold font weight */
+    color: #7c7373; /* White color for the page title */
+  }
+
+/* Updated Breadcrumb Area Title Color */
+.section-title h2 {
+  font-size: 32px;
+  color: #7c7373; /* Updated text color to match the example */
+  margin-bottom: 10px;
+}
+
+
+  .section-title {
+    margin-bottom: 0; /* Removes bottom margin from the section title */
   }

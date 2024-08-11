@@ -2,119 +2,17 @@
 
 
 <!-- Breadcrumb Area -->
-<div class="breadcrumb-area bg-overlay" style="background-image:url('assets/img/bg/3.png')">
+<div class="breadcrumb-area bg-overlay">
   <div class="container">
     <div class="breadcrumb-inner">
       <div class="section-title mb-0 text-center">
-        <h2 class="page-title">Quizzes</h2>
-        <ul class="page-list">
-          <li><a routerLink="" href="index.html">Home</a></li>
-          <li>Quizzes</li>
-        </ul>
+        <h2 class="page-title">Quiz Dashboard</h2>
       </div>
     </div>
   </div>
 </div>
 
-  <style>
-    /* Add your custom styles here */
-    .app-header {
-      margin-top: 100px;
-      margin-left: -200px;
-      margin-bottom: 100px;
-    }
-    .quiz-container {
-      max-width: 600px; /* Adjust width as needed */
-      margin: 0 auto;
-    }
-    .quiz-info {
-      border: 1px solid #ccc;
-      border-radius: 5px;
-      padding: 10px;
-      margin-bottom: 20px;
-      display: flex; /* Arrange quiz details inline */
-      align-items: center; /* Vertically align items */
-      justify-content: space-between; /* Add space between quiz details and buttons */
-    }
-    .quiz-info h3 {
-      margin: 5px 0;
-      font-weight: bold;
-      flex: 1; /* Allow title to take up available space */
-    }
-    .quiz-info .details {
-      display: flex; /* Arrange quiz details inline */
-      margin-bottom: 5px;
-    }
-    .quiz-info .details p {
-      margin: 0 5px;
-    }
-    .quiz-info .actions {
-      display: flex; /* Arrange buttons inline */
-      align-items: center; /* Vertically align buttons */
-    }
-    .quiz-info button {
-      margin-left: 10px;
-      padding: 5px 10px;
-      border: none;
-      border-radius: 3px;
-      cursor: pointer;
-    }
-    .quiz-info .edit-button {
-      background-color: #4CAF50;
-      color: white;
-    }
-    .quiz-info .edit-button:hover {
-      background-color: #45a049;
-    }
-    .quiz-info .cancel-button {
-      background-color: #f44336;
-      color: white;
-    }
-    .quiz-info .cancel-button:hover {
-      background-color: #e53935;
-    }
-    .quiz-info .update-button {
-      background-color: #2196F3;
-      color: white;
-    }
-    .quiz-info .update-button:hover {
-      background-color: #1e88e5;
-    }
-    .update-form {
-      display: flex;
-      flex-wrap: wrap;
-      margin-top: 20px;
-    }
-    .update-form label {
-      display: block;
-      width: 100%;
-      margin-bottom: 5px;
-    }
-    .update-form input[type="text"],
-    .update-form input[type="number"] {
-      flex: 1;
-      padding: 5px;
-      margin-bottom: 15px;
-      border: 1px solid #ccc;
-      border-radius: 3px;
-    }
-    .update-form button[type="submit"],
-    .update-form button[type="button"] {
-      margin-top: 15px;
-      padding: 5px 10px;
-      border: none;
-      border-radius: 3px;
-      cursor: pointer;
-    }
-    .update-form button[type="submit"] {
-      background-color: #2196F3;
-      color: white;
-    }
-    .update-form button[type="button"] {
-      background-color: #f44336;
-      color: white;
-    }
-  </style>
+ 
 
   
 
@@ -151,9 +49,10 @@
         <div *ngIf="quizzes.length === 0">No quizzes found.</div>
       </div>
 </div>
+<div class="step-navigation">
 <button nbButton nbStepperNext>Next</button>
+</div>
 </nb-step>
-
 
 
 
@@ -185,11 +84,7 @@
   <!-- Step 2: Create Quiz -->
   <nb-step label="Create Quiz">
     <div id="create-quiz" class="section">
-      <div class="forum-area" style="margin-top: 50px; margin-left: -200px; margin-bottom: 100px;">
-        <div class="container">
-          <div class="row">
-            <div class="col-md-9">
-              <hr />
+      <div class="forum-area">
               <div class="create-post-container">
                 <form class="post-form" [formGroup]="createQuizForm" (ngSubmit)="createQuiz()">
                   <div class="form-group">
@@ -204,42 +99,51 @@
                                     <input type="number" formControlName="numQ" class="form-control" style="margin-top: 5px"
                                         placeholder="Number of Questions">
         
-                                    <div style="margin-top: 20px" class="text-right">
-                                    </div>
-                                </div>
-                                <span>
-                                    <div style="margin-top: 4px" class="float-right">
-                                        <button class="btn btn-default">Discard</button>
-        
-        
-                                        <button class="btn btn-default">Create Quiz</button>
-                                    </div>
-                                </span>
+                                        <div class="text-right float-right">
+                                          <button type="button" class="btn-default btn-discard">Discard</button>
+                                          <button type="submit" class="btn-default btn-create">Create Quiz</button>
+                                        </div>
+                                      </div>
+                             
                             </form>
                         </div>
                     </div>
-                    <div class="col-md-3">
-                        <div class="sidebar" style="margin-left: 20px;margin-top: 40px;">
-                            <hr />
-                            <ul>
-                                <li>Remember the human</li>
-                                <hr />
-                                <li>Behave like you would in real life</li>
-                                <hr />
-                                <li>Don't spam</li>
-                                <hr />
-                            </ul>
-                        </div>
-                    </div>
+                  
+                    
+                    <div class="guidelines-container">
+                      <h2>Quiz Guidelines</h2>
+                      <ul>
+                        <li><span style="font-weight: bold; font-size: 1.3em;">! </span>  Align questions with key features</li>
+                        <li><span style="font-weight: bold; font-size: 1.3em;">! </span>  Ensure clarity and accuracy</li>
+                        <li><span style="font-weight: bold; font-size: 1.3em;">! </span>  Review and refine regularly</li>
+                                              </ul>
+                  </div>    
                 </div>
-            </div>
-        </div>
-        </div>
-        <button nbButton nbStepperPrevious>Previous</button>
-        <button nbButton nbStepperNext>Next</button>
-      </nb-step>
-
+    
+                <h1>Quiz Example:</h1>
+                <br>
+                <div class="qqquiz-container">
+                  <div class="radio-input">
+                    <div class="info">
+                      <span class="question">What does FDD stand for?</span>
+                      <span class="steps">1/3</span>
+                    </div>
+                    <input type="radio" id="value-1" name="value-radio" value="value-1">
+                    <label for="value-1">Functional Design Document</label>
+                    <input type="radio" id="value-2" name="value-radio" value="value-2">
+                    <label for="value-2">Feature Development Design</label>
+                    <input type="radio" id="value-3" name="value-radio" value="value-3">
+                    <label for="value-3">Feature Development Design</label>
+                    <span class="result success">Congratulations!</span>
+                    <span class="result error">Bad answer</span>
+                  </div>
+                </div>
         
+                <div class="step-navigation">
+                  <button nbButton nbStepperPrevious>Previous</button>
+                  <button nbButton nbStepperNext>Next</button>
+                </div>
+      </nb-step>
   <!-- create quiz ended-->      
 
 
@@ -314,6 +218,15 @@
           </option>
         </select>
       </div>
+
+
+
+
+
+
+
+
+      
       <div class="form-group">
         <label for="category">Category</label>
         <input placeholder="Enter your text..." id="category" formControlName="category" class="input" name="text" type="text">
@@ -321,8 +234,10 @@
       <button type="submit" [disabled]="questionForm.invalid">Submit</button>
     </form>
   </div>
-  <button nbButton nbStepperPrevious>Previous</button>
-  <button nbButton nbStepperNext>Next</button>
+  <div class="step-navigation">
+    <button nbButton nbStepperPrevious>Previous</button>
+    <button nbButton nbStepperNext>Next</button>
+  </div>
 </nb-step>
   
 
@@ -332,7 +247,7 @@
 
 
 
-<!--Step 4 :  Quiz affiche -->
+<!--Step 4 :  Quiz Questions -->
 <nb-step label="Quiz Questions">
 <div class="app-header" style="margin-top: 100px; margin-left: -200px; margin-bottom: 100px;">
   <div class="container">
@@ -360,8 +275,10 @@
       <div *ngIf="quizzes.length === 0" class="no-quizzes">No quizzes available.</div>
     </div>
   </div>
-  <button nbButton nbStepperPrevious>Previous</button>
-  <button nbButton nbStepperNext>Next</button>
+  <div class="step-navigation">
+    <button nbButton nbStepperPrevious>Previous</button>
+    <button nbButton nbStepperNext>Next</button>
+  </div>
 </nb-step>
 
 
@@ -381,175 +298,57 @@
 
 
 
-<style>
-  /* Add your custom styles here */
-  .question-container {
-    max-width: 600px; /* Adjust width as needed */
-    margin: 0 auto;
-  }
 
-  .question-info {
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    padding: 10px;
-    margin-bottom: 20px;
-    display: flex; /* Arrange question details inline */
-    align-items: center; /* Vertically align items */
-    justify-content: space-between; /* Add space between question details and buttons */
-  }
-
-  .question-info h3 {
-    margin: 3px 0;
-    font-weight: bold;
-    flex: 1; /* Allow title to take up available space */
-  }
-
-  .question-info .details {
-    display: flex; /* Arrange question details inline */
-    margin-bottom: 5px;
-  }
-
-  .question-info .details p {
-    margin: 0 5px;
-  }
-
-  .question-info .actions {
-    display: flex; /* Arrange buttons inline */
-    align-items: center; /* Vertically align buttons */
-  }
-
-  .question-info button {
-    margin-left: 10px;
-    padding: 5px 10px;
-    border: none;
-    border-radius: 3px;
-    cursor: pointer;
-  }
-
-  .question-info .edit-button {
-    background-color: #4CAF50;
-    color: white;
-  }
-
-  .question-info .edit-button:hover {
-    background-color: #45a049;
-  }
-
-  .question-info .cancel-button {
-    background-color: #f44336;
-    color: white;
-  }
-
-  .question-info .cancel-button:hover {
-    background-color: #e53935;
-  }
-
-  .question-info .update-button {
-    background-color: #2196F3;
-    color: white;
-  }
-
-  .question-info .update-button:hover {
-    background-color: #1e88e5;
-  }
-
-  .update-form {
-    display: flex;
-    flex-wrap: wrap;
-    margin-top: 30px;
-  }
-
-  .update-form label {
-    display: block;
-    width: 100%;
-    margin-bottom: 5px;
-  }
-
-  .update-form input[type="text"],
-  .update-form input[type="number"] {
-    flex: 1;
-    padding: 5px;
-    margin-bottom: 15px;
-    border: 1px solid #ccc;
-    border-radius: 3px;
-  }
-
-  .update-form button[type="submit"] {
-    margin-top: 15px;
-    padding: 5px 10px;
-    border: none;
-    border-radius: 3px;
-    cursor: pointer;
-    background-color: #2196F3;
-    color: white;
-  }
-
-  .update-form button[type="button"] {
-    margin-top: 15px;
-    padding: 5px 10px;
-    border: none;
-    border-radius: 3px;
-    cursor: pointer;
-    background-color: #f44336;
-    color: white;
-  }
-</style>
-
-<!--Step 4 :  Question affiche -->
+<!--Step 5 :  Question Affiche -->
 <nb-step label="Question Affiche">
-  <div class="forum-area" style="margin-top: 50px; margin-left: -200px; margin-bottom: 100px;">
+  <div class="fforum-area">
+    <div class="question-container">
+      <div *ngFor="let question of questions" class="question-info custom-question-box">
+        <h3>{{ question.questionTitle }}</h3>
 
-<div class="question-container">
+        <div class="details">
+          <p>Option 1: {{ question.option1 }}</p>
+          <p>Option 2: {{ question.option2 }}</p>
+          <p>Option 3: {{ question.option3 }}</p>
+          <p>Option 4: {{ question.option4 }}</p>
+          <p class="right-answer">Right Answer: {{ question.rightAnswer }}</p>
+        </div>
 
-<div *ngFor="let question of questions" class="question-info">
+        <div class="actions">
+          <button mat-icon-button color="warn" aria-label="Delete" (click)="deleteQuestion(question._id!)" class="cancel-button">Delete</button>
+          <button *ngIf="!selectedQuestion" class="edit-button" (click)="selectQuestionForUpdate(question)">Edit</button>
+        </div>
 
-  <h3>{{ question.questionTitle }}</h3>
+        <form [formGroup]="updateForm" *ngIf="selectedQuestion === question" (ngSubmit)="updateQuestion(selectedQuestion._id)" class="update-form">
+          <input type="hidden" formControlName="_id" [value]="selectedQuestion._id">
+          <label>Question Text:</label>
+          <input type="text" formControlName="questionTitle" [value]="selectedQuestion.questionTitle">
+          <label>Option 1:</label>
+          <input type="text" formControlName="option1" [value]="selectedQuestion.option1">
+          <label>Option 2:</label>
+          <input type="text" formControlName="option2" [value]="selectedQuestion.option2">
+          <label>Option 3:</label>
+          <input type="text" formControlName="option3" [value]="selectedQuestion.option3">
+          <label>Option 4:</label>
+          <input type="text" formControlName="option4" [value]="selectedQuestion.option4">
 
-  <div class="details">
-    <p>option1: {{ question.option1 }}</p>
-    <p>option2: {{ question.option2 }}</p>
-    <p>option2: {{ question.option3 }}</p>
-    <p>option2: {{ question.option4 }}</p>
-    <p>RightAnswer: {{ question.rightAnswer }}</p>
-
-  </div>
-
-  <div class="actions">
-    <button mat-icon-button color="warn" aria-label="Delete" (click)="deleteQuestion(question._id!)" class="cancel-button">delete</button>
-    
-    <button *ngIf="!selectedQuestion" class="edit-button" (click)="selectQuestionForUpdate(question)">Edit </button>
-    
-    <form [formGroup]="updateForm" *ngIf="selectedQuestion === question" (ngSubmit)="updateQuestion(selectedQuestion._id)">
-
-      <input type="hidden" formControlName="_id" [value]="selectedQuestion._id">
-      <div class="update-form">
-        <label>Question Text:</label>
-        <input type="text" formControlName="questionTitle" [value]="selectedQuestion.questionTitle">
-        <label>Option1:</label>
-        <input type="text" formControlName="option1" [value]="selectedQuestion.option1">
-        <label>Option2:</label>
-        <input type="text" formControlName="option2" [value]="selectedQuestion.option2">
-        <label>Option3:</label>
-        <input type="text" formControlName="option3" [value]="selectedQuestion.option3">
-        <label>Option4:</label>
-        <input type="text" formControlName="option4" [value]="selectedQuestion.option4">
-   
-       
-        <button type="submit" class="update-button">Update</button>
-        <button type="button" class="cancel-button" (click)="selectedQuestion = null">Cancel</button>
+          <div class="form-actions">
+            <button type="submit" class="update-button">Update</button>
+            <button type="button" class="cancel-button" (click)="selectedQuestion = null">Cancel</button>
+          </div>
+        </form>
       </div>
-    </form>
+      <div *ngIf="questions.length === 0" class="no-questions">
+        No questions found.
+      </div>
+    </div>
   </div>
-</div>
-
-<div *ngIf="questions.length === 0">
-  No questions found.
-</div>
-</div>
-</div>
-<button nbButton nbStepperPrevious>Previous</button>
-<button nbButton nbStepperNext>Next</button>
+  <div class="step-navigation">
+      <button nbButton nbStepperPrevious>Previous</button>
+      <button nbButton nbStepperNext>Next</button>
+    </div>
 </nb-step>
+
 
 
 
@@ -587,8 +386,10 @@
       <canvas id="quizChart" width="400" height="400"></canvas>
   </div>
 </div>
-<button nbButton nbStepperPrevious>Previous</button>
-<button nbButton nbStepperNext>Next</button>
+<div class="step-navigation">
+  <button nbButton nbStepperPrevious>Previous</button>
+  <button nbButton nbStepperNext>Next</button>
+</div>
 </nb-step>
 
 
@@ -633,15 +434,19 @@
   </div>
   <button type="button" (click)="scheduleQuiz()">Schedule Quiz</button>
 </div>
-<button nbButton nbStepperPrevious>Previous</button>
-<button nbButton nbStepperNext>Next</button>
+<div class="step-navigation">
+  <button nbButton nbStepperPrevious>Previous</button>
+  <button nbButton nbStepperNext>Next</button>
+</div>
 </nb-step>
 
 
 <!--Step 6 :  Calendar -->
 <nb-step label="Calendar">
-  <app-calendar></app-calendar> <!-- Embed the calendar component here -->
-  <button nbButton nbStepperPrevious>Previous</button>
-</nb-step>
+  <app-calendar></app-calendar>
+  <div class="step-navigation">
+    <button nbButton nbStepperPrevious>Previous</button>
+  </div></nb-step>
+</nb-stepper>
 
 

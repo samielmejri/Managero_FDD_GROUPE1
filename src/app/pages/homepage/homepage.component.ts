@@ -23,17 +23,7 @@ import { Chart } from 'chart.js';
 
 
 import { QuizScheduleService } from '../../service/quiz-schedule/quiz-schedule.service';
-import { AfterViewInit, ElementRef } from '@angular/core';
-
-
-
-import { FullCalendarModule } from '@fullcalendar/angular';
-
-import { Calendar } from '@fullcalendar/core';
-import dayGridPlugin from '@fullcalendar/daygrid';
-import interactionPlugin from '@fullcalendar/interaction';
-import { QuizSchedule } from '../../pages/calendar/quiz-schedule';
-
+import {ElementRef } from '@angular/core';
 
 @Component({
   selector: 'app-homepage',
@@ -43,7 +33,7 @@ import { QuizSchedule } from '../../pages/calendar/quiz-schedule';
   
 
 })
-export class HomepageComponent implements OnInit, AfterViewInit {
+export class HomepageComponent implements OnInit {
   quizzes: QuizPlay[] = [];
   updateForm: FormGroup;
   sselectedQuiz: string = '';
@@ -94,10 +84,6 @@ export class HomepageComponent implements OnInit, AfterViewInit {
 
 
 
-  @ViewChild('calendar', { static: false }) calendarElementRef!: ElementRef;
-
-  calendar!: Calendar;
-  isCalendarInitialized = false;
 
 
   constructor(private quizService: QuizzService,
@@ -154,9 +140,6 @@ ngOnInit(): void {
   this.loadQuizzes();
   this.loadQuestions();
   this.fetchQuizzes();
-
-  this.ngAfterViewInit().then(() => this.loadQuizSchedules());
-  this.loadScheduleAndQuiz();
 }
 
   goToStep(step: number) {
@@ -471,29 +454,18 @@ scheduleQuiz(): void {
     return;
   }
 
+  // Concatenate scheduledAt with 'T' and add seconds and milliseconds
   this.scheduledDateTime = this.scheduledAt + ':00.00';
 
+  // Call the scheduleQuiz() method with quizId and scheduledAt parameters
   this.quizScheduleService.scheduleQuiz(this.selectedQuizId, this.scheduledDateTime).subscribe(
     (response) => {
       console.log('Quiz scheduled successfully:', response);
-
-      // Add the event to the calendar after scheduling
-      if (this.calendar) {
-        this.quizzService.getQuizById(this.selectedQuizId).subscribe(
-          (quiz: any) => {
-            this.calendar.addEvent({
-              title: quiz.title,
-              start: this.scheduledDateTime
-            });
-          },
-          error => {
-            console.error('Error fetching quiz after scheduling:', error);
-          }
-        );
-      }
+      // Handle success response
     },
     (error) => {
       console.error('Error scheduling quiz:', error);
+      // Handle error response
     }
   );
 }
@@ -511,103 +483,5 @@ scheduleQuiz(): void {
 
 
 
-
-
-
-ngAfterViewInit(): Promise<void> {
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      if (this.calendarElementRef) {
-        this.initializeCalendar();
-        resolve();
-      } else {
-        console.error('Calendar element not found!');
-        resolve(); // Resolve the promise to avoid hanging
-      }
-    }, 0);
-  });
-}
-
-
-
-private initializeCalendar(): void {
-  this.calendar = new Calendar(this.calendarElementRef.nativeElement, {
-    plugins: [dayGridPlugin, interactionPlugin],
-    initialView: 'dayGridMonth',
-    headerToolbar: {
-      left: 'prev,next today',
-      center: 'title',
-      right: 'dayGridMonth,timeGridWeek,timeGridDay'
-    }
-  });
-  this.calendar.render();
-  this.isCalendarInitialized = true;
-}
-
-
-
-private loadQuizSchedules(): void {
-  if (!this.isCalendarInitialized) {
-    console.error('Calendar is not initialized yet!');
-    return;
-  }
-
-  this.quizScheduleService.getAllScheduledQuizzes().subscribe(
-    schedules => {
-      schedules.forEach(schedule => {
-        this.quizService.getQuizById(schedule.quizId).subscribe(
-          (quiz: any) => {
-            if (this.calendar) {
-              this.calendar.addEvent({
-                title: quiz.title,
-                start: schedule.scheduledAt
-              });
-            } else {
-              console.error('Calendar is not initialized!');
-            }
-          },
-          error => {
-            console.error('Error fetching quiz:', error);
-          }
-        );
-      });
-    },
-    error => {
-      console.error('Error fetching quiz schedules:', error);
-    }
-  );
-}
-
-loadScheduleAndQuiz(): void {
-  this.quizScheduleService.scheduleQuiz(this.selectedQuizId, this.scheduledDateTime).subscribe(
-    (schedule: any) => {
-      this.schedule = schedule;
-      this.fetchQuizDetails();
-    },
-    error => {
-      console.error('Error fetching schedule:', error);
-    }
-  );
-
-}
-fetchQuizDetails(): void {
-  if (this.schedule?.quizId) {
-    this.quizService.getQuizById(this.schedule.quizId).subscribe(
-      (quiz: any) => {
-        if (quiz?.title) {
-          // Do something with quiz.title
-          console.log('Quiz title:', quiz.title);
-        } else {
-          console.error('Quiz title is missing!');
-        }
-      },
-      error => {
-        console.error('Error fetching quiz:', error);
-      }
-    );
-  } else {
-    console.error('Schedule or quizId is missing!');
-  }
-}
 
 }
