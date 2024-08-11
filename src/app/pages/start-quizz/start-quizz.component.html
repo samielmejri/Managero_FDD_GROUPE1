@@ -14,11 +14,21 @@
   <div class="container">
     <div class="breadcrumb-inner">
       <div class="section-title mb-0 text-center">
-        <h2 class="page-title">Start Quiz</h2>
+        <h2 class="page-title" style="font-size: 4.5em;">Start Quiz</h2>
       </div>
     </div>
   </div>
+
+  <div class="wrapper">
+    <div class="circle"></div>
+    <div class="circle"></div>
+    <div class="circle"></div>
+    <div class="shadow"></div>
+    <div class="shadow"></div>
+    <div class="shadow"></div>
 </div>
+</div>
+
 
 <div class="start-quiz-container">
   <div class="start-quiz-item" *ngFor="let quiz of quizzes">
@@ -29,6 +39,8 @@
     <button mat-raised-button color="primary" class="start-quiz-button" (click)="selectedQuizz = quiz; navigateToQuizzPage()">Start Quiz</button>
   </div>
 </div>
+
+
 
 </body>
 </html>
