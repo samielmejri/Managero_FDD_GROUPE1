@@ -3,7 +3,7 @@
  * Copyright Akveo. All Rights Reserved.
  * Licensed under the MIT License. See License.txt in the project root for license information.
  */
-import { BrowserModule } from '@angular/platform-browser';
+// import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
@@ -69,7 +69,7 @@ import { MatDialogModule } from '@angular/material/dialog';
     AngularEditorModule,
     FormsModule,
     ReactiveFormsModule,
-    BrowserModule,
+    // BrowserModule,
     BrowserAnimationsModule,
     HttpClientModule,
     AppRoutingModule,

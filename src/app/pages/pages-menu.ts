@@ -15,9 +15,18 @@ export const MENU_ITEMS: NbMenuItem[] = [
         {
           title: 'Quizz Dashboard',
           link: '/pages/home',
-        },        {
+        },     
+        {
           title: 'Start Quizz',
           link: '/pages/startquiz',
+        },     
+        {
+          title: 'Task Management',
+          link: '/pages/tasks',
+        },     
+        {
+          title: 'User-Story Management',
+          link: '/pages/user-stories',
         }
 
       

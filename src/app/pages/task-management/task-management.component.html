@@ -1,0 +1,59 @@
+<div>
+    <h2>Task Management</h2>
+    <form (ngSubmit)="onSubmit()">
+      <div>
+        <label>Title:</label>
+        <input [(ngModel)]="selectedTask.title" name="title" required />
+      </div>
+      <div>
+        <label>Description:</label>
+        <textarea [(ngModel)]="selectedTask.description" name="description" required></textarea>
+      </div>
+      <div>
+        <label>Started At:</label>
+        <input type="datetime-local" [(ngModel)]="selectedTask.startedAt" name="startedAt" required />
+      </div>
+      <div>
+        <label>Ended At:</label>
+        <input type="datetime-local" [(ngModel)]="selectedTask.endedAt" name="endedAt" required />
+      </div>
+      <div>
+        <label>State:</label>
+        <select [(ngModel)]="selectedTask.state" name="state" required>
+          <option value="IN_PROGRESS">In Progress</option>
+          <option value="DONE">Done</option>
+          <option value="PAUSED">Paused</option>
+          <option value="PLANNING">Planning</option>
+          <option value="CANCELED">Canceled</option>
+        </select>
+      </div>
+      <div>
+        <label>Priority:</label>
+        <select [(ngModel)]="selectedTask.priority" name="priority" required>
+          <option value="HIGH">High</option>
+          <option value="MEDIUM">Medium</option>
+          <option value="LOW">Low</option>
+        </select>
+      </div>
+      <div>
+        <label>Collaborators:</label>
+        <div *ngFor="let collaborator of selectedTask.collaborators; let i = index">
+          <input [(ngModel)]="collaborator.name" name="collaboratorName{{i}}" placeholder="Name" required />
+          <input [(ngModel)]="collaborator.email" name="collaboratorEmail{{i}}" placeholder="Email" required />
+          <button type="button" (click)="removeCollaborator(i)">Remove</button>
+        </div>
+        <button type="button" (click)="addCollaborator()">Add Collaborator</button>
+      </div>
+      <button type="submit">Submit</button>
+      <button type="button" (click)="clearSelection()">Clear Selection</button>
+    </form>
+  
+    <ul>
+      <li *ngFor="let task of tasks">
+        {{task.title}} - {{task.state}}
+        <button (click)="selectTask(task)">Edit</button>
+        <button (click)="deleteTask(task.id)">Delete</button>
+      </li>
+    </ul>
+  </div>
+  
