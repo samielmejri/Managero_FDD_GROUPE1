@@ -23,13 +23,8 @@ export const MENU_ITEMS: NbMenuItem[] = [
         {
           title: 'Task Management',
           link: '/pages/tasks',
-        },     
-        {
-          title: 'User-Story Management',
-          link: '/pages/user-stories',
         }
 
-      
         ]
 
       },

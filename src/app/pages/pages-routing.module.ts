@@ -27,7 +27,7 @@ import { HomepageComponent } from '../pages/homepage/homepage.component';
 import { CalendarComponent } from '../pages/calendar/calendar.component';
 
 import { TaskManagementComponent } from '../pages/task-management/task-management.component';
-import { UserStoryManagementComponent } from '../pages/user-story-management/user-story-management.component';
+//import { UserStoryManagementComponent } from '../pages/user-story-management/user-story-management.component';
 
 
 
@@ -36,7 +36,7 @@ const routes: Routes = [{
   component: PagesComponent,
   children: [
     { path: 'tasks', component: TaskManagementComponent },
-    { path: 'user-stories', component: UserStoryManagementComponent },
+   // { path: 'user-stories', component: UserStoryManagementComponent },
   
 
 

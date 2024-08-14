@@ -27,4 +27,8 @@ export class UserStoryService {
   deleteUserStory(id: string): Observable<void> {
     return this.http.delete<void>(`${this.apiUrl}/${id}`);
   }
+
+  getAllUserStories(): Observable<UserStory[]> {
+    return this.http.get<UserStory[]>(`${this.apiUrl}/getAll`);
+  }
 }

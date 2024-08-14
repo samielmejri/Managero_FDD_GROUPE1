@@ -29,7 +29,13 @@ import { NbStepperModule } from '@nebular/theme';
 import { TaskManagementComponent } from '../pages/task-management/task-management.component';
 import { TaskService } from '../service/task/task.service';
 import { UserStoryService } from '../service/user-story/user-story.service';
-import { UserStoryManagementComponent } from './user-story-management/user-story-management.component';
+//import { UserStoryManagementComponent } from './user-story-management/user-story-management.component';
+
+
+
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatButtonModule } from '@angular/material/button';
+import { MatInputModule } from '@angular/material/input';
 
 
 @NgModule({
@@ -48,7 +54,11 @@ import { UserStoryManagementComponent } from './user-story-management/user-story
     DashboardModule,
     ECommerceModule,
     MiscellaneousModule,
-    NgxEchartsModule.forRoot({ echarts: () => import('echarts') }), // Import ECharts
+    NgxEchartsModule.forRoot({ echarts: () => import('echarts') }), 
+    MatDialogModule,
+    MatButtonModule,
+    MatInputModule,
+
   ],
   declarations: [
     PagesComponent,
@@ -66,7 +76,7 @@ import { UserStoryManagementComponent } from './user-story-management/user-story
     //QuizScheduleComponent,
     HomepageComponent,
     TaskManagementComponent,
-    UserStoryManagementComponent,
+   // UserStoryManagementComponent,
   ],
  // providers: [TaskService, UserStoryService]
 })

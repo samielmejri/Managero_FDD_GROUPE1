@@ -2,12 +2,17 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { TaskService } from '../../service/task/task.service';
 import { Task } from '../../models/task.model';
 
+
+
+
+import { UserStoryService } from '../../service/user-story/user-story.service';
+import { UserStory } from '../../models/user-story.model';
+
 @Component({
   selector: 'ngx-task-management',
   templateUrl: './task-management.component.html',
   styleUrls: ['./task-management.component.scss']
 })
-
 export class TaskManagementComponent implements OnInit {
   tasks: Task[] = [];
   selectedTask: Task = {
@@ -17,19 +22,41 @@ export class TaskManagementComponent implements OnInit {
     endedAt: '',
     state: 'IN_PROGRESS',
     priority: 'MEDIUM',
-    collaborators: [] // Initialize collaborators array
+    collaborators: [] 
   };
+  isEditMode = false;
+
+
 
   @Output() taskSelected = new EventEmitter<string>();
 
-  constructor(private taskService: TaskService) {}
+
+
+
+
+
+
+  userStories: UserStory[] = [];
+  filteredUserStories: UserStory[] = [];
+  selectedUserStory: UserStory = { title: '', description: '', taskId: '' };
+  newUserStory: UserStory = { title: '', description: '', taskId: '' };
+  currentTaskId: string = '';
+  isPopupVisible: boolean = false;
+
+
+  currentStep: number = 1;
+
+
+
+  constructor(private taskService: TaskService,private userStoryService: UserStoryService) {}
 
   ngOnInit(): void {
-    this.loadTasks(); // Load tasks when component initializes
+    this.loadTasks(); 
+    this.loadUserStories();
   }
 
   onSubmit() {
-    if (this.selectedTask.id) {
+    if (this.isEditMode && this.selectedTask.id) {
       this.updateTask(this.selectedTask);
     } else {
       this.createTask(this.selectedTask);
@@ -49,7 +76,7 @@ export class TaskManagementComponent implements OnInit {
       if (index !== -1) {
         this.tasks[index] = task;
       }
-      this.clearSelection();
+      this.closePopup();
     });
   }
 
@@ -61,7 +88,12 @@ export class TaskManagementComponent implements OnInit {
 
   selectTask(task: Task) {
     this.selectedTask = { ...task };
-    this.taskSelected.emit(task.id!); // Emit the selected task ID
+    this.isEditMode = true;
+  }
+
+  closePopup() {
+    this.isEditMode = false;
+    this.clearSelection();
   }
 
   clearSelection() {
@@ -72,7 +104,7 @@ export class TaskManagementComponent implements OnInit {
       endedAt: '',
       state: 'IN_PROGRESS',
       priority: 'MEDIUM',
-      collaborators: [] // Clear collaborators
+      collaborators: [] 
     };
   }
 
@@ -88,4 +120,99 @@ export class TaskManagementComponent implements OnInit {
   loadTasks() {
     this.taskService.getTasks().subscribe(tasks => this.tasks = tasks);
   }
+
+  
+
+
+
+
+
+
+  goToStep(step: number) {
+    this.currentStep = step;
+  }
+
+  
+
+
+
+
+
+
+
+
+
+
+  onSubmitStory(): void {
+    this.createUserStory(this.newUserStory);
+  }
+
+  onUpdate(): void {
+    this.updateUserStory(this.selectedUserStory);
+    this.closeEditPopup();
+  }
+
+  loadUserStories(): void {
+    this.userStoryService.getAllUserStories().subscribe(userStories => {
+      this.userStories = userStories;
+      this.filterUserStories();
+    });
+  }
+
+ 
+  createUserStory(userStory: UserStory): void {
+    if (userStory.taskId) {
+      this.userStoryService.createUserStory(userStory, userStory.taskId).subscribe({
+        next: () => {
+          this.loadUserStories();
+          this.clearForm();
+        },
+        error: (err) => {
+          console.error('Error creating user story:', err);
+        }
+      });
+    } else {
+      console.error('No task ID provided in the form');
+    }
+  }
+
+  updateUserStory(userStory: UserStory): void {
+    if (userStory.id) {
+      this.userStoryService.updateUserStory(userStory.id, userStory).subscribe(() => this.loadUserStories());
+    }
+  }
+
+  deleteUserStory(id: string): void {
+    this.userStoryService.deleteUserStory(id).subscribe(() => this.loadUserStories());
+  }
+
+  openEditPopup(userStory: UserStory): void {
+    this.selectedUserStory = { ...userStory };
+    this.isPopupVisible = true;
+  }
+
+  closeEditPopup(): void {
+    this.isPopupVisible = false;
+  }
+
+  clearForm(): void {
+    this.newUserStory = { title: '', description: '', taskId: '' };
+  }
+
+  toggleTaskId(taskId: string): void {
+    if (this.currentTaskId === taskId) {
+      this.currentTaskId = '';  // Hide user stories if the same task is clicked again
+      this.filteredUserStories = [];
+    } else {
+      this.currentTaskId = taskId;
+      this.filterUserStories();  // Filter user stories for the selected task
+    }
+  }
+
+  filterUserStories(): void {
+    this.filteredUserStories = this.userStories.filter(us => us.taskId === this.currentTaskId);
+  }
 }
+
+
+
