@@ -3,7 +3,9 @@ package tn.esprit.manajero.Services;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import tn.esprit.manajero.Entities.Task;
+import tn.esprit.manajero.Entities.UserStory;
 import tn.esprit.manajero.Repositories.TaskRepository;
+import tn.esprit.manajero.Repositories.UserStoryRepository;
 
 import java.util.List;
 import java.util.Optional;
@@ -13,6 +15,10 @@ public class TaskService {
 
     @Autowired
     private TaskRepository taskRepository;
+
+    @Autowired
+    private UserStoryRepository userStoryRepository;
+
 
     public List<Task> getAllTasks() {
         return taskRepository.findAll();
@@ -46,6 +52,13 @@ public class TaskService {
     }
 
     public void deleteTask(String id) {
+        // Delete related user stories first
+        List<UserStory> relatedUserStories = userStoryRepository.findByTaskId(id);
+        for (UserStory userStory : relatedUserStories) {
+            userStoryRepository.delete(userStory);
+        }
+
+        // Delete the task
         taskRepository.deleteById(id);
     }
 }

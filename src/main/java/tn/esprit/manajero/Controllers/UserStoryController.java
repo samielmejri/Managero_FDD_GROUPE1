@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import tn.esprit.manajero.Entities.UserStory;
+import tn.esprit.manajero.Repositories.UserStoryRepository;
 import tn.esprit.manajero.Services.UserStoryService;
 
 import java.util.List;
@@ -17,6 +18,7 @@ public class UserStoryController {
 
     @Autowired
     private UserStoryService userStoryService;
+    private UserStoryRepository userStoryRepository;
 
     @PostMapping("/task/{taskId}")
     public ResponseEntity<UserStory> createUserStory(@RequestBody UserStory userStory, @PathVariable String taskId) {
@@ -42,4 +44,10 @@ public class UserStoryController {
         List<UserStory> userStories = userStoryService.getUserStoriesByTaskId(taskId);
         return ResponseEntity.ok(userStories);
     }
+
+    @GetMapping("/getAll")
+    public List<UserStory> getAllUserStories() {
+        return userStoryService.getAllUserStories();
+    }
+
 }

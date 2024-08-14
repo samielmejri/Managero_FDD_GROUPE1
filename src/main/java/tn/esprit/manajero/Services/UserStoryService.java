@@ -75,5 +75,9 @@ public class UserStoryService {
     public List<UserStory> getUserStoriesByTaskId(String taskId) {
         return userStoryRepository.findByTaskId(taskId);
     }
-}
 
+
+    public List<UserStory> getAllUserStories() {
+        return userStoryRepository.findAll();
+    }
+}
