@@ -1,110 +1,110 @@
 /* Style for the entire popup container */
 .popup-container {
-    background-color: #f5f5f5;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
-    max-width: 400px;
-    margin: auto;
-    position: relative; /* Ensure position relative for the close button */
+  background-color: #f5f5f5;
+  padding: 20px;
+  //border-radius: 10px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+  max-width: 400px;
+  margin: auto;
+  position: relative; /* Ensure position relative for the close button */
 }
 
 /* Style for the header */
 .popup-header {
-    font-size: 24px;
-    font-weight: bold;
-    text-align: center;
-    margin-bottom: 20px;
-    color: #333;
-    border-bottom: 2px solid #4CAF50; /* Add a green underline to match the buttons */
-    padding-bottom: 10px;
+  font-size: 24px;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 20px;
+  color: #333;
+  border-bottom: 2px solid #4CAF50; /* Add a green underline to match the buttons */
+  padding-bottom: 10px;
 }
 
 /* Style for the input fields */
 .popup-input {
-    width: 100%;
-    padding: 10px;
-    margin: 10px 0;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    box-sizing: border-box;
-    font-size: 16px;
-    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+  width: 100%;
+  padding: 10px;
+  margin: 10px 0;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-sizing: border-box;
+  font-size: 16px;
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
 }
 
 /* Hover and Focus Effects on Input Fields */
 .popup-input:hover,
 .popup-input:focus {
-    transform: scale(1.05); /* Slightly enlarges the input/textarea */
-    box-shadow: 0 0 8px rgba(0, 123, 255, 0.5); /* Adds a shadow effect */
-    border-color: #007bff; /* Change border color to match the shadow */
+  transform: scale(1.05); /* Slightly enlarges the input/textarea */
+  box-shadow: 0 0 8px rgba(0, 123, 255, 0.5); /* Adds a shadow effect */
+  border-color: #007bff; /* Change border color to match the shadow */
 }
 
 /* Style for the buttons */
 .popup-button {
-    background-color: #4CAF50;
-    color: white;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 16px;
-    margin-right: 10px;
+  background-color: #4CAF50;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  margin-right: 10px;
 }
 
 .popup-button:hover {
-    background-color: #45a049;
+  background-color: #45a049;
 }
 
 /* Style for the reset button */
 .popup-reset {
-    background-color: #f44336;
-    color: white;
+  background-color: #f44336;
+  color: white;
 }
 
 .popup-reset:hover {
-    background-color: #e53935;
+  background-color: #e53935;
 }
 
 /* Style for the Close Button */
 .close {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    cursor: pointer;
-    font-size: 30px;
-    font-weight: bold;
-    color: #dc3545; /* Red color */
-    transition: transform 0.2s ease-in-out, color 0.2s ease-in-out;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  cursor: pointer;
+  font-size: 30px;
+  font-weight: bold;
+  color: #dc3545; /* Red color */
+  transition: transform 0.2s ease-in-out, color 0.2s ease-in-out;
 }
 
 /* Define the rotation animation */
 @keyframes continuous-rotation {
-    from {
-        transform: rotate(0deg);
-    }
-    to {
-        transform: rotate(360deg);
-    }
+  from {
+      transform: rotate(0deg);
+  }
+  to {
+      transform: rotate(360deg);
+  }
 }
 
 /* Style for the close button */
 .close, .close-popup {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    cursor: pointer;
-    font-size: 30px;
-    font-weight: bold;
-    color: #dc3545; /* Red color */
-    transition: transform 0.2s ease-in-out, color 0.2s ease-in-out;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  cursor: pointer;
+  font-size: 30px;
+  font-weight: bold;
+  color: #dc3545; /* Red color */
+  transition: transform 0.2s ease-in-out, color 0.2s ease-in-out;
 }
 
 /* Apply the continuous rotation on hover */
 .close:hover, .close-popup:hover {
-    color: #c82333; /* Darker red on hover */
-    transform: scale(1.2); /* Enlarge on hover */
-    animation: continuous-rotation 1s linear infinite; /* Continuous rotation */
+  color: #c82333; /* Darker red on hover */
+  transform: scale(1.2); /* Enlarge on hover */
+  animation: continuous-rotation 1s linear infinite; /* Continuous rotation */
 }
 
 
@@ -143,21 +143,22 @@
     list-style: none;
     padding: 0;
     margin: 0;
-  }
+    flex-wrap: wrap; /* Allow wrapping on smaller screens */
+}
   
-  .stepper-nav ul li {
-    margin: 0 20px;
-  }
-  
-  .stepper-nav ul li a {
-    color: white;
-    padding: 10px 20px;
-    text-decoration: none;
-    background-color: #555;
-    border-radius: 5px;
-    transition: background-color 0.3s ease;
-  }
-  
+.stepper-nav ul li {
+  margin: 5px; /* Adjusted for better wrapping */
+}
+
+.stepper-nav ul li a {
+  color: white;
+  padding: 10px 20px;
+  text-decoration: none;
+  background-color: #555;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
   .stepper-nav ul li a.active,
   .stepper-nav ul li a:hover {
     background-color: #2196F3;
@@ -186,8 +187,11 @@
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     cursor: pointer;
     transition: transform 0.2s ease-in-out;
-  }
-  
+    flex: 1 1 calc(33.333% - 20px); /* Responsive card sizing */
+    max-width: calc(33.333% - 20px); /* Responsive card sizing */
+}
+
+
   .task-card:hover {
     transform: scale(1.05);
   }
@@ -204,7 +208,9 @@
     padding: 15px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     transition: transform 0.2s ease-in-out;
-  }
+    flex: 1 1 calc(50% - 20px); /* Responsive story card sizing */
+    max-width: calc(50% - 20px); /* Responsive story card sizing */
+}
   
   .user-story-card:hover {
     transform: scale(1.05);
@@ -235,130 +241,163 @@
 
 
 /* General Popup Styles */
+.popup {
+  position: fixed; /* Fixed positioning */
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 9999;
+  background-color: white;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  padding: 20px; /* Add padding inside the popup */
+  border-radius: 8px;
+  width: 400px; /* Fixed width for the popup */
+  max-width: 90vw; /* Ensure it doesn’t exceed viewport width */
+  max-height: 80vh; /* Ensure content doesn't overflow */
+  overflow-y: auto; /* Add scroll for overflow content */
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 .edit-popup {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 1000;
-  }
-  
-  .edit-popup-content {
-    background-color: #fff;
-    padding: 30px;
-    border-radius: 10px;
-    width: 350px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-    position: relative;
-    text-align: center;
-    transition: transform 0.2s ease-in-out; /* Smooth transition for scaling */
-  }
-  
-  .edit-popup-content h2 {
-    margin-bottom: 20px;
-    font-size: 1.5rem;
-  }
-  
-  .edit-popup-content input,
-  .edit-popup-content textarea {
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 15px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    font-size: 1rem;
-    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
-  }
-  
-  /* Hover and Focus Effects on Input Fields */
-  .edit-popup-content input:hover,
-  .edit-popup-content textarea:hover,
-  .edit-popup-content input:focus,
-  .edit-popup-content textarea:focus {
-    transform: scale(1.05); /* Slightly enlarges the input/textarea */
-    box-shadow: 0 0 8px rgba(0, 123, 255, 0.5); /* Adds a shadow effect */
-    border-color: #007bff; /* Change border color to match the shadow */
-  }
-  
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+
+.edit-popup-content {
+  background-color: #fff;
+  padding: 30px;
+  border-radius: 10px;
+  width: 350px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  position: relative;
+  text-align: center;
+  transition: transform 0.2s ease-in-out; /* Smooth transition for scaling */
+}
+
+.edit-popup-content h2 {
+  margin-bottom: 20px;
+  font-size: 1.5rem;
+}
+
+.edit-popup-content input,
+.edit-popup-content textarea {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 1rem;
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+/* Hover and Focus Effects on Input Fields */
+.edit-popup-content input:hover,
+.edit-popup-content textarea:hover,
+.edit-popup-content input:focus,
+.edit-popup-content textarea:focus {
+  transform: scale(1.05); /* Slightly enlarges the input/textarea */
+  box-shadow: 0 0 8px rgba(0, 123, 255, 0.5); /* Adds a shadow effect */
+  border-color: #007bff; /* Change border color to match the shadow */
+}
+
 /* Style for the Close Button */
 .close {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    cursor: pointer;
-    font-size: 30px;
-    font-weight: bold;
-    color: #dc3545; /* Red color */
-    transition: transform 0.2s ease-in-out, color 0.2s ease-in-out;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  cursor: pointer;
+  font-size: 30px;
+  font-weight: bold;
+  color: #dc3545; /* Red color */
+  transition: transform 0.2s ease-in-out, color 0.2s ease-in-out;
 }
 
 /* Define the rotation animation */
 @keyframes continuous-rotation {
-    from {
-        transform: rotate(0deg);
-    }
-    to {
-        transform: rotate(360deg);
-    }
+  from {
+      transform: rotate(0deg);
+  }
+  to {
+      transform: rotate(360deg);
+  }
 }
 
 /* Style for the close button */
 .close, .close-popup {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    cursor: pointer;
-    font-size: 30px;
-    font-weight: bold;
-    color: #dc3545; /* Red color */
-    transition: transform 0.2s ease-in-out, color 0.2s ease-in-out;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  cursor: pointer;
+  font-size: 30px;
+  font-weight: bold;
+  color: #dc3545; /* Red color */
+  transition: transform 0.2s ease-in-out, color 0.2s ease-in-out;
 }
 
 /* Apply the continuous rotation on hover */
 .close:hover, .close-popup:hover {
-    color: #c82333; /* Darker red on hover */
-    transform: scale(1.2); /* Enlarge on hover */
-    animation: continuous-rotation 1s linear infinite; /* Continuous rotation */
-}
-
-  
-  .button-container {
-    margin-top: 20px;
-  }
-  
-  .btn {
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 1rem;
-  }
-  
-  .btn-submit {
-    background-color: #28a745;
-    color: #fff;
-  }
-  
-  .btn-submit:hover {
-    background-color: #218838;
-  }
-  
-  .popup-header {
-    font-size: 24px;
-    font-weight: bold;
-    text-align: center;
-    margin-bottom: 20px;
-    color: #333;
-    border-bottom: 2px solid #4CAF50; /* Green underline */
-    padding-bottom: 10px;
+  color: #c82333; /* Darker red on hover */
+  transform: scale(1.2); /* Enlarge on hover */
+  animation: continuous-rotation 1s linear infinite; /* Continuous rotation */
 }
 
 
+.button-container {
+  margin-top: 20px;
+}
+
+.btn {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+.btn-submit {
+  background-color: #28a745;
+  color: #fff;
+}
+
+.btn-submit:hover {
+  background-color: #218838;
+}
+
+.popup-header {
+  font-size: 24px;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 20px;
+  color: #333;
+  border-bottom: 2px solid #4CAF50; /* Green underline */
+  padding-bottom: 10px;
+}
 
 
 
@@ -372,6 +411,15 @@
 
 
 
+.step-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh; /* Make each step container fill the full height */
+}
+
+.content-container {
+  flex-grow: 1; /* Ensure content takes up available space */
+}
 
 
 
@@ -379,51 +427,53 @@
 
 
 
-/* Container for the step navigation buttons */
 .step-navigation {
-    display: flex;
-    justify-content: flex-end; /* Aligns buttons to the right within the container */
-    margin-top: 20px; /* Adds some space above the buttons */
-    padding-bottom: 20px; /* Ensures some space below the buttons */
+  display: flex;
+  justify-content: flex-end; 
+  align-items: center; 
+  height: 18vh; 
+  padding-bottom: 20px; 
+  text-align: center;
+  margin-bottom: 20px; /* Space from the bottom */
 }
 
 /* Style for the buttons */
 .step-navigation button {
-    background-color: #dbdbdb; /* Green background color */
-    color: white; /* White text color */
-    padding: 10px 20px; /* Padding inside the buttons */
-    border: none; /* No border */
-    border-radius: 5px; /* Rounded corners */
-    cursor: pointer; /* Pointer cursor on hover */
-    font-size: 16px; /* Font size */
-    margin: 0 10px; /* Space between the buttons */
-    height: 50px; /* Static height for the buttons */
+  background-color: #dbdbdb; /* Button background color */
+  color: white; /* Button text color */
+  //padding: 10px 20px; /* Padding inside the buttons */
+  border: none; /* No border */
+  border-radius: 5px; /* Rounded corners */
+  cursor: pointer; /* Pointer cursor on hover */
+  font-size: 16px; 
+  margin: 5px;
 }
 
 /* Hover effect for the buttons */
 .step-navigation button:hover {
-    background-color: #000000; /* Slightly darker green on hover */
+  background-color: #000000; /* Slightly darker color on hover */
 }
 
 /* Wrapper around the main content */
 .main-content-wrapper {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    height: 100vh; /* Full height of the viewport */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 20vh; /* Full height of the viewport */
 }
 
 /* Adjust the container for the main content */
 .page-content {
-    flex: 1; /* Allows the content to take up available space */
-    padding: 20px; /* Padding around the content */
+  flex: 1; /* Allows the content to take up available space */
+  padding: 20px; /* Padding around the content */
 }
 
 /* Footer at the bottom */
 .page-footer {
-    align-self: flex-end; /* Pushes the footer to the bottom within the main-content-wrapper */
-    width: 100%; /* Ensures the footer stays within the content width */
+  text-align: center;
+  margin-top: 20px;
 }
+
 
 
 
@@ -656,3 +706,320 @@
     transform: translateX(-56px);
   }
   
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* CSS Styles for the Form */
+.form {
+  --input-focus: #2d8cf0;
+  --font-color: #323232;
+  --font-color-sub: #666;
+  --bg-color: #fff;
+  --main-color: #323232;
+  padding: 20px;
+  background: lightgrey;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  border-radius: 5px;
+  border: 2px solid var(--main-color);
+  box-shadow: 4px 4px var(--main-color);
+  max-width: 450px; /* Adjust the max-width as needed */
+  margin: 0 auto; /* Center the form horizontally */
+}
+
+.centered-form > * {
+  width: 100%;
+  max-width: 400px; /* Adjust the max-width as needed */
+  margin: 10px 0;   /* Adjust the margin as needed */
+}
+
+.title {
+  color: var(--font-color);
+  font-weight: 900;
+  font-size: 20px;
+  margin-bottom: 25px;
+}
+
+.title span {
+  color: var(--font-color-sub);
+  font-weight: 600;
+  font-size: 17px;
+}
+
+.input {
+  width: 100%;
+  height: 40px;
+  border-radius: 5px;
+  border: 2px solid var(--main-color);
+  background-color: var(--bg-color);
+  box-shadow: 4px 4px var(--main-color);
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--font-color);
+  padding: 5px 10px;
+  outline: none;
+}
+
+.input::placeholder {
+  color: var(--font-color-sub);
+  opacity: 0.8;
+}
+
+.input:focus {
+  border: 2px solid var(--input-focus);
+}
+
+.button-log, .button-confirm {
+  cursor: pointer;
+  border-radius: 5px;
+  border: 2px solid var(--main-color);
+  background-color: var(--bg-color);
+  box-shadow: 4px 4px var(--main-color);
+  font-weight: 600;
+  color: var(--font-color);
+  padding: 10px 20px;
+}
+
+.button-log:active, .button-confirm:active {
+  box-shadow: 0px 0px var(--main-color);
+  transform: translate(3px, 3px);
+}
+
+.button-confirm {
+  margin-top: 20px;
+  width: 120px;
+  font-size: 17px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+/* General Card Styling */
+.card {
+  --input-focus: #2d8cf0;
+  --font-color: #323232;
+  --font-color-sub: #666;
+  --bg-color: lightgrey;
+  --main-color: #323232;
+  padding: 20px;
+  background: var(--bg-color);
+  border-radius: 6px;
+  border: 2px solid var(--main-color);
+  box-shadow: 4px 4px var(--main-color);
+  font-family: Arial, sans-serif;
+}
+
+/* Title Styling */
+.card__title {
+  font-weight: 900;
+  font-size: 20px;
+  color: var(--font-color);
+  margin-bottom: 25px;
+}
+
+.card__data {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+/* Header Styling */
+.card__header {
+  display: flex;
+  font-weight: 600;
+  background-color: #f6f8fa;
+  border-bottom: 2px solid #e1e4e8;
+  padding: 12px 8px;
+  margin-bottom: 15px; /* Space between header and rows */
+  color: var(--font-color);
+}
+
+.item {
+  flex: 1;
+  padding: 12px 8px;
+  text-align: left;
+}
+
+/* Row Styling */
+.card__row {
+  display: flex;
+  align-items: center;
+  background-color: rgb(237, 237, 237);
+  border-radius: 5px;
+  border: 2px solid var(--main-color);
+  box-shadow: 4px 4px var(--main-color);
+  margin-bottom: 20px; /* Space between rows */
+  padding: 12px 8px;
+}
+
+/* Status Styling */
+.status-planning {
+  background-color: #f5bfbf;
+  color: #d30d0d;
+  padding: 2px 8px;
+  border-radius: 4px;
+}
+
+.status-inprogress {
+  background-color: #e1ecf4;
+  color: #0366d6;
+  padding: 2px 8px;
+  border-radius: 4px;
+}
+
+.status-done {
+  background-color: #daf5d5;
+  color: #28a745;
+  padding: 2px 8px;
+  border-radius: 4px;
+}
+
+.status-paused {
+  background-color: #eeff00;
+  color: #7f8805;
+  padding: 2px 8px;
+  border-radius: 4px;
+}
+
+.status-canceled {
+  background-color: #ffc4e9;
+  color: #fd04a2;
+  padding: 2px 8px;
+  border-radius: 4px;
+}
+
+/* Priority Styling */
+/* Priority Styling */
+/* Priority Styling */
+.card__row .priority-high::before {
+  content: "\2191";
+  color: #d73a49;
+  font-size: 12px;
+  margin-right: 4px;
+}
+
+.card__row .priority-medium::before {
+  content: "\2197";
+  color: #e36209;
+  font-size: 12px;
+  margin-right: 4px;
+}
+
+.card__row .priority-low::before {
+  content: "\2193";
+  color: #6a737d;
+  font-size: 12px;
+  margin-right: 4px;
+}
+
+
+
+/* Button Styling */
+.button {
+  cursor: pointer;
+  width: 100px;
+  height: 35px;
+  border-radius: 5px;
+  border: 2px solid var(--main-color);
+  background-color: var(--bg-color);
+  box-shadow: 2px 2px var(--main-color);
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--font-color);
+  margin: 0 5px;
+}
+
+.button:active {
+  box-shadow: 0px 0px var(--main-color);
+  transform: translate(2px, 2px);
+}
+
+.item:last-child {
+  display: flex;
+  justify-content: flex-end;
+}
+
+
+
+
+
+
+@keyframes glow {
+  0% {
+    text-shadow: 0 0 5px #323232, 0 0 10px #323232, 0 0 15px #323232, 0 0 20px #323232, 0 0 30px #323232;
+  }
+  50% {
+    text-shadow: 0 0 10px #000000, 0 0 20px #000000, 0 0 30px #000000, 0 0 40px #000000, 0 0 60px #000000;
+  }
+  100% {
+    text-shadow: 0 0 5px #8e8787, 0 0 10px #8e8787, 0 0 15px #8e8787, 0 0 20px #8e8787, 0 0 30px #8e8787;
+  }
+}
+
+.title-container {
+  text-align: center; /* Centers the h2 inside this container */
+  width: 100%; /* Makes sure the container spans the full width */
+}
+
+.titlee {
+  color: #fff; /* White color for the text */
+  font-family: 'Arial', sans-serif; /* Font family */
+  font-size: 2.5em; /* Larger font size */
+  font-weight: bold; /* Bold text */
+  margin: 20px 0; /* Vertical spacing */
+  padding: 10px; /* Padding around the text */
+  border-bottom: 2px solid #ddd; /* Bottom border */
+  display: inline-block; /* Ensures the border spans only the text width */
+  animation: glow 1.5s infinite alternate; /* Apply the glow animation */
+}

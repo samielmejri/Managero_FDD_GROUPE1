@@ -154,6 +154,7 @@ export class TaskManagementComponent implements OnInit {
 
   loadUserStories(): void {
     this.userStoryService.getAllUserStories().subscribe(userStories => {
+      console.log('Loaded user stories:', userStories); // Add this line
       this.userStories = userStories;
       this.filterUserStories();
     });
@@ -177,6 +178,7 @@ export class TaskManagementComponent implements OnInit {
   }
 
   updateUserStory(userStory: UserStory): void {
+    console.log('Updating user story:', userStory); // Add this line
     if (userStory.id) {
       this.userStoryService.updateUserStory(userStory.id, userStory).subscribe(() => this.loadUserStories());
     }
