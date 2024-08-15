@@ -32,7 +32,7 @@ public class Task {
     // Getters and Setters
 
     public enum TaskState {
-        IN_PROGRESS, DONE, PAUSED, PLANNING, CANCELED
+        INPROGRESS, DONE, PAUSED, PLANNING, CANCELED
     }
 
     public enum Priority {
