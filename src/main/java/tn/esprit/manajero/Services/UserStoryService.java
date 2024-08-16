@@ -22,11 +22,9 @@ public class UserStoryService {
     private TaskRepository taskRepository;
 
     public UserStory createUserStory(UserStory userStory, String taskId) {
-        // Set the taskId for the user story
         userStory.setTaskId(taskId);
         UserStory createdUserStory = userStoryRepository.save(userStory);
 
-        // Update the task to include the new user story
         Optional<Task> taskOptional = taskRepository.findById(taskId);
         if (taskOptional.isPresent()) {
             Task task = taskOptional.get();
@@ -58,7 +56,6 @@ public class UserStoryService {
             String taskId = userStory.getTaskId();
             userStoryRepository.deleteById(id);
 
-            // Remove the user story from the associated task
             Optional<Task> taskOptional = taskRepository.findById(taskId);
             if (taskOptional.isPresent()) {
                 Task task = taskOptional.get();
@@ -73,11 +70,35 @@ public class UserStoryService {
     }
 
     public List<UserStory> getUserStoriesByTaskId(String taskId) {
-        return userStoryRepository.findByTaskId(taskId);
+        return userStoryRepository.findByTaskId(taskId).stream()
+                .filter(userStory -> !userStory.isArchived())
+                .collect(Collectors.toList());
     }
 
 
     public List<UserStory> getAllUserStories() {
-        return userStoryRepository.findAll();
+        return userStoryRepository.findAll().stream()
+                .filter(userStory -> !userStory.isArchived())
+                .collect(Collectors.toList());
+    }
+
+    public void archiveUserStory(String id) {
+        Optional<UserStory> userStoryOptional = userStoryRepository.findById(id);
+        userStoryOptional.ifPresent(userStory -> {
+            userStory.setArchived(true);
+            userStoryRepository.save(userStory);
+        });
+    }
+
+    public List<UserStory> getArchivedUserStories() {
+        return userStoryRepository.findByArchivedTrue();
+    }
+
+    public void restoreUserStory(String id) {
+        Optional<UserStory> userStoryOptional = userStoryRepository.findById(id);
+        userStoryOptional.ifPresent(userStory -> {
+            userStory.setArchived(false);
+            userStoryRepository.save(userStory);
+        });
     }
 }

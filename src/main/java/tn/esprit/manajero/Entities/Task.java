@@ -29,10 +29,11 @@ public class Task {
     private List<Collaborator> collaborators;
 
     private List<UserStory> userStories = new ArrayList<>();
-    // Getters and Setters
+    private boolean archived;
+
 
     public enum TaskState {
-        INPROGRESS, DONE, PAUSED, PLANNING, CANCELED
+        IN_PROGRESS, DONE, PAUSED, PLANNING, CANCELED
     }
 
     public enum Priority {
@@ -40,4 +41,5 @@ public class Task {
     }
 
 }
+
 

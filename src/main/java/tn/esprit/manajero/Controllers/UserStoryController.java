@@ -4,50 +4,57 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import tn.esprit.manajero.Entities.UserStory;
-import tn.esprit.manajero.Repositories.UserStoryRepository;
 import tn.esprit.manajero.Services.UserStoryService;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
-@RequestMapping("/userstories")
-@CrossOrigin(origins = "http://localhost:4200") // Allow requests from Angular app
-
+@RequestMapping("/user-stories")
+@CrossOrigin(origins = "http://localhost:4200")
 public class UserStoryController {
 
     @Autowired
     private UserStoryService userStoryService;
-    private UserStoryRepository userStoryRepository;
 
-    @PostMapping("/task/{taskId}")
-    public ResponseEntity<UserStory> createUserStory(@RequestBody UserStory userStory, @PathVariable String taskId) {
-        UserStory createdUserStory = userStoryService.createUserStory(userStory, taskId);
-        return ResponseEntity.ok(createdUserStory);
+    @PostMapping
+    public UserStory createUserStory(@RequestBody UserStory userStory, @RequestParam String taskId) {
+        return userStoryService.createUserStory(userStory, taskId);
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<UserStory> updateUserStory(@PathVariable String id, @RequestBody UserStory userStory) {
-        Optional<UserStory> updatedUserStory = userStoryService.updateUserStory(id, userStory);
-        return updatedUserStory.map(ResponseEntity::ok)
-                .orElseGet(() -> ResponseEntity.notFound().build());
-    }
-
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteUserStory(@PathVariable String id) {
-        userStoryService.deleteUserStory(id);
-        return ResponseEntity.noContent().build();
-    }
-
-    @GetMapping("/task/{taskId}")
-    public ResponseEntity<List<UserStory>> getUserStoriesByTaskId(@PathVariable String taskId) {
-        List<UserStory> userStories = userStoryService.getUserStoriesByTaskId(taskId);
-        return ResponseEntity.ok(userStories);
-    }
-
-    @GetMapping("/getAll")
+    @GetMapping
     public List<UserStory> getAllUserStories() {
         return userStoryService.getAllUserStories();
     }
 
+    @GetMapping("/{taskId}")
+    public List<UserStory> getUserStoriesByTaskId(@PathVariable String taskId) {
+        return userStoryService.getUserStoriesByTaskId(taskId);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<UserStory> updateUserStory(@PathVariable String id, @RequestBody UserStory userStory) {
+        return userStoryService.updateUserStory(id, userStory)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
+    }
+
+    @DeleteMapping("/{id}")
+    public void deleteUserStory(@PathVariable String id) {
+        userStoryService.deleteUserStory(id);
+    }
+
+    @PostMapping("/{id}/archive")
+    public void archiveUserStory(@PathVariable String id) {
+        userStoryService.archiveUserStory(id);
+    }
+
+    @GetMapping("/archived")
+    public List<UserStory> getArchivedUserStories() {
+        return userStoryService.getArchivedUserStories();
+    }
+
+    @PostMapping("/{id}/restore")
+    public void restoreUserStory(@PathVariable String id) {
+        userStoryService.restoreUserStory(id);
+    }
 }

@@ -7,4 +7,5 @@ import java.util.List;
 
 public interface UserStoryRepository extends MongoRepository<UserStory, String> {
     List<UserStory> findByTaskId(String taskId);
+    List<UserStory> findByArchivedTrue();
 }

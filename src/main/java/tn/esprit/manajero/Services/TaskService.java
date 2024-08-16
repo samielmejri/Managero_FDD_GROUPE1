@@ -9,6 +9,7 @@ import tn.esprit.manajero.Repositories.UserStoryRepository;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class TaskService {
@@ -19,9 +20,10 @@ public class TaskService {
     @Autowired
     private UserStoryRepository userStoryRepository;
 
-
     public List<Task> getAllTasks() {
-        return taskRepository.findAll();
+        return taskRepository.findAll().stream()
+                .filter(task -> !task.isArchived())
+                .collect(Collectors.toList());
     }
 
     public Optional<Task> getTaskById(String id) {
@@ -52,13 +54,30 @@ public class TaskService {
     }
 
     public void deleteTask(String id) {
-        // Delete related user stories first
         List<UserStory> relatedUserStories = userStoryRepository.findByTaskId(id);
         for (UserStory userStory : relatedUserStories) {
             userStoryRepository.delete(userStory);
         }
-
-        // Delete the task
         taskRepository.deleteById(id);
+    }
+
+    public void archiveTask(String id) {
+        Optional<Task> taskOptional = taskRepository.findById(id);
+        taskOptional.ifPresent(task -> {
+            task.setArchived(true);
+            taskRepository.save(task);
+        });
+    }
+
+    public List<Task> getArchivedTasks() {
+        return taskRepository.findByArchivedTrue();
+    }
+
+    public void restoreTask(String id) {
+        Optional<Task> taskOptional = taskRepository.findById(id);
+        taskOptional.ifPresent(task -> {
+            task.setArchived(false);
+            taskRepository.save(task);
+        });
     }
 }

@@ -18,5 +18,6 @@ public class UserStory {
     private String title;
     private String description;
     private String taskId;
+    private boolean archived;
 
 }
