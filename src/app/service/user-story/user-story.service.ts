@@ -7,19 +7,18 @@ import { UserStory } from '../../models/user-story.model';
   providedIn: 'root'
 })
 export class UserStoryService {
-  private apiUrl = 'http://localhost:8089/userstories';
+  private apiUrl = 'http://localhost:8089/user-stories';  // Corrected the base API URL
 
   constructor(private http: HttpClient) { }
 
   getUserStories(taskId: string): Observable<UserStory[]> {
-    return this.http.get<UserStory[]>(`${this.apiUrl}/task/${taskId}`);
+    return this.http.get<UserStory[]>(`${this.apiUrl}/${taskId}`);  // Corrected the endpoint to match backend
   }
 
-    
   createUserStory(userStory: UserStory, taskId: string): Observable<UserStory> {
-    return this.http.post<UserStory>(`${this.apiUrl}/task/${taskId}`, userStory);
+    return this.http.post<UserStory>(`${this.apiUrl}?taskId=${taskId}`, userStory);  // Corrected the endpoint
   }
-  
+
   updateUserStory(id: string, userStory: UserStory): Observable<UserStory> {
     return this.http.put<UserStory>(`${this.apiUrl}/${id}`, userStory);
   }
@@ -29,6 +28,20 @@ export class UserStoryService {
   }
 
   getAllUserStories(): Observable<UserStory[]> {
-    return this.http.get<UserStory[]>(`${this.apiUrl}/getAll`);
+    return this.http.get<UserStory[]>(this.apiUrl);  // Removed the `archived=false` query parameter
   }
+
+  archiveUserStory(id: string): Observable<void> {
+    return this.http.post<void>(`${this.apiUrl}/${id}/archive`, {});  // Corrected the API method to POST
+  }
+
+  getArchivedUserStories(): Observable<UserStory[]> {
+    return this.http.get<UserStory[]>(`${this.apiUrl}/archived`);  // Corrected the API endpoint
+  }
+
+  restoreUserStory(id: string): Observable<UserStory> {
+    return this.http.post<UserStory>(`${this.apiUrl}/${id}/restore`, {});  // Updated to use apiUrl
 }
+
+
+  }

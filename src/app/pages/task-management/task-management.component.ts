@@ -48,11 +48,26 @@ export class TaskManagementComponent implements OnInit {
 
 
 
+
+
+
+  archivedTasks: Task[] = [];
+  archivedUserStories: UserStory[] = [];
+
+
+
   constructor(private taskService: TaskService,private userStoryService: UserStoryService) {}
 
   ngOnInit(): void {
     this.loadTasks(); 
     this.loadUserStories();
+    this.loadArchivedTasks();
+    this.loadArchivedUserStories();
+    this.taskService.taskArchived.subscribe(id => {
+      // Fetch the updated list of archived tasks
+      this.fetchArchivedTasks();
+    });
+  
   }
 
   onSubmit() {
@@ -80,11 +95,16 @@ export class TaskManagementComponent implements OnInit {
     });
   }
 
-  deleteTask(id: string) {
-    this.taskService.deleteTask(id).subscribe(() => {
+  archiveTask(id: string) {
+    this.taskService.archiveTask(id).subscribe(() => {
+      // Remove from active tasks
       this.tasks = this.tasks.filter((task) => task.id !== id);
+      // Load the updated archived tasks list
+      this.loadArchivedTasks();
     });
+    console.log(`Task ${id} archived.`);
   }
+  
 
   selectTask(task: Task) {
     this.selectedTask = { ...task };
@@ -184,9 +204,17 @@ export class TaskManagementComponent implements OnInit {
     }
   }
 
-  deleteUserStory(id: string): void {
-    this.userStoryService.deleteUserStory(id).subscribe(() => this.loadUserStories());
+  archiveUserStory(id: string): void {
+    this.userStoryService.archiveUserStory(id).subscribe(() => {
+      // Remove from active user stories
+      this.userStories = this.userStories.filter((story) => story.id !== id);
+      // Load the updated archived user stories list
+      this.loadArchivedUserStories();
+    });
+    console.log(`User story ${id} archived.`);
   }
+    
+
 
   openEditPopup(userStory: UserStory): void {
     this.selectedUserStory = { ...userStory };
@@ -214,7 +242,98 @@ export class TaskManagementComponent implements OnInit {
   filterUserStories(): void {
     this.filteredUserStories = this.userStories.filter(us => us.taskId === this.currentTaskId);
   }
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  loadArchivedTasks() {
+    this.taskService.getArchivedTasks().subscribe(tasks => this.archivedTasks = tasks);
+  }
+
+  loadArchivedUserStories() {
+    this.userStoryService.getArchivedUserStories().subscribe(userStories => this.archivedUserStories = userStories);
+  }
+
+  restoreTask(taskId: string) {
+        console.log(`Restoring task with id: ${taskId}`);
+    this.taskService.restoreTask(taskId).subscribe((restoredTask) => {
+      console.log('Task restored:', restoredTask);
+      // Push the restored task to the tasks array
+      this.tasks.push(restoredTask);
+      // Optionally remove the restored task from archived tasks
+      this.archivedTasks = this.archivedTasks.filter(task => task.id !== taskId);
+    });
+    this.currentStep = 2;
+  }
+    
+
+  restoreUserStory(userStoryId: string) {
+    this.userStoryService.restoreUserStory(userStoryId).subscribe((restoredUserStory) => {
+      // Push the restored user story to the userStories array
+      this.userStories.push(restoredUserStory);
+      // Optionally remove the restored user story from archived user stories
+      this.archivedUserStories = this.archivedUserStories.filter(story => story.id !== userStoryId);
+      // Re-filter user stories for the current task if needed
+      this.filterUserStories();
+    });
+    this.currentStep = 4;
+  }
+  
+  deleteTaskPermanently(id: string) {
+    this.taskService.deleteTask(id).subscribe(() => this.loadArchivedTasks());
+  }
+
+  deleteUserStoryPermanently(id: string) {
+    this.userStoryService.deleteUserStory(id).subscribe(() => this.loadArchivedUserStories());
+  }
+
+  
+
+
+
+
+
+
+
+
+
+  // Method to confirm and archive a task
+confirmArchiveTask(taskId: string) {
+  if (confirm('Are you sure you want to archive this task?')) {
+    this.archiveTask(taskId);
+  }
 }
+
+// Method to confirm and archive a user story
+confirmArchiveUserStory(userStoryId: string) {
+  if (confirm('Are you sure you want to archive this user story?')) {
+    this.archiveUserStory(userStoryId);
+  }
+}
+
+
+
+
+
+
+
+
+fetchArchivedTasks() {
+  this.taskService.getArchivedTasks().subscribe(tasks => {
+    this.archivedTasks = tasks;
+  });
+}
+}
+
 
 
 
