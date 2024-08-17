@@ -8,6 +8,9 @@ import { Task } from '../../models/task.model';
 import { UserStoryService } from '../../service/user-story/user-story.service';
 import { UserStory } from '../../models/user-story.model';
 
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+
+
 @Component({
   selector: 'ngx-task-management',
   templateUrl: './task-management.component.html',
@@ -26,7 +29,7 @@ export class TaskManagementComponent implements OnInit {
   };
   isEditMode = false;
 
-
+  taskForm: FormGroup;
 
   @Output() taskSelected = new EventEmitter<string>();
 
@@ -54,21 +57,44 @@ export class TaskManagementComponent implements OnInit {
   archivedTasks: Task[] = [];
   archivedUserStories: UserStory[] = [];
 
+  selectedTaskName: string = '';
+  
+  
+  showSuccess: boolean = false;
 
+  showSuccessss: boolean = false;
 
-  constructor(private taskService: TaskService,private userStoryService: UserStoryService) {}
+  showSuccessedittask: boolean = false;
+
+  showSuccessarchive: boolean = false;
+
+  showSuccesseditstory: boolean = false;
+
+  showSuccessarchivestory: boolean = false;
+
+  showSuccessrestoretask: boolean = false;
+
+  showSuccessrestorestory: boolean = false;
+
+  showSuccessdeletetask: boolean = false;
+
+  showSuccessdeletestory: boolean = false;
+
+  constructor(private taskService: TaskService,private userStoryService: UserStoryService, private fb: FormBuilder) {}
 
   ngOnInit(): void {
     this.loadTasks(); 
     this.loadUserStories();
     this.loadArchivedTasks();
-    this.loadArchivedUserStories();
-    this.taskService.taskArchived.subscribe(id => {
-      // Fetch the updated list of archived tasks
-      this.fetchArchivedTasks();
-    });
+    this.loadArchivedUserStories();  
   
-  }
+      // Initialize the form and form controls
+      this.taskForm = this.fb.group({
+        taskId: ['', Validators.required]
+        // Add other form controls here if necessary
+      });
+    }
+  
 
   onSubmit() {
     if (this.isEditMode && this.selectedTask.id) {
@@ -76,6 +102,24 @@ export class TaskManagementComponent implements OnInit {
     } else {
       this.createTask(this.selectedTask);
     }
+
+    if (this.taskForm.valid) {
+      const formValue = this.taskForm.value;
+      if (this.isEditMode && this.selectedTask.id) {
+        this.updateTask(this.selectedTask);
+      } else {
+        const task = { ...this.selectedTask, id: formValue.taskId };
+        this.createTask(task);
+      }
+    }
+
+
+    this.showSuccessss = true;
+    setTimeout(() => {
+      this.showSuccessss = false;
+    }, 5000);
+    
+  
   }
 
   createTask(task: Task) {
@@ -93,6 +137,11 @@ export class TaskManagementComponent implements OnInit {
       }
       this.closePopup();
     });
+
+    this.showSuccessedittask = true;
+    setTimeout(() => {
+      this.showSuccessedittask = false;
+    }, 5000);
   }
 
   archiveTask(id: string) {
@@ -165,11 +214,20 @@ export class TaskManagementComponent implements OnInit {
 
   onSubmitStory(): void {
     this.createUserStory(this.newUserStory);
+    this.showSuccess = true;
+    setTimeout(() => {
+      this.showSuccess = false;
+    }, 5000);
   }
+
 
   onUpdate(): void {
     this.updateUserStory(this.selectedUserStory);
     this.closeEditPopup();
+    this.showSuccesseditstory = true;
+    setTimeout(() => {
+      this.showSuccesseditstory = false;
+    }, 5000);
   }
 
   loadUserStories(): void {
@@ -208,11 +266,14 @@ export class TaskManagementComponent implements OnInit {
     this.userStoryService.archiveUserStory(id).subscribe(() => {
       // Remove from active user stories
       this.userStories = this.userStories.filter((story) => story.id !== id);
+      this.filteredUserStories = this.filteredUserStories.filter((story) => story.id !== id); // Update the filtered list
       // Load the updated archived user stories list
+      this.loadUserStories();
       this.loadArchivedUserStories();
     });
     console.log(`User story ${id} archived.`);
   }
+  
     
 
 
@@ -256,6 +317,7 @@ export class TaskManagementComponent implements OnInit {
 
 
   loadArchivedTasks() {
+    console.log(this.tasks);
     this.taskService.getArchivedTasks().subscribe(tasks => this.archivedTasks = tasks);
   }
 
@@ -268,32 +330,57 @@ export class TaskManagementComponent implements OnInit {
     this.taskService.restoreTask(taskId).subscribe((restoredTask) => {
       console.log('Task restored:', restoredTask);
       // Push the restored task to the tasks array
+      this.loadTasks(); 
+      this.loadArchivedTasks();
       this.tasks.push(restoredTask);
       // Optionally remove the restored task from archived tasks
       this.archivedTasks = this.archivedTasks.filter(task => task.id !== taskId);
     });
-    this.currentStep = 2;
+    this.currentStep =4;
+
+    this.showSuccessrestoretask = true;
+    setTimeout(() => {
+      this.showSuccessrestoretask = false;
+    }, 5000);
   }
     
 
   restoreUserStory(userStoryId: string) {
     this.userStoryService.restoreUserStory(userStoryId).subscribe((restoredUserStory) => {
       // Push the restored user story to the userStories array
+      this.loadUserStories();
+      this.loadArchivedUserStories();
       this.userStories.push(restoredUserStory);
+      if (restoredUserStory.taskId === this.currentTaskId) {
+        this.filteredUserStories.push(restoredUserStory); // Update the filtered list
+      }
       // Optionally remove the restored user story from archived user stories
       this.archivedUserStories = this.archivedUserStories.filter(story => story.id !== userStoryId);
-      // Re-filter user stories for the current task if needed
-      this.filterUserStories();
     });
     this.currentStep = 4;
+
+    this.showSuccessrestorestory = true;
+    setTimeout(() => {
+      this.showSuccessrestorestory = false;
+    }, 5000);
   }
+  
   
   deleteTaskPermanently(id: string) {
     this.taskService.deleteTask(id).subscribe(() => this.loadArchivedTasks());
+    this.showSuccessdeletetask = true;
+    setTimeout(() => {
+      this.showSuccessdeletetask = false;
+    }, 5000);
   }
 
   deleteUserStoryPermanently(id: string) {
     this.userStoryService.deleteUserStory(id).subscribe(() => this.loadArchivedUserStories());
+
+    this.showSuccessdeletestory = true;
+    setTimeout(() => {
+      this.showSuccessdeletestory = false;
+    }, 5000);
   }
 
   
@@ -311,6 +398,10 @@ confirmArchiveTask(taskId: string) {
   if (confirm('Are you sure you want to archive this task?')) {
     this.archiveTask(taskId);
   }
+  this.showSuccessarchive = true;
+  setTimeout(() => {
+    this.showSuccessarchive = false;
+  }, 5000);
 }
 
 // Method to confirm and archive a user story
@@ -318,6 +409,10 @@ confirmArchiveUserStory(userStoryId: string) {
   if (confirm('Are you sure you want to archive this user story?')) {
     this.archiveUserStory(userStoryId);
   }
+  this.showSuccessarchivestory = true;
+  setTimeout(() => {
+    this.showSuccessarchivestory = false;
+  }, 5000);
 }
 
 
@@ -327,11 +422,14 @@ confirmArchiveUserStory(userStoryId: string) {
 
 
 
-fetchArchivedTasks() {
-  this.taskService.getArchivedTasks().subscribe(tasks => {
-    this.archivedTasks = tasks;
-  });
+onTaskNameChange(event: any) {
+  const selectedTask = this.tasks.find(task => task.title === event.target.value);
+  if (selectedTask) {
+    this.newUserStory.taskId = selectedTask.id;
+  }
 }
+
+
 }
 
 

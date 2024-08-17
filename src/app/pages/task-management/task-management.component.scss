@@ -1023,3 +1023,73 @@
   display: inline-block; /* Ensures the border spans only the text width */
   animation: glow 1.5s infinite alternate; /* Apply the glow animation */
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.success-animation {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 1000; /* Make sure it's on top of other elements */
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.success-box {
+  display: flex;
+  align-items: center;
+  background-color: #4CAF50; /* Green background for success */
+  color: white;
+  padding: 10px 20px;
+  border-radius: 5px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+  font-size: 14px; /* Adjust font size as needed */
+  max-width: 300px; /* Limit the width of the box */
+  text-align: center;
+  opacity: 0;
+  animation: fadeInOut 3s forwards;
+}
+
+.success-icon {
+  font-size: 20px;
+  margin-right: 10px;
+}
+
+.success-message {
+  flex: 1;
+}
+
+@keyframes fadeInOut {
+  0% {
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}

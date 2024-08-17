@@ -28,20 +28,20 @@ export class UserStoryService {
   }
 
   getAllUserStories(): Observable<UserStory[]> {
-    return this.http.get<UserStory[]>(this.apiUrl);  // Removed the `archived=false` query parameter
+    return this.http.get<UserStory[]>(this.apiUrl);  
   }
 
   archiveUserStory(id: string): Observable<void> {
-    return this.http.post<void>(`${this.apiUrl}/${id}/archive`, {});  // Corrected the API method to POST
+    return this.http.post<void>(`${this.apiUrl}/${id}/archive`, {});  
   }
 
   getArchivedUserStories(): Observable<UserStory[]> {
-    return this.http.get<UserStory[]>(`${this.apiUrl}/archived`);  // Corrected the API endpoint
+    return this.http.get<UserStory[]>(`${this.apiUrl}/archived`);  
   }
 
   restoreUserStory(id: string): Observable<UserStory> {
-    return this.http.post<UserStory>(`${this.apiUrl}/${id}/restore`, {});  // Updated to use apiUrl
-}
+    return this.http.post<UserStory>(`${this.apiUrl}/${id}/restore`, {});  
 
 
   }
+}
