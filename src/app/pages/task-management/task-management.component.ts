@@ -326,61 +326,63 @@ export class TaskManagementComponent implements OnInit {
   }
 
   restoreTask(taskId: string) {
-        console.log(`Restoring task with id: ${taskId}`);
-    this.taskService.restoreTask(taskId).subscribe((restoredTask) => {
-      console.log('Task restored:', restoredTask);
-      // Push the restored task to the tasks array
-      this.loadTasks(); 
-      this.loadArchivedTasks();
-      this.tasks.push(restoredTask);
-      // Optionally remove the restored task from archived tasks
-      this.archivedTasks = this.archivedTasks.filter(task => task.id !== taskId);
-    });
-    this.currentStep =4;
-
-    this.showSuccessrestoretask = true;
-    setTimeout(() => {
-      this.showSuccessrestoretask = false;
-    }, 5000);
+    if (confirm('Are you sure you want to restore this task?')) {
+      console.log(`Restoring task with id: ${taskId}`);
+      this.taskService.restoreTask(taskId).subscribe((restoredTask) => {
+        console.log('Task restored:', restoredTask);
+        this.loadTasks(); 
+        this.loadArchivedTasks();
+        this.tasks.push(restoredTask);
+        this.archivedTasks = this.archivedTasks.filter(task => task.id !== taskId);
+      });
+      this.currentStep = 4;
+      this.showSuccessrestoretask = true;
+      setTimeout(() => {
+        this.showSuccessrestoretask = false;
+      }, 5000);
+    }
   }
     
 
   restoreUserStory(userStoryId: string) {
-    this.userStoryService.restoreUserStory(userStoryId).subscribe((restoredUserStory) => {
-      // Push the restored user story to the userStories array
-      this.loadUserStories();
-      this.loadArchivedUserStories();
-      this.userStories.push(restoredUserStory);
-      if (restoredUserStory.taskId === this.currentTaskId) {
-        this.filteredUserStories.push(restoredUserStory); // Update the filtered list
-      }
-      // Optionally remove the restored user story from archived user stories
-      this.archivedUserStories = this.archivedUserStories.filter(story => story.id !== userStoryId);
-    });
-    this.currentStep = 4;
-
-    this.showSuccessrestorestory = true;
-    setTimeout(() => {
-      this.showSuccessrestorestory = false;
-    }, 5000);
+    if (confirm('Are you sure you want to restore this user story?')) {
+      this.userStoryService.restoreUserStory(userStoryId).subscribe((restoredUserStory) => {
+        this.loadUserStories();
+        this.loadArchivedUserStories();
+        this.userStories.push(restoredUserStory);
+        if (restoredUserStory.taskId === this.currentTaskId) {
+          this.filteredUserStories.push(restoredUserStory);
+        }
+        this.archivedUserStories = this.archivedUserStories.filter(story => story.id !== userStoryId);
+      });
+      this.currentStep = 4;
+      this.showSuccessrestorestory = true;
+      setTimeout(() => {
+        this.showSuccessrestorestory = false;
+      }, 5000);
+    }
   }
   
   
   deleteTaskPermanently(id: string) {
-    this.taskService.deleteTask(id).subscribe(() => this.loadArchivedTasks());
-    this.showSuccessdeletetask = true;
-    setTimeout(() => {
-      this.showSuccessdeletetask = false;
-    }, 5000);
+    if (confirm('Are you sure you want to delete this task permanently?')) {
+      this.taskService.deleteTask(id).subscribe(() => this.loadArchivedTasks());
+      this.showSuccessdeletetask = true;
+      setTimeout(() => {
+        this.showSuccessdeletetask = false;
+      }, 5000);
+    }
   }
 
-  deleteUserStoryPermanently(id: string) {
-    this.userStoryService.deleteUserStory(id).subscribe(() => this.loadArchivedUserStories());
 
-    this.showSuccessdeletestory = true;
-    setTimeout(() => {
-      this.showSuccessdeletestory = false;
-    }, 5000);
+  deleteUserStoryPermanently(id: string) {
+    if (confirm('Are you sure you want to delete this user story permanently?')) {
+      this.userStoryService.deleteUserStory(id).subscribe(() => this.loadArchivedUserStories());
+      this.showSuccessdeletestory = true;
+      setTimeout(() => {
+        this.showSuccessdeletestory = false;
+      }, 5000);
+    }
   }
 
   
@@ -397,11 +399,11 @@ export class TaskManagementComponent implements OnInit {
 confirmArchiveTask(taskId: string) {
   if (confirm('Are you sure you want to archive this task?')) {
     this.archiveTask(taskId);
-  }
-  this.showSuccessarchive = true;
+      this.showSuccessarchive = true;
   setTimeout(() => {
     this.showSuccessarchive = false;
   }, 5000);
+  }
 }
 
 // Method to confirm and archive a user story

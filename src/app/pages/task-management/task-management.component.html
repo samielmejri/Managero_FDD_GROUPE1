@@ -10,8 +10,11 @@
 
     <div class="step-container">
       <div class="content-container">
-        <h2>Task List</h2>
+        <div class="header-container">
         <br>
+          <h2>Task List</h2>
+        <br>
+        </div>
         <div class="card">
           <div class="card__header">
             <div class="item">Title</div>
@@ -74,19 +77,19 @@
           </div>
         </div>
 
-                <!-- Success Animation -->
-                <div class="success-animation" *ngIf="showSuccessedittask">
-                  <div class="success-box">
-                    <div class="success-icon">
-                      <!-- You can use an SVG or a checkmark icon here -->
-                      &#10003;
-                    </div>
-                    <div class="success-message">
-                      task edited successfully!
-                    </div>
-                  </div>
-                </div>
-        
+        <!-- Success Animation -->
+        <div class="success-animation" *ngIf="showSuccessedittask">
+          <div class="success-box">
+            <div class="success-icon">
+              <!-- You can use an SVG or a checkmark icon here -->
+              &#10003;
+            </div>
+            <div class="success-message">
+              task edited successfully!
+            </div>
+          </div>
+        </div>
+
 
 
 
@@ -187,8 +190,11 @@
   <nb-step label="Create Task">
     <div class="step-container">
       <div class="content-container">
-
-        <h2>Create a new task</h2>
+        <div class="header-container">
+        <br>
+        <h2>Create a task</h2>
+        <br>
+        </div>
 
         <!-- Task form for creating new tasks -->
         <form class="form centered-form" *ngIf="!isEditMode" (ngSubmit)="onSubmit()">
@@ -252,19 +258,19 @@
 
 
         <!-- Success Animation -->
-<div class="success-animation" *ngIf="showSuccessss">
-  <div class="success-box">
-    <div class="success-icon">
-      <!-- You can use an SVG or a checkmark icon here -->
-      &#10003;
-    </div>
-    <div class="success-message">
-      task created successfully!
-    </div>
-  </div>
-</div>
+        <div class="success-animation" *ngIf="showSuccessss">
+          <div class="success-box">
+            <div class="success-icon">
+              <!-- You can use an SVG or a checkmark icon here -->
+              &#10003;
+            </div>
+            <div class="success-message">
+              task created successfully!
+            </div>
+          </div>
+        </div>
 
-        
+
 
 
         <div class="main-content-wrapper">
@@ -320,47 +326,53 @@
 
 
 
-  <!-- Step 3: user Story List  -->
+  <!-- Step 3: User Story List -->
   <nb-step label="User-Story List">
+    <div class="header-container">
+      <br>
+      <h2>User-Story List</h2>
+      <br>
+    </div>
 
-    <h2>User-Story List</h2>
-    <br>
     <!-- Task List -->
     <div class="task-container">
       <div *ngFor="let task of tasks" class="task-card">
-        <h3 (click)="toggleTaskId(task.id)">{{ task.title }}</h3>
+        <button class="button-55" role="button" (click)="toggleTaskId(task.id)">{{ task.title }}</button>
       </div>
     </div>
 
     <!-- User Stories for Selected Task -->
-    <div class="user-story-container" *ngIf="currentTaskId">
-      <div *ngFor="let userStory of filteredUserStories" class="user-story-card">
-        <h4>{{ userStory.title }}</h4>
-        <p>{{ userStory.description }}</p>
-        <div class="user-story-actions">
-          <button (click)="openEditPopup(userStory)">Edit</button>
-          <button (click)="confirmArchiveUserStory(userStory.id)">Archive</button>
+    <div class="user-story-wrapper" *ngIf="currentTaskId">
+      <div class="user-story-container" *ngIf="currentTaskId">
+        <div *ngFor="let userStory of filteredUserStories" class="user-story-card">
+          <h4>{{ userStory.title }}</h4>
+          <p>{{ userStory.description }}</p>
+          <div class="user-story-actions">
+            <button (click)="openEditPopup(userStory)" class="button-55">Edit</button>
+            <button (click)="confirmArchiveUserStory(userStory.id)" class="button-55">Archive</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+
+    <!-- Success Animation -->
+    <div class="success-animation" *ngIf="showSuccessarchivestory">
+      <div class="success-box">
+        <div class="success-icon">
+          <!-- You can use an SVG or a checkmark icon here -->
+          &#10003;
+        </div>
+        <div class="success-message">
+          user story archived successfully!
         </div>
       </div>
     </div>
 
 
-          <!-- Success Animation -->
-          <div class="success-animation" *ngIf="showSuccessarchivestory">
-            <div class="success-box">
-              <div class="success-icon">
-                <!-- You can use an SVG or a checkmark icon here -->
-                &#10003;
-              </div>
-              <div class="success-message">
-                user story archived successfully!
-              </div>
-            </div>
-          </div>
-    
 
-              
-    
+
 
     <!-- Edit User Story Popup -->
     <div class="edit-popup" *ngIf="isPopupVisible">
@@ -386,18 +398,18 @@
 
 
 
-      <!-- Success Animation -->
-      <div class="success-animation" *ngIf="showSuccesseditstory">
-        <div class="success-box">
-          <div class="success-icon">
-            <!-- You can use an SVG or a checkmark icon here -->
-            &#10003;
-          </div>
-          <div class="success-message">
-            user story edited successfully!
-          </div>
+    <!-- Success Animation -->
+    <div class="success-animation" *ngIf="showSuccesseditstory">
+      <div class="success-box">
+        <div class="success-icon">
+          <!-- You can use an SVG or a checkmark icon here -->
+          &#10003;
+        </div>
+        <div class="success-message">
+          user story edited successfully!
         </div>
       </div>
+    </div>
 
 
 
@@ -439,9 +451,11 @@
   <!-- Step 4: Create User-Story -->
   <nb-step label="Create User-Story">
     <div class="step-content">
-
-
-      <h2>Create user story</h2>
+      <div class="header-container">
+      <br>
+      <h2>Create a user-story</h2>
+      <br>
+      </div>
 
       <form class="form centered-form" (ngSubmit)="onSubmitStory()" #userStoryForm="ngForm">
         <div class="title">Create User-Story<br><span>Fill out the details below</span></div>
@@ -459,7 +473,8 @@
         </div>
 
         <div>
-          <select class="input" [(ngModel)]="selectedTaskName" name="taskName" required (change)="onTaskNameChange($event)">
+          <select class="input" [(ngModel)]="selectedTaskName" name="taskName" required
+            (change)="onTaskNameChange($event)">
             <option id="taskSelect" *ngIf="!selectedTaskName" value="" disabled selected hidden>Choose a task</option>
             <option *ngFor="let task of tasks" [value]="task.title">{{task.title}}</option>
           </select>
@@ -467,10 +482,10 @@
             Task is required.
           </div>
         </div>
-        
 
-          <button type="submit" class="button-confirm" [disabled]="userStoryForm.invalid">Submit</button>
-          <button type="button" class="button-confirm" (click)="clearForm()">Clear</button>
+
+        <button type="submit" class="button-confirm" [disabled]="userStoryForm.invalid">Submit</button>
+        <button type="button" class="button-confirm" (click)="clearForm()">Clear</button>
       </form>
     </div>
 
@@ -479,18 +494,18 @@
 
 
 
-<!-- Success Animation -->
-<div class="success-animation" *ngIf="showSuccess">
-  <div class="success-box">
-    <div class="success-icon">
-      <!-- You can use an SVG or a checkmark icon here -->
-      &#10003;
+    <!-- Success Animation -->
+    <div class="success-animation" *ngIf="showSuccess">
+      <div class="success-box">
+        <div class="success-icon">
+          <!-- You can use an SVG or a checkmark icon here -->
+          &#10003;
+        </div>
+        <div class="success-message">
+          user-story created successfully!
+        </div>
+      </div>
     </div>
-    <div class="success-message">
-      user-story created successfully!
-    </div>
-  </div>
-</div>
 
 
 
@@ -502,7 +517,9 @@
 
     <div class="main-content-wrapper">
       <div class="page-content">
+        <!-- Your main content goes here -->
         <div class="step-navigation">
+
           <button class="buttonpp" nbButton nbStepperPrevious>
             <div class="buttonpp-box">
               <span class="buttonpp-elem">
@@ -520,6 +537,10 @@
                 </svg>
               </span>
             </div>
+          </button>
+
+          <button class="buttonsp" nbButton nbStepperNext>Next<span class="icon-right"></span>
+            <span class="icon-right after"></span>
           </button>
         </div>
       </div>
@@ -541,81 +562,95 @@
   <!-- Step 5: Archive -->
   <nb-step label="Archive">
     <div class="step-content">
-      <div>
-        <h2>Archived Tasks</h2>
-        <ul>
-          <li *ngFor="let task of archivedTasks">
-            <!-- <div *ngIf="currentTask"> -->
-            <div class="item">{{task?.title}}</div>
-            <!-- </div>   -->
-            <button (click)="restoreTask(task.id)">Restore Task</button>
-            <button (click)="deleteTaskPermanently(task.id!)">Delete Permanently</button>
+      <div class="archived-tasks-container">
+        <h2 class="archived-tasks-title">Archived Tasks</h2>
+        <br>
+        <ul class="archived-tasks-list">
+          <li class="archived-task-item button-89" role="button" *ngFor="let task of archivedTasks">
+            <div class="task-details">
+              <span class="task-title">{{task?.title}}</span>
+              <span class="task-description">{{task?.description}}</span>
+            </div>
+            <div class="task-actions">
+              <button class="buttonx-55" role="buttonx" (click)="restoreTask(task.id)">Restore Task</button>
+              <button class="buttonx-55" role="buttonx" (click)="deleteTaskPermanently(task.id!)">Delete
+                Permanently</button>
+            </div>
           </li>
         </ul>
       </div>
 
-      <div>
-        <h2>Archived User Stories</h2>
-        <ul>
-          <li *ngFor="let userStory of archivedUserStories">
-            {{ userStory.title }} - {{ userStory.description }}
-            <button (click)="restoreUserStory(userStory.id)">Restore User Story</button>
-            <button (click)="deleteUserStoryPermanently(userStory.id!)">Delete Permanently</button>
+
+      <div class="archived-tasks-container">
+        <br>
+        <h2 class="archived-user-stories-title">Archived User Stories</h2>
+        <br>
+        <ul class="archived-tasks-list">
+          <li class="archived-task-item button-89" role="button" *ngFor="let userStory of archivedUserStories">
+            <div class="task-details">
+              <span class="task-title">{{userStory.title}}</span>
+            </div>
+            <div class="task-actions">
+              <button class="buttonx-55" role="buttonx" (click)="restoreUserStory(userStory.id)">Restore User
+                Story</button>
+              <button class="buttonx-55" role="buttonx" (click)="deleteUserStoryPermanently(userStory.id!)">Delete
+                Permanently</button>
+            </div>
           </li>
         </ul>
       </div>
 
-                <!-- Success Animation -->
-                <div class="success-animation" *ngIf="showSuccessrestoretask">
-                  <div class="success-box">
-                    <div class="success-icon">
-                      <!-- You can use an SVG or a checkmark icon here -->
-                      &#10003;
-                    </div>
-                    <div class="success-message">
-                      Task restored successfully!
-                    </div>
-                  </div>
-                </div>
-
-                          <!-- Success Animation -->
-          <div class="success-animation" *ngIf="showSuccessrestorestory">
-            <div class="success-box">
-              <div class="success-icon">
-                <!-- You can use an SVG or a checkmark icon here -->
-                &#10003;
-              </div>
-              <div class="success-message">
-                user story restored successfully!
-              </div>
-            </div>
+      <!-- Success Animation -->
+      <div class="success-animation" *ngIf="showSuccessrestoretask">
+        <div class="success-box">
+          <div class="success-icon">
+            <!-- You can use an SVG or a checkmark icon here -->
+            &#10003;
           </div>
-
-                    <!-- Success Animation -->
-                    <div class="success-animation" *ngIf="showSuccessdeletetask">
-                      <div class="success-box">
-                        <div class="success-icon">
-                          <!-- You can use an SVG or a checkmark icon here -->
-                          &#10003;
-                        </div>
-                        <div class="success-message">
-                          Task deleted successfully!
-                        </div>
-                      </div>
-                    </div>
-
-                              <!-- Success Animation -->
-          <div class="success-animation" *ngIf="showSuccessdeletestory">
-            <div class="success-box">
-              <div class="success-icon">
-                <!-- You can use an SVG or a checkmark icon here -->
-                &#10003;
-              </div>
-              <div class="success-message">
-                user story deleted successfully!
-              </div>
-            </div>
+          <div class="success-message">
+            Task restored successfully!
           </div>
+        </div>
+      </div>
+
+      <!-- Success Animation -->
+      <div class="success-animation" *ngIf="showSuccessrestorestory">
+        <div class="success-box">
+          <div class="success-icon">
+            <!-- You can use an SVG or a checkmark icon here -->
+            &#10003;
+          </div>
+          <div class="success-message">
+            user story restored successfully!
+          </div>
+        </div>
+      </div>
+
+      <!-- Success Animation -->
+      <div class="success-animation" *ngIf="showSuccessdeletetask">
+        <div class="success-box">
+          <div class="success-icon">
+            <!-- You can use an SVG or a checkmark icon here -->
+            &#10003;
+          </div>
+          <div class="success-message">
+            Task deleted successfully!
+          </div>
+        </div>
+      </div>
+
+      <!-- Success Animation -->
+      <div class="success-animation" *ngIf="showSuccessdeletestory">
+        <div class="success-box">
+          <div class="success-icon">
+            <!-- You can use an SVG or a checkmark icon here -->
+            &#10003;
+          </div>
+          <div class="success-message">
+            user story deleted successfully!
+          </div>
+        </div>
+      </div>
 
       <div class="main-content-wrapper">
         <div class="page-content">
