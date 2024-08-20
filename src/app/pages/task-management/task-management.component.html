@@ -589,6 +589,7 @@
           <li class="archived-task-item button-89" role="button" *ngFor="let userStory of archivedUserStories">
             <div class="task-details">
               <span class="task-title">{{userStory.title}}</span>
+              <span class="task-description">{{userStory.description}}</span>
             </div>
             <div class="task-actions">
               <button class="buttonx-55" role="buttonx" (click)="restoreUserStory(userStory.id)">Restore User

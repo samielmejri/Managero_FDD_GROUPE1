@@ -1260,21 +1260,6 @@ box-shadow: rgba(0, 0, 0, .3) 2px 8px 4px -6px;
 
 
 
-/* Container for Archived Tasks */
-.archived-tasks-container {
-  width: 100%;
-  max-width: 800px;
-  margin: 0 auto;
-}
-
-/* Styling the list of archived tasks */
-.archived-tasks-list {
-  list-style-type: none;
-  padding: 0;
-  margin: 0;
-  background-color: rgb(235, 235, 235);
-}
-
 /* Styling each task item */
 .archived-task-item {
   display: flex;
@@ -1317,32 +1302,76 @@ box-shadow: rgba(0, 0, 0, .3) 2px 8px 4px -6px;
 }
 
 /* Styling for task details (title and description) */
+/* Styling for task details (title and description) */
 .task-details {
   display: flex;
   flex: 1; /* Allow it to grow and fill available space */
   gap: 10px; /* Space between title and description */
   align-items: center;
+  overflow: hidden; /* Prevent text from overflowing */
+  position: relative; /* For proper positioning of the moving text */
 }
 
 /* Title section with dynamic width */
 .task-title {
-  flex: 1; /* Allow title to grow */
-  font-weight: bold;
-  margin-right: 10px;
+  flex-shrink: 0;
   white-space: nowrap;
+  position: relative;
   overflow: hidden;
   text-overflow: ellipsis;
+  //animation: scrollTitle 10s linear infinite; /* Synchronized scrolling for title */
 }
 
 /* Description section with dynamic width */
 .task-description {
-  flex: 2; /* Allow description to take more space if needed */
+  flex-shrink: 0;
   white-space: nowrap;
+  position: relative;
   overflow: hidden;
   text-overflow: ellipsis;
+  animation: scrollDescription 20s linear infinite; /* Synchronized scrolling for description */
 }
 
-/* Styling for the task actions (buttons) */
+/* Keyframes for scrolling title */
+@keyframes scrollTitle {
+  0% {
+    transform: translateX(100%); /* Start from the right edge */
+  }
+  50% {
+    transform: translateX(-100%); /* Slide out from the left edge */
+  }
+  51% {
+    transform: translateX(100%); /* Jump back to the right edge */
+  }
+  100% {
+    transform: translateX(-100%); /* Slide out from the left edge again */
+  }
+}
+
+/* Keyframes for scrolling description */
+@keyframes scrollDescription {
+  0% {
+    transform: translateX(100%); /* Start from the right edge */
+  }
+  50% {
+    transform: translateX(-0.25%); /* Slide out from the left edge */
+  }
+  51% {
+    transform: translateX(100%); /* Jump back to the right edge */
+  }
+  100% {
+    transform: translateX(-0.25%); /* Slide out from the left edge again */
+  }
+}
+
+/* Hover effect to to initiate scroll */
+.archived-task-item:hover .task-title, 
+.archived-task-item:hover .task-description {
+  animation-play-state: running; /* Start the animation on hover */
+}
+
+
+/* Styling for thee task actions (buttons) */
 .task-actions {
   display: flex;
   gap: 10px;
