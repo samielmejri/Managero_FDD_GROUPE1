@@ -11,6 +11,11 @@ import { UserStory } from '../../models/user-story.model';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 
+import { Chart } from 'chart.js';
+import { ElementRef, ViewChild } from '@angular/core';
+
+
+
 @Component({
   selector: 'ngx-task-management',
   templateUrl: './task-management.component.html',
@@ -80,6 +85,15 @@ export class TaskManagementComponent implements OnInit {
 
   showSuccessdeletestory: boolean = false;
 
+
+  completionRate: number = 0;
+
+  userStoryCompletionRate: number = 0;
+  userStoryUncompletedRate: number = 0;
+
+  @ViewChild('completionChart', { static: false }) completionChartRef!: ElementRef;
+  chart: Chart | undefined;
+
   constructor(private taskService: TaskService,private userStoryService: UserStoryService, private fb: FormBuilder) {}
 
   ngOnInit(): void {
@@ -126,6 +140,8 @@ export class TaskManagementComponent implements OnInit {
     this.taskService.createTask(task).subscribe((newTask) => {
       this.tasks.push(newTask);
       this.clearSelection();
+      this.calculateCompletionRate();
+      this.calculateUserStoryCompletionRate();
     });
   }
 
@@ -136,6 +152,8 @@ export class TaskManagementComponent implements OnInit {
         this.tasks[index] = task;
       }
       this.closePopup();
+      this.calculateCompletionRate();
+      this.calculateUserStoryCompletionRate();
     });
 
     this.showSuccessedittask = true;
@@ -150,6 +168,7 @@ export class TaskManagementComponent implements OnInit {
       this.tasks = this.tasks.filter((task) => task.id !== id);
       // Load the updated archived tasks list
       this.loadArchivedTasks();
+      this.calculateCompletionRate();
     });
     console.log(`Task ${id} archived.`);
   }
@@ -186,9 +205,6 @@ export class TaskManagementComponent implements OnInit {
     this.selectedTask.collaborators?.splice(index, 1);
   }
 
-  loadTasks() {
-    this.taskService.getTasks().subscribe(tasks => this.tasks = tasks);
-  }
 
   
 
@@ -235,6 +251,7 @@ export class TaskManagementComponent implements OnInit {
       console.log('Loaded user stories:', userStories); // Add this line
       this.userStories = userStories;
       this.filterUserStories();
+      this.calculateUserStoryCompletionRate();
     });
   }
 
@@ -334,6 +351,7 @@ export class TaskManagementComponent implements OnInit {
         this.loadArchivedTasks();
         this.tasks.push(restoredTask);
         this.archivedTasks = this.archivedTasks.filter(task => task.id !== taskId);
+        this.calculateCompletionRate();
       });
       this.currentStep = 4;
       this.showSuccessrestoretask = true;
@@ -432,7 +450,116 @@ onTaskNameChange(event: any) {
 }
 
 
+
+
+
+
+
+
+loadTasks() {
+  this.taskService.getTasks().subscribe(tasks => {
+    this.tasks = tasks;
+    this.calculateCompletionRate();
+    this.calculateUserStoryCompletionRate();
+  });
 }
+
+calculateCompletionRate(): void {
+  const totalTasks = this.tasks.length;
+  const completedTasks = this.tasks.filter(task => task.state === 'DONE').length;
+
+  this.completionRate = totalTasks > 0 ? (completedTasks / totalTasks) * 100 : 0;
+}
+
+
+calculateUserStoryCompletionRate(): void {
+  const completedTasksIds = this.tasks.filter(task => task.state === 'DONE').map(task => task.id);
+  const userStoriesInCompletedTasks = this.userStories.filter(story => completedTasksIds.includes(story.taskId)).length;
+  const totalUserStories = this.userStories.length;
+  const userStoriesInUncompletedTasks = totalUserStories - userStoriesInCompletedTasks;
+
+  this.userStoryCompletionRate = totalUserStories > 0 ? (userStoriesInCompletedTasks / totalUserStories) * 100 : 0;
+  this.userStoryUncompletedRate = totalUserStories > 0 ? (userStoriesInUncompletedTasks / totalUserStories) * 100 : 0;
+
+  this.updateChart();  // Update chart with new data
+}
+
+
+updateChart() {
+  if (this.chart) {
+    this.chart.destroy();
+  }
+
+  this.chart = new Chart(this.completionChartRef.nativeElement, {
+    type: 'bar',
+    data: {
+      labels: ['Completed User Stories', 'Uncompleted User Stories'], // Both labels together
+      datasets: [
+        {
+          label: 'User Stories',
+          data: [this.userStoryCompletionRate, this.userStoryUncompletedRate], // Both data points together
+          backgroundColor: ['#36A2EB', '#FF6384'], // Colors for each bar
+          borderColor: ['#36A2EB', '#FF6384'],
+          borderWidth: 1,
+          barThickness: 500 // Adjust as needed
+        }
+      ]
+    },
+    options: {
+      scales: {
+        yAxes: [{
+          ticks: {
+            beginAtZero: true,
+            max: 100
+          }
+        }],
+        xAxes: [{
+          // Additional xAxes configuration if needed
+        }]
+      },
+      responsive: true,
+      maintainAspectRatio: false,
+      legend: {
+        display: false // Hide the legend if only one dataset
+      },
+      tooltips: {
+        callbacks: {
+          label: function(tooltipItem, data) {
+            const datasetLabel = data.datasets[tooltipItem.datasetIndex].label || '';
+            const value = parseFloat(tooltipItem.yLabel as string).toFixed(2); // Ensure yLabel is a number and limit to 2 decimal places
+            return `${datasetLabel}: ${value}%`;
+          }
+        }
+      },
+      plugins: {
+        beforeDraw: (chart) => {
+          const ctx = chart.chart.ctx;
+          const xAxis = chart.scales['x-axis-0'];
+          const yAxis = chart.scales['y-axis-0'];
+
+          // Draw a line between the two bars
+          const firstBarEnd = xAxis.getPixelForTick(0);
+          const secondBarStart = xAxis.getPixelForTick(1);
+
+          const middle = (firstBarEnd + secondBarStart) / 2;
+
+          ctx.save();
+          ctx.beginPath();
+          ctx.moveTo(middle, yAxis.top);
+          ctx.lineTo(middle, yAxis.bottom);
+          ctx.strokeStyle = '#000000'; // Line color
+          ctx.lineWidth = 2;
+          ctx.stroke();
+          ctx.restore();
+        }
+      }
+    }
+  });
+}
+}
+
+
+
 
 
 

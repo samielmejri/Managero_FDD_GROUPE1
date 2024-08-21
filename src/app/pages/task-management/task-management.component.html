@@ -655,7 +655,9 @@
 
       <div class="main-content-wrapper">
         <div class="page-content">
+          <!-- Your main content goes here -->
           <div class="step-navigation">
+  
             <button class="buttonpp" nbButton nbStepperPrevious>
               <div class="buttonpp-box">
                 <span class="buttonpp-elem">
@@ -674,10 +676,99 @@
                 </span>
               </div>
             </button>
+  
+            <button class="buttonsp" nbButton nbStepperNext>Next<span class="icon-right"></span>
+              <span class="icon-right after"></span>
+            </button>
           </div>
         </div>
       </div>
     </div>
-  </nb-step>
+    </nb-step>
+  
+
+
+
+
+
+
+
+
+
+  <!-- Step 6: Dashboard -->
+  <nb-step label="Dashboard">
+
+
+  <div class="completion-rate-container">
+    <h3 class="Dashboard">Task Completion Rate</h3>
+    <div class="Dashboard">The percentage of tasks that have been completed out of the total tasks created</div>
+    <div class="progress-bar-container">
+      <div class="progress-bar" [style.width.%]="completionRate">
+        {{ completionRate | number: '1.0-0' }}%
+      </div>
+    </div>
+  </div>
+  
+<br>
+<div>
+  <h2 class="Dashboard">User Story Completion Rates</h2>
+  <div class="Dashboard">
+    <span class="color-box blue"></span>
+    Completed User Stories    
+    <span class="spacer"></span> <!-- Spacer element to add space between the labels -->
+    <span class="color-box red"></span>
+    Uncompleted User Stories
+  </div>
+  <canvas #completionChart></canvas>
+</div>
+
+  
+  
+
+
+
+
+  <div class="main-content-wrapper">
+    <div class="page-content">
+      <div class="step-navigation">
+        <button class="buttonpp" nbButton nbStepperPrevious>
+          <div class="buttonpp-box">
+            <span class="buttonpp-elem">
+              <svg viewBox="0 0 46 40" xmlns="http://www.w3.org/2000/svg">
+                <path
+                  d="M46 20.038c0-.7-.3-1.5-.8-2.1l-16-17c-1.1-1-3.2-1.4-4.4-.3-1.2 1.1-1.2 3.3 0 4.4l11.3 11.9H3c-1.7 0-3 1.3-3 3s1.3 3 3 3h33.1l-11.3 11.9c-1 1-1.2 3.3 0 4.4 1.2 1.1 3.3.8 4.4-.3l16-17c.5-.5.8-1.1.8-1.9z">
+                </path>
+              </svg>
+            </span>
+            <span class="buttonpp-elem">
+              <svg viewBox="0 0 46 40">
+                <path
+                  d="M46 20.038c0-.7-.3-1.5-.8-2.1l-16-17c-1.1-1-3.2-1.4-4.4-.3-1.2 1.1-1.2 3.3 0 4.4l11.3 11.9H3c-1.7 0-3 1.3-3 3s1.3 3 3 3h33.1l-11.3 11.9c-1 1-1.2 3.3 0 4.4 1.2 1.1 3.3.8 4.4-.3l16-17c.5-.5.8-1.1.8-1.9z">
+                </path>
+              </svg>
+            </span>
+          </div>
+        </button>
+      </div>
+    </div>
+  </div>
+</nb-step>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 </nb-stepper>

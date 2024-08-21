@@ -1469,3 +1469,80 @@ box-shadow: rgba(0, 0, 0, .3) 2px 8px 4px -6px;
   height: 6px; /* Increased thickness of the underline */
   background-color: #fff; /* White color for the underline */
 }
+
+
+
+.completion-rate-container {
+  margin: 20px 0;
+}
+
+.progress-bar-container {
+  width: 100%;
+  background-color: #f3f3f3;
+  border-radius: 25px;
+  overflow: hidden;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.progress-bar {
+  height: 30px;
+  background-color: #4caf50; /* Green color */
+  text-align: center;
+  line-height: 30px; /* Vertical centering */
+  color: white;
+  border-radius: 25px;
+  transition: width 0.4s ease;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#completionChart {
+  max-width: 600px;
+  margin: 0 auto;
+  border: 1px solid red; /* Temporary border for visibility */
+}
+
+.Dashboard {
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 18px; /* Adjust font size if necessary */
+  display: flex; /* Flexbox for easy alignment */
+  justify-content: center; /* Center the content */
+  align-items: center; /* Center items vertically */
+}
+
+.color-box {
+  display: inline-block;
+  width: 15px; /* Width of the colored box */
+  height: 15px; /* Height of the colored box */
+  margin-right: 8px; /* Space between the box and the label text */
+  vertical-align: middle; /* Align the box vertically with the text */
+}
+
+.blue {
+  background-color: #36A2EB; /* Blue color for completed user stories */
+}
+
+.red {
+  background-color: #FF6384; /* Red color for uncompleted user stories */
+}
+
+.spacer {
+  display: inline-block;
+  width: 20px; /* Adjust this value to control the space between the two labels */
+}
+
+
+
