@@ -501,7 +501,7 @@ updateChart() {
           backgroundColor: ['#36A2EB', '#FF6384'], // Colors for each bar
           borderColor: ['#36A2EB', '#FF6384'],
           borderWidth: 1,
-          barThickness: 500 // Adjust as needed
+          barThickness: 150 // Adjust as needed
         }
       ]
     },

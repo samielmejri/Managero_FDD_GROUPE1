@@ -11,9 +11,9 @@
     <div class="step-container">
       <div class="content-container">
         <div class="header-container">
-        <br>
-          <h2>Task List</h2>
-        <br>
+          <div class="page-title">
+            <h1>Task List</h1>
+          </div>
         </div>
         <div class="card">
           <div class="card__header">
@@ -191,9 +191,9 @@
     <div class="step-container">
       <div class="content-container">
         <div class="header-container">
-        <br>
-        <h2>Create a task</h2>
-        <br>
+          <div class="page-title">
+            <h1>Create a task</h1>
+          </div>
         </div>
 
         <!-- Task form for creating new tasks -->
@@ -329,9 +329,9 @@
   <!-- Step 3: User Story List -->
   <nb-step label="User-Story List">
     <div class="header-container">
-      <br>
-      <h2>User-Story List</h2>
-      <br>
+      <div class="page-title">
+        <h1>User Story List</h1>
+      </div>
     </div>
 
     <!-- Task List -->
@@ -452,9 +452,9 @@
   <nb-step label="Create User-Story">
     <div class="step-content">
       <div class="header-container">
-      <br>
-      <h2>Create a user-story</h2>
-      <br>
+      <div class="page-title">
+        <h1>Create a User Story</h1>
+      </div>
       </div>
 
       <form class="form centered-form" (ngSubmit)="onSubmitStory()" #userStoryForm="ngForm">
@@ -563,6 +563,9 @@
   <nb-step label="Archive">
     <div class="step-content">
       <div class="archived-tasks-container">
+        <div class="page-title">
+          <h1>Archive</h1>
+        </div>
         <h2 class="archived-tasks-title">Archived Tasks</h2>
         <br>
         <ul class="archived-tasks-list">
@@ -582,6 +585,7 @@
 
 
       <div class="archived-tasks-container">
+        <br>
         <br>
         <h2 class="archived-user-stories-title">Archived User Stories</h2>
         <br>
@@ -695,32 +699,44 @@
 
 
 
-  <!-- Step 6: Dashboard -->
-  <nb-step label="Dashboard">
+<!-- Step 6: Dashboard -->
+<nb-step label="Dashboard">
 
+  <!-- Stylish Title -->
+  <div class="page-title">
+    <h1>Dashboard</h1>
+  </div>
 
+  <!-- Task Completion Rate -->
   <div class="completion-rate-container">
-    <h3 class="Dashboard">Task Completion Rate</h3>
-    <div class="Dashboard">The percentage of tasks that have been completed out of the total tasks created</div>
-    <div class="progress-bar-container">
-      <div class="progress-bar" [style.width.%]="completionRate">
-        {{ completionRate | number: '1.0-0' }}%
+    <div class="rectangle">
+      <h3 class="title">Task Completion Rate</h3>
+      <p class="description">The percentage of tasks that have been completed out of the total tasks created</p>
+      <div class="progress-bar-container">
+        <div class="progress-bar" [style.width.%]="completionRate">
+          {{ completionRate | number: '1.0-0' }}%
+        </div>
       </div>
     </div>
   </div>
   
-<br>
-<div>
-  <h2 class="Dashboard">User Story Completion Rates</h2>
-  <div class="Dashboard">
-    <span class="color-box blue"></span>
-    Completed User Stories    
-    <span class="spacer"></span> <!-- Spacer element to add space between the labels -->
-    <span class="color-box red"></span>
-    Uncompleted User Stories
+  <br>
+
+  <!-- User Story Completion Rates -->
+  <div class="user-story-container">
+    <div class="rectangle">
+      <h2 class="title">User Story Completion Rates</h2>
+      <p class="description">The percentage of user stories that belong to completed tasks</p>
+      <div class="legend">
+        <span class="color-box blue"></span>
+        Completed User Stories    
+        <span class="spacer"></span>
+        <span class="color-box red"></span>
+        Uncompleted User Stories
+      </div>
+      <canvas #completionChart></canvas>
+    </div>
   </div>
-  <canvas #completionChart></canvas>
-</div>
 
   
   

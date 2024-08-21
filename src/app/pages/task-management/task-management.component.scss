@@ -1472,10 +1472,46 @@ box-shadow: rgba(0, 0, 0, .3) 2px 8px 4px -6px;
 
 
 
-.completion-rate-container {
+
+
+
+
+
+
+/* Overall Page Styling */
+.page-title {
+  text-align: center;
+  margin: 30px 0;
+}
+
+.page-title h1 {
+  font-size: 2.5em;
+  color: #333;
+  font-weight: bold;
+  text-transform: uppercase;
+  background: linear-gradient(45deg, #6a1b29, #d32f2f);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  display: inline-block;
+  padding: 10px;
+  border-radius: 10px;
+}
+
+/* Container for Task Completion Rate */
+.completion-rate-container, .user-story-container {
   margin: 20px 0;
 }
 
+/* Rectangle Style */
+.rectangle {
+  border: 2px solid #ddd;
+  border-radius: 10px;
+  padding: 20px;
+  background-color: #f9f9f9;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Progress Bar Container */
 .progress-bar-container {
   width: 100%;
   background-color: #f3f3f3;
@@ -1494,33 +1530,24 @@ box-shadow: rgba(0, 0, 0, .3) 2px 8px 4px -6px;
   transition: width 0.4s ease;
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-#completionChart {
-  max-width: 600px;
-  margin: 0 auto;
-  border: 1px solid red; /* Temporary border for visibility */
-}
-
-.Dashboard {
+/* Title and Description Styling */
+.title {
   text-align: center;
   margin-bottom: 20px;
-  font-size: 18px; /* Adjust font size if necessary */
-  display: flex; /* Flexbox for easy alignment */
-  justify-content: center; /* Center the content */
-  align-items: center; /* Center items vertically */
+  font-size: 1.8em; /* Adjust font size if necessary */
+  color: #333;
+}
+
+.description {
+  text-align: center;
+  color: #666;
+  margin-bottom: 20px;
+}
+
+/* User Story Legend */
+.legend {
+  text-align: center;
+  margin-bottom: 20px;
 }
 
 .color-box {
@@ -1542,6 +1569,13 @@ box-shadow: rgba(0, 0, 0, .3) 2px 8px 4px -6px;
 .spacer {
   display: inline-block;
   width: 20px; /* Adjust this value to control the space between the two labels */
+}
+
+/* Canvas Styling */
+#completionChart {
+  max-width: 600px;
+  margin: 0 auto;
+  border: 1px solid #ddd; /* Updated border color */
 }
 
 
