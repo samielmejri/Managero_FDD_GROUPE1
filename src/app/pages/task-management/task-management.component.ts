@@ -109,6 +109,10 @@ export class TaskManagementComponent implements OnInit {
   @ViewChild('priorityChart', { static: false }) priorityChartRef!: ElementRef;
   priorityChart: Chart | undefined;
 
+
+  @ViewChild('collaborationChart', { static: false }) collaborationChartRef!: ElementRef;
+  collaborationChart: Chart | undefined;
+
   constructor(private taskService: TaskService,private userStoryService: UserStoryService, private fb: FormBuilder) {}
 
   ngOnInit(): void {
@@ -160,6 +164,7 @@ export class TaskManagementComponent implements OnInit {
       this.calculateTaskDurations();
       this.calculateTaskStatusDistribution();
       this.calculatePriorityDistribution();
+      this.updateCollaborationChart();
     });
   }
 
@@ -175,6 +180,7 @@ export class TaskManagementComponent implements OnInit {
       this.calculateTaskDurations();
       this.calculateTaskStatusDistribution();
       this.calculatePriorityDistribution();
+      this.updateCollaborationChart();
     });
 
     this.showSuccessedittask = true;
@@ -194,6 +200,7 @@ export class TaskManagementComponent implements OnInit {
       this.calculateTaskDurations();
       this.calculateTaskStatusDistribution();
       this.calculatePriorityDistribution();
+      this.updateCollaborationChart();
     });
     console.log(`Task ${id} archived.`);
   }
@@ -382,6 +389,7 @@ export class TaskManagementComponent implements OnInit {
         this.calculateTaskDurations();
         this.calculateTaskStatusDistribution();
         this.calculatePriorityDistribution();
+        this.updateCollaborationChart();
   
       });
       this.currentStep = 4;
@@ -454,6 +462,7 @@ confirmArchiveTask(taskId: string) {
       this.calculateTaskDurations();
       this.calculateTaskStatusDistribution();
       this.calculatePriorityDistribution(); 
+      this.updateCollaborationChart();
 
   setTimeout(() => {
     this.showSuccessarchive = false;
@@ -503,6 +512,7 @@ loadTasks() {
     this.calculateTaskDurations();
     this.calculateTaskStatusDistribution();
     this.calculatePriorityDistribution();
+    this.updateCollaborationChart();
     });
 }
 
@@ -865,7 +875,117 @@ updatePriorityChart(priorityCounts: any): void {
     }
   });
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+calculateCollaborationIndex(): { name: string, taskCount: number }[] {
+  const collaboratorTaskCount: { [key: string]: { name: string, taskCount: number } } = {};
+
+  this.tasks.forEach(task => {
+    task.collaborators.forEach(collaborator => {
+      const key = `${collaborator.name}-${collaborator.email}`;
+      if (collaboratorTaskCount[key]) {
+        collaboratorTaskCount[key].taskCount++;
+      } else {
+        collaboratorTaskCount[key] = {
+          name: collaborator.name,
+          taskCount: 1
+        };
+      }
+    });
+  });
+
+  return Object.values(collaboratorTaskCount);
 }
+
+
+
+
+updateCollaborationChart(): void {
+  const collaborationData = this.calculateCollaborationIndex();
+  const labels = collaborationData.map(data => data.name);
+  const data = collaborationData.map(data => data.taskCount);
+
+  if (this.collaborationChart) {
+    this.collaborationChart.destroy();
+  }
+
+  const colors = ['#a1c4fd', '#89f7fe', '#6a11cb', '#2575fc', '#d4fc79', '#96e6a1'];
+
+  this.collaborationChart = new Chart(this.collaborationChartRef.nativeElement, {
+    type: 'horizontalBar',
+    data: {
+      labels: labels,
+      datasets: [
+        {
+          label: 'Number of Tasks',
+          data: data,
+          backgroundColor: colors, // Array of colors for different bars
+          borderColor: '#000000',
+          borderWidth: 3
+        }
+      ]
+    },
+    options: {
+      scales: {
+        xAxes: [{
+          ticks: {
+            beginAtZero: true,
+            stepSize: 1
+          },
+          scaleLabel: {
+            display: true,
+            labelString: 'Number of Tasks'
+          }
+        }],
+        yAxes: [{
+          // Additional yAxes configuration if needed
+        }]
+      },
+      responsive: true,
+      maintainAspectRatio: false,
+      legend: {
+        display: false
+      },
+      tooltips: {
+        callbacks: {
+          label: function(tooltipItem, data) {
+            const value = tooltipItem.xLabel as number;
+            return `Number of Tasks: ${value}`;
+          }
+        }
+      }
+    }
+  });
+}
+}
+
 
 
 
