@@ -1598,3 +1598,18 @@ box-shadow: rgba(0, 0, 0, .3) 2px 8px 4px -6px;
   margin: 0 auto;
   height: 400px;
 }
+
+
+
+
+
+/* Add this to your CSS file */
+canvas {
+  width: 100% !important;
+  height: 400px !important;  /* Adjust the height as needed */
+}
+
+.chart-container {
+  position: relative;
+  width: 100%;
+}

@@ -106,6 +106,9 @@ export class TaskManagementComponent implements OnInit {
   statusChart: Chart | undefined;
 
 
+  @ViewChild('priorityChart', { static: false }) priorityChartRef!: ElementRef;
+  priorityChart: Chart | undefined;
+
   constructor(private taskService: TaskService,private userStoryService: UserStoryService, private fb: FormBuilder) {}
 
   ngOnInit(): void {
@@ -156,6 +159,7 @@ export class TaskManagementComponent implements OnInit {
       this.calculateUserStoryCompletionRate();
       this.calculateTaskDurations();
       this.calculateTaskStatusDistribution();
+      this.calculatePriorityDistribution();
     });
   }
 
@@ -170,6 +174,7 @@ export class TaskManagementComponent implements OnInit {
       this.calculateUserStoryCompletionRate();
       this.calculateTaskDurations();
       this.calculateTaskStatusDistribution();
+      this.calculatePriorityDistribution();
     });
 
     this.showSuccessedittask = true;
@@ -188,6 +193,7 @@ export class TaskManagementComponent implements OnInit {
       this.calculateUserStoryCompletionRate();
       this.calculateTaskDurations();
       this.calculateTaskStatusDistribution();
+      this.calculatePriorityDistribution();
     });
     console.log(`Task ${id} archived.`);
   }
@@ -375,6 +381,7 @@ export class TaskManagementComponent implements OnInit {
         this.calculateUserStoryCompletionRate();
         this.calculateTaskDurations();
         this.calculateTaskStatusDistribution();
+        this.calculatePriorityDistribution();
   
       });
       this.currentStep = 4;
@@ -446,6 +453,7 @@ confirmArchiveTask(taskId: string) {
       this.calculateUserStoryCompletionRate();
       this.calculateTaskDurations();
       this.calculateTaskStatusDistribution();
+      this.calculatePriorityDistribution(); 
 
   setTimeout(() => {
     this.showSuccessarchive = false;
@@ -494,6 +502,7 @@ loadTasks() {
     this.calculateUserStoryCompletionRate();
     this.calculateTaskDurations();
     this.calculateTaskStatusDistribution();
+    this.calculatePriorityDistribution();
     });
 }
 
@@ -532,8 +541,8 @@ updateChart() {
           label: 'User Stories',
           data: [this.userStoryCompletionRate, this.userStoryUncompletedRate], // Both data points together
           backgroundColor: ['#36A2EB', '#FF6384'], // Colors for each bar
-          borderColor: ['#36A2EB', '#FF6384'],
-          borderWidth: 1,
+          borderColor: '#000000',
+          borderWidth: 3,
           barThickness: 500 // Adjust as needed
         }
       ]
@@ -634,8 +643,8 @@ updateDurationChart(): void {
           label: 'Time Duration',
           data: this.taskDurations.map(task => task.duration),
           backgroundColor: '#36A2EB',
-          borderColor: '#00FFFF',
-          borderWidth: 4
+          borderColor: '#000000',
+          borderWidth: 3
         }
       ]
     },
@@ -731,7 +740,7 @@ updateStatusChart(statusCounts: any): void {
           ],
           backgroundColor: ['#36A2EB', '#FF6384', '#4BC0C0', '#FFCD56', '#9966FF'],
           borderColor: '#ffffff',
-          borderWidth: 1
+          borderWidth: 3
         }
       ]
     },
@@ -756,7 +765,112 @@ updateStatusChart(statusCounts: any): void {
     }
   });
 }
+
+
+
+
+
+
+
+
+
+
+
+
+calculatePriorityDistribution(): void {
+  const priorityCounts = {
+    LOW: 0,
+    MEDIUM: 0,
+    HIGH: 0
+  };
+
+  this.tasks.forEach(task => {
+    priorityCounts[task.priority] = (priorityCounts[task.priority] || 0) + 1;
+  });
+
+  this.updatePriorityChart(priorityCounts);
 }
+
+updatePriorityChart(priorityCounts: any): void {
+  if (this.priorityChart) {
+    this.priorityChart.destroy();
+  }
+
+  this.priorityChart = new Chart(this.priorityChartRef.nativeElement, {
+    type: 'horizontalBar',  // Use horizontal bar chart
+    data: {
+      labels: ['Low', 'Medium', 'High'],
+      datasets: [
+        {
+          label: 'Priority Distribution',
+          data: [
+            priorityCounts.LOW,
+            priorityCounts.MEDIUM,
+            priorityCounts.HIGH
+          ],
+          backgroundColor: ['#4BC0C0', '#FFCD56', '#FF6384'], // Colors for Low, Medium, High
+          borderColor: '#000000',
+          borderWidth: 3
+        }
+      ]
+    },
+    options: {
+      scales: {
+        xAxes: [{
+          ticks: {
+            beginAtZero: true
+          },
+          scaleLabel: {
+            display: true,
+            labelString: 'Number of tasks per priority'  // X-axis label
+          }
+        }],
+        yAxes: [{
+          // Add custom configurations if needed
+        }]
+      },
+      responsive: true,
+      maintainAspectRatio: false,
+      legend: {
+        display: true,
+        position: 'top',
+        labels: {
+          generateLabels: function(chart) {
+            const labels = ['Low Priority Tasks', 'Medium Priority Tasks', 'High Priority Tasks'];
+            const colors = ['#4BC0C0', '#FFCD56', '#FF6384'];
+            
+            return labels.map((label, index) => {
+              return {
+                text: label,
+                fillStyle: colors[index],
+                strokeStyle: colors[index],
+                lineWidth: 2,
+                hidden: false,
+                index: index
+              };
+            });
+          }
+        }
+      },
+      tooltips: {
+        callbacks: {
+          label: function(tooltipItem, data) {
+            const dataset = data.datasets[tooltipItem.datasetIndex];
+            const value = dataset.data[tooltipItem.index];
+            const label = data.labels[tooltipItem.index];
+            return `${label}: ${value}`;
+          }
+        }
+      }
+    }
+  });
+}
+}
+
+
+
+
+
 
 
 
