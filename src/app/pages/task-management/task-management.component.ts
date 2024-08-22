@@ -94,6 +94,14 @@ export class TaskManagementComponent implements OnInit {
   @ViewChild('completionChart', { static: false }) completionChartRef!: ElementRef;
   chart: Chart | undefined;
 
+
+  averageCompletionTime: number = 0;
+  taskDurations: { label: string; duration: number }[] = [];
+
+  @ViewChild('durationChart', { static: false }) durationChartRef!: ElementRef;
+  durationChart: Chart | undefined;
+
+
   constructor(private taskService: TaskService,private userStoryService: UserStoryService, private fb: FormBuilder) {}
 
   ngOnInit(): void {
@@ -142,6 +150,7 @@ export class TaskManagementComponent implements OnInit {
       this.clearSelection();
       this.calculateCompletionRate();
       this.calculateUserStoryCompletionRate();
+      this.calculateTaskDurations();
     });
   }
 
@@ -154,6 +163,7 @@ export class TaskManagementComponent implements OnInit {
       this.closePopup();
       this.calculateCompletionRate();
       this.calculateUserStoryCompletionRate();
+      this.calculateTaskDurations();
     });
 
     this.showSuccessedittask = true;
@@ -169,6 +179,8 @@ export class TaskManagementComponent implements OnInit {
       // Load the updated archived tasks list
       this.loadArchivedTasks();
       this.calculateCompletionRate();
+      this.calculateUserStoryCompletionRate();
+      this.calculateTaskDurations();
     });
     console.log(`Task ${id} archived.`);
   }
@@ -262,6 +274,7 @@ export class TaskManagementComponent implements OnInit {
         next: () => {
           this.loadUserStories();
           this.clearForm();
+          this.calculateUserStoryCompletionRate();    
         },
         error: (err) => {
           console.error('Error creating user story:', err);
@@ -352,6 +365,9 @@ export class TaskManagementComponent implements OnInit {
         this.tasks.push(restoredTask);
         this.archivedTasks = this.archivedTasks.filter(task => task.id !== taskId);
         this.calculateCompletionRate();
+        this.calculateUserStoryCompletionRate();
+        this.calculateTaskDurations();
+  
       });
       this.currentStep = 4;
       this.showSuccessrestoretask = true;
@@ -368,6 +384,7 @@ export class TaskManagementComponent implements OnInit {
         this.loadUserStories();
         this.loadArchivedUserStories();
         this.userStories.push(restoredUserStory);
+        this.calculateUserStoryCompletionRate();
         if (restoredUserStory.taskId === this.currentTaskId) {
           this.filteredUserStories.push(restoredUserStory);
         }
@@ -418,6 +435,9 @@ confirmArchiveTask(taskId: string) {
   if (confirm('Are you sure you want to archive this task?')) {
     this.archiveTask(taskId);
       this.showSuccessarchive = true;
+      this.calculateUserStoryCompletionRate();
+      this.calculateTaskDurations();
+
   setTimeout(() => {
     this.showSuccessarchive = false;
   }, 5000);
@@ -428,6 +448,8 @@ confirmArchiveTask(taskId: string) {
 confirmArchiveUserStory(userStoryId: string) {
   if (confirm('Are you sure you want to archive this user story?')) {
     this.archiveUserStory(userStoryId);
+    this.calculateUserStoryCompletionRate();
+
   }
   this.showSuccessarchivestory = true;
   setTimeout(() => {
@@ -461,7 +483,8 @@ loadTasks() {
     this.tasks = tasks;
     this.calculateCompletionRate();
     this.calculateUserStoryCompletionRate();
-  });
+    this.calculateTaskDurations();
+    });
 }
 
 calculateCompletionRate(): void {
@@ -501,7 +524,7 @@ updateChart() {
           backgroundColor: ['#36A2EB', '#FF6384'], // Colors for each bar
           borderColor: ['#36A2EB', '#FF6384'],
           borderWidth: 1,
-          barThickness: 150 // Adjust as needed
+          barThickness: 500 // Adjust as needed
         }
       ]
     },
@@ -556,6 +579,107 @@ updateChart() {
     }
   });
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+calculateTaskDurations(): void {
+  const completedTasks = this.tasks.filter(task => task.state === 'DONE');
+  this.taskDurations = completedTasks.map(task => {
+    const startedAt = new Date(task.startedAt).getTime();
+    const endedAt = new Date(task.endedAt).getTime();
+    const durationInHours = (endedAt - startedAt) / (1000 * 60 * 60); // Convert to hours
+
+    return {
+      label: task.title,
+      duration: durationInHours // Keep this as a number
+    };
+  });
+  this.averageCompletionTime = this.taskDurations.reduce((sum, task) => sum + task.duration, 0) / completedTasks.length;
+  this.updateDurationChart();
+}
+
+updateDurationChart(): void {
+  if (this.durationChart) {
+    this.durationChart.destroy();
+  }
+
+  this.durationChart = new Chart(this.durationChartRef.nativeElement, {
+    type: 'horizontalBar',
+    data: {
+      labels: this.taskDurations.map(task => task.label),
+      datasets: [
+        {
+          label: 'Time Duration',
+          data: this.taskDurations.map(task => task.duration),
+          backgroundColor: '#36A2EB',
+          borderColor: '#00FFFF',
+          borderWidth: 4
+        }
+      ]
+    },
+    options: {
+      scales: {
+        xAxes: [{
+          ticks: {
+            beginAtZero: true,
+            callback: function(value: number) {
+              const days = Math.floor(value / 24);
+              return `${days} days`;
+            }
+          },
+          scaleLabel: {
+            display: true,
+            labelString: 'Time Duration (in days)'
+          }
+        }],
+        yAxes: [{
+          // Additional yAxes configuration if needed
+        }]
+      },
+      responsive: true,
+      maintainAspectRatio: false,
+      legend: {
+        display: false
+      },
+      tooltips: {
+        callbacks: {
+          label: function(tooltipItem, data) {
+            const datasetLabel = data.datasets[tooltipItem.datasetIndex].label || '';
+            const value = tooltipItem.xLabel as number;
+            const days = Math.floor(value / 24);
+            const hours = value % 24;
+            const formattedDuration = days > 0 ? `${days} days ${hours} hours` : `${hours} hours`;
+            return `${datasetLabel}: ${formattedDuration}`;
+          }
+        }
+      }
+    }
+  });
+}
+
+
+
+
+
+
+
+
+
+
+
+
 }
 
 

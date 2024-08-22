@@ -711,7 +711,7 @@
   <div class="completion-rate-container">
     <div class="rectangle">
       <h3 class="title">Task Completion Rate</h3>
-      <p class="description">The percentage of tasks that have been completed out of the total tasks created</p>
+      <p class="description">This KPI helps track the overall progress and efficiency of project execution</p>
       <div class="progress-bar-container">
         <div class="progress-bar" [style.width.%]="completionRate">
           {{ completionRate | number: '1.0-0' }}%
@@ -723,10 +723,10 @@
   <br>
 
   <!-- User Story Completion Rates -->
-  <div class="user-story-container">
+  <!-- <div class="user-story-container"> -->
     <div class="rectangle">
       <h2 class="title">User Story Completion Rates</h2>
-      <p class="description">The percentage of user stories that belong to completed tasks</p>
+      <p class="description">Helps gauge the completion level of detailed project requirements</p>
       <div class="legend">
         <span class="color-box blue"></span>
         Completed User Stories    
@@ -736,8 +736,17 @@
       </div>
       <canvas #completionChart></canvas>
     </div>
-  </div>
+  <!-- </div> -->
 
+  
+<br>
+<br>
+  <div class="rectangle">
+    <h2 class="title">Task Duration Chart</h2>
+    <p class="description">This KPI measures the average time required to complete a task, providing insight into time management and efficiency</p>
+    <canvas #durationChart></canvas>
+
+  </div>
   
   
 
