@@ -102,6 +102,10 @@ export class TaskManagementComponent implements OnInit {
   durationChart: Chart | undefined;
 
 
+  @ViewChild('statusChart', { static: false }) statusChartRef!: ElementRef;
+  statusChart: Chart | undefined;
+
+
   constructor(private taskService: TaskService,private userStoryService: UserStoryService, private fb: FormBuilder) {}
 
   ngOnInit(): void {
@@ -151,6 +155,7 @@ export class TaskManagementComponent implements OnInit {
       this.calculateCompletionRate();
       this.calculateUserStoryCompletionRate();
       this.calculateTaskDurations();
+      this.calculateTaskStatusDistribution();
     });
   }
 
@@ -164,6 +169,7 @@ export class TaskManagementComponent implements OnInit {
       this.calculateCompletionRate();
       this.calculateUserStoryCompletionRate();
       this.calculateTaskDurations();
+      this.calculateTaskStatusDistribution();
     });
 
     this.showSuccessedittask = true;
@@ -181,6 +187,7 @@ export class TaskManagementComponent implements OnInit {
       this.calculateCompletionRate();
       this.calculateUserStoryCompletionRate();
       this.calculateTaskDurations();
+      this.calculateTaskStatusDistribution();
     });
     console.log(`Task ${id} archived.`);
   }
@@ -367,6 +374,7 @@ export class TaskManagementComponent implements OnInit {
         this.calculateCompletionRate();
         this.calculateUserStoryCompletionRate();
         this.calculateTaskDurations();
+        this.calculateTaskStatusDistribution();
   
       });
       this.currentStep = 4;
@@ -437,6 +445,7 @@ confirmArchiveTask(taskId: string) {
       this.showSuccessarchive = true;
       this.calculateUserStoryCompletionRate();
       this.calculateTaskDurations();
+      this.calculateTaskStatusDistribution();
 
   setTimeout(() => {
     this.showSuccessarchive = false;
@@ -484,6 +493,7 @@ loadTasks() {
     this.calculateCompletionRate();
     this.calculateUserStoryCompletionRate();
     this.calculateTaskDurations();
+    this.calculateTaskStatusDistribution();
     });
 }
 
@@ -680,7 +690,79 @@ updateDurationChart(): void {
 
 
 
+
+
+
+
+calculateTaskStatusDistribution(): void {
+  const statusCounts = {
+    IN_PROGRESS: 0,
+    PLANNING: 0,
+    DONE: 0,
+    CANCELED: 0,
+    PAUSED: 0
+  };
+
+  this.tasks.forEach(task => {
+    statusCounts[task.state] = (statusCounts[task.state] || 0) + 1;
+  });
+
+  this.updateStatusChart(statusCounts);
 }
+
+updateStatusChart(statusCounts: any): void {
+  if (this.statusChart) {
+    this.statusChart.destroy();
+  }
+
+  this.statusChart = new Chart(this.statusChartRef.nativeElement, {
+    type: 'doughnut',
+    data: {
+      labels: ['In Progress', 'Planning', 'Done', 'Canceled', 'Paused'],
+      datasets: [
+        {
+          label: 'Task Status Distribution',
+          data: [
+            statusCounts.IN_PROGRESS,
+            statusCounts.PLANNING,
+            statusCounts.DONE,
+            statusCounts.CANCELED,
+            statusCounts.PAUSED
+          ],
+          backgroundColor: ['#36A2EB', '#FF6384', '#4BC0C0', '#FFCD56', '#9966FF'],
+          borderColor: '#ffffff',
+          borderWidth: 1
+        }
+      ]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      legend: {
+        display: true,
+        position: 'right'
+      },
+      tooltips: {
+        callbacks: {
+          label: function(tooltipItem, data) {
+            const dataset = data.datasets[tooltipItem.datasetIndex];
+            const index = tooltipItem.index;
+            const value = dataset.data[index];
+            const label = data.labels[index];
+            return `${label}: ${value}`;
+          }
+        }
+      }
+    }
+  });
+}
+}
+
+
+
+
+
+
 
 
 
