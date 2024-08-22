@@ -567,9 +567,9 @@ updateChart() {
       tooltips: {
         callbacks: {
           label: function(tooltipItem, data) {
-            const datasetLabel = data.datasets[tooltipItem.datasetIndex].label || '';
+            // const datasetLabel = data.datasets[tooltipItem.datasetIndex].label || '';
             const value = parseFloat(tooltipItem.yLabel as string).toFixed(2); // Ensure yLabel is a number and limit to 2 decimal places
-            return `${datasetLabel}: ${value}%`;
+            return `${value}% of total User Stories`;
           }
         }
       },
@@ -758,7 +758,7 @@ updateStatusChart(statusCounts: any): void {
             const index = tooltipItem.index;
             const value = dataset.data[index];
             const label = data.labels[index];
-            return `${label}: ${value}`;
+            return `Number of ${label} status tasks : ${value}`;
           }
         }
       }
@@ -858,7 +858,7 @@ updatePriorityChart(priorityCounts: any): void {
             const dataset = data.datasets[tooltipItem.datasetIndex];
             const value = dataset.data[tooltipItem.index];
             const label = data.labels[tooltipItem.index];
-            return `${label}: ${value}`;
+            return `Number of ${label} Priority tasks : ${value}`;
           }
         }
       }
