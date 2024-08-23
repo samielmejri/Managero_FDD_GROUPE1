@@ -174,13 +174,14 @@
 //   step 2 : user story management 
 /* Header Styling */
 .header-container {
-  margin-bottom: 20px;
   text-align: center;
+  margin-bottom: 2vw;
 }
 
 /* Task Container Styling */
 .task-container {
   display: flex;
+  flex-wrap: wrap; /* Allow items to wrap to the next line if needed */
   justify-content: space-around;
   align-items: center;
   margin-bottom: 10px;
@@ -191,40 +192,65 @@
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
 }
 
+/* Task Card Styling */
+.task-card {
+  flex: 1 1 100%; /* Make sure each task card takes up equal space and can shrink */
+  max-width: 200px; /* Set a maximum width to prevent it from growing too large */
+  margin: 10px;
+}
+
+
 /* Task Button Styling */
-.button-55 {
-align-self: center;
-background-color: #fff;
-border-radius: 15px 225px 255px 15px;
-border-style: solid;
-border-width: 2px;
-box-shadow: rgba(0, 0, 0, .2) 15px 28px 25px -18px;
-box-sizing: border-box;
-color: #41403e;
-cursor: pointer;
-display: inline-block;
-font-family: Neucha, sans-serif;
-font-size: 1rem;
-line-height: 23px;
-outline: none;
-padding: .75rem;
-text-decoration: none;
-transition: all 235ms ease-in-out;
-user-select: none;
--webkit-user-select: none;
-touch-action: manipulation;
-margin: 5px;
+/* Task Button Styling */
+.button-555 {
+  width: 100%; /* Make the button take up the full width of the task card */
+  background-color: #fff;
+  border-radius: 15px 225px 255px 15px;
+  border-style: solid;
+  border-width: 2px;
+  box-shadow: rgba(0, 0, 0, .2) 15px 28px 25px -18px;
+  box-sizing: border-box;
+  color: #41403e;
+  cursor: pointer;
+  display: inline-block;
+  font-family: Neucha, sans-serif;
+  font-size: 1.5vw; /* Responsive font size based on viewport width */
+  line-height: 3vw; /* Responsive line height based on viewport width */
+  outline: none;
+  padding: 1vw; /* Responsive padding */
+  text-decoration: none;
+  transition: all 235ms ease-in-out;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
 }
 
-.button-55:hover {
-box-shadow: rgba(0, 0, 0, .3) 2px 8px 8px -5px;
-transform: translate3d(0, 2px, 0);
+
+.button-555:hover {
+  box-shadow: rgba(0, 0, 0, .3) 2px 8px 8px -5px;
+  transform: translate3d(0, 2px, 0);
 }
 
-.button-55:focus {
-box-shadow: rgba(0, 0, 0, .3) 2px 8px 4px -6px;
+.button-555:focus {
+  box-shadow: rgba(0, 0, 0, .3) 2px 8px 4px -6px;
 }
 
+/* Media Query Adjustments for Smaller Screens */
+@media (max-width: 768px) {
+  .button-555 {
+    font-size: 3.5vw; /* Larger font size on smaller screens */
+    line-height: 4.5vw; /* Adjusted line height */
+    padding: 2vw; /* Increase padding */
+  }
+}
+
+@media (max-width: 480px) {
+  .button-555 {
+    font-size: 4.5vw; /* Even larger font size for very small screens */
+    line-height: 5.5vw; /* Adjusted line height */
+    padding: 3vw; /* Increase padding */
+  }
+}
 /* User Story Wrapper Styling */
 .user-story-wrapper {
   background: linear-gradient(270deg, #ffffff, #ffffff, #b5b5b5, #ffffff);
@@ -332,7 +358,7 @@ box-shadow: rgba(0, 0, 0, .3) 2px 8px 4px -6px;
 
 
 
-.button-55 {
+.button-555 {
   align-self: center;
   background-color: #fff;
   background-image: none;
@@ -559,10 +585,12 @@ box-shadow: rgba(0, 0, 0, .3) 2px 8px 4px -6px;
   display: flex;
   flex-direction: column;
   min-height: 100vh; /* Make each step container fill the full height */
+  padding: 1vw;
 }
 
 .content-container {
   flex-grow: 1; /* Ensure content takes up available space */
+  padding: 1vw;
 }
 
 
@@ -609,14 +637,15 @@ box-shadow: rgba(0, 0, 0, .3) 2px 8px 4px -6px;
 /* Adjust the container for the main content */
 .page-content {
   flex: 1; /* Allows the content to take up available space */
-  padding: 20px; /* Padding around the content */
+  padding: 2vw; /* Padding around the content, responsive */
 }
 
 /* Footer at the bottom */
 .page-footer {
   text-align: center;
-  margin-top: 20px;
+  margin-top: 2vw;
 }
+
 
 
 
@@ -1003,6 +1032,7 @@ box-shadow: rgba(0, 0, 0, .3) 2px 8px 4px -6px;
   border: 2px solid var(--main-color);
   box-shadow: 4px 4px var(--main-color);
   font-family: Arial, sans-serif;
+  overflow: hidden;
 }
 
 /* Title Styling */
@@ -1020,24 +1050,34 @@ box-shadow: rgba(0, 0, 0, .3) 2px 8px 4px -6px;
 
 /* Header Styling */
 .card__header {
-  display: flex;
-  font-weight: 600;
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  //font-weight: 600;
   background-color: #f6f8fa;
   border-bottom: 2px solid #e1e4e8;
-  padding: 12px 8px;
+  padding: 1vw;
+  font-size: clamp(12px, 2vw, 16px); /* Sets a range for font size */
+    font-weight: bold;
+    max-width: 100%; /* Ensures text doesn't overflow */
   margin-bottom: 15px; /* Space between header and rows */
   color: var(--font-color);
 }
 
 .item {
-  flex: 1;
-  padding: 12px 8px;
-  text-align: left;
+  overflow-wrap: break-word; /* Prevents long words from overflowing */
+  text-align: center;
+  max-width: 100%; /* Ensures text doesn't overflow */
 }
 
 /* Row Styling */
 .card__row {
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  justify-content: space-around;
+  padding: 1vw;
+  font-size: clamp(12px, 2vw, 16px); /* Sets a range for font size */
+  max-width: 100%; /* Ensures text doesn't overflow */
+  border-bottom: 1px solid #ccc;
   align-items: center;
   background-color: rgb(237, 237, 237);
   border-radius: 5px;
@@ -1046,6 +1086,12 @@ box-shadow: rgba(0, 0, 0, .3) 2px 8px 4px -6px;
   margin-bottom: 20px; /* Space between rows */
   padding: 12px 8px;
 }
+
+
+.card__row:last-child {
+  border-bottom: none;
+}
+
 
 /* Status Styling */
 .status-planning {
@@ -1118,7 +1164,9 @@ box-shadow: rgba(0, 0, 0, .3) 2px 8px 4px -6px;
   border: 2px solid var(--main-color);
   background-color: var(--bg-color);
   box-shadow: 2px 2px var(--main-color);
-  font-size: 14px;
+  font-size: clamp(10px, 1.5vw, 14px); /* Sets a range for button text size */
+  padding: clamp(5px, 1vw, 10px); /* Ensures the button padding scales correctly */
+  max-width: 100%; /* Ensures text doesn't overflow */
   font-weight: 600;
   color: var(--font-color);
   margin: 0 5px;
@@ -1135,6 +1183,39 @@ box-shadow: rgba(0, 0, 0, .3) 2px 8px 4px -6px;
 }
 
 
+
+/* Media Query Adjustments for Smaller Screens */
+@media (max-width: 768px) {
+  .page-title h1 {
+    font-size: 4vw; /* Larger font size for smaller screens */
+  }
+
+  .card__header,
+  .card__row {
+    font-size: 2.5vw; /* Larger font size */
+  }
+
+  .button {
+    font-size: 2.5vw; /* Larger font size */
+    padding: 1vw 2vw;
+  }
+}
+
+@media (max-width: 480px) {
+  .page-title h1 {
+    font-size: 5vw; /* Even larger font size for very small screens */
+  }
+
+  .card__header,
+  .card__row {
+    font-size: 3.5vw; /* Even larger font size */
+  }
+
+  .button {
+    font-size: 3.5vw; /* Even larger font size */
+    padding: 1.5vw 3vw;
+  }
+}
 
 
 
@@ -1485,7 +1566,8 @@ box-shadow: rgba(0, 0, 0, .3) 2px 8px 4px -6px;
 }
 
 .page-title h1 {
-  font-size: 2.5em;
+  font-size: 3vw; /* Responsive title size */
+  margin: 0;
   color: #333;
   font-weight: bold;
   text-transform: uppercase;
@@ -1613,3 +1695,66 @@ canvas {
   position: relative;
   width: 100%;
 }
+
+
+
+
+
+
+
+
+
+
+
+/* Limit the font size for table elements */
+.table-container .card__header .item,
+.table-container .card__row .item {
+  font-size: clamp(12px, 2vw, 18px);
+}
+
+/* Styling for dates */
+.date-item {
+  display: inline-block;
+  padding: 4px 8px;
+  border-radius: 4px;
+  background-color: #f0f0f0;
+  color: #333;
+  font-weight: bold;
+  text-align: center;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+  margin-right: 5px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* Base styling for priority labels */
+.priority-label {
+  display: inline-block;
+  padding: 8px 12px;
+  border-radius: 5px;
+  color: #511f1f;
+  font-weight: bold;
+  text-align: center;
+  font-size: 0.9rem;
+  transition: transform 0.3s ease-in-out;
+}
+

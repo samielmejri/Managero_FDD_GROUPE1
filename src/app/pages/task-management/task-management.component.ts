@@ -14,6 +14,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Chart } from 'chart.js';
 import { ElementRef, ViewChild } from '@angular/core';
 
+import * as moment from 'moment';
+
 
 
 @Component({
@@ -113,6 +115,10 @@ export class TaskManagementComponent implements OnInit {
   @ViewChild('collaborationChart', { static: false }) collaborationChartRef!: ElementRef;
   collaborationChart: Chart | undefined;
 
+  @ViewChild('activeTasksChart', { static: false }) activeTasksChartRef!: ElementRef;
+activeTasksChart: Chart | undefined;
+
+
   constructor(private taskService: TaskService,private userStoryService: UserStoryService, private fb: FormBuilder) {}
 
   ngOnInit(): void {
@@ -165,6 +171,7 @@ export class TaskManagementComponent implements OnInit {
       this.calculateTaskStatusDistribution();
       this.calculatePriorityDistribution();
       this.updateCollaborationChart();
+      this.calculateActiveTasks();
     });
   }
 
@@ -181,6 +188,7 @@ export class TaskManagementComponent implements OnInit {
       this.calculateTaskStatusDistribution();
       this.calculatePriorityDistribution();
       this.updateCollaborationChart();
+      this.calculateActiveTasks();
     });
 
     this.showSuccessedittask = true;
@@ -201,6 +209,7 @@ export class TaskManagementComponent implements OnInit {
       this.calculateTaskStatusDistribution();
       this.calculatePriorityDistribution();
       this.updateCollaborationChart();
+      this.calculateActiveTasks();
     });
     console.log(`Task ${id} archived.`);
   }
@@ -390,6 +399,7 @@ export class TaskManagementComponent implements OnInit {
         this.calculateTaskStatusDistribution();
         this.calculatePriorityDistribution();
         this.updateCollaborationChart();
+        this.calculateActiveTasks();
   
       });
       this.currentStep = 4;
@@ -463,6 +473,7 @@ confirmArchiveTask(taskId: string) {
       this.calculateTaskStatusDistribution();
       this.calculatePriorityDistribution(); 
       this.updateCollaborationChart();
+      this.calculateActiveTasks();
 
   setTimeout(() => {
     this.showSuccessarchive = false;
@@ -513,6 +524,7 @@ loadTasks() {
     this.calculateTaskStatusDistribution();
     this.calculatePriorityDistribution();
     this.updateCollaborationChart();
+    this.calculateActiveTasks();
     });
 }
 
@@ -536,7 +548,6 @@ calculateUserStoryCompletionRate(): void {
   this.updateChart();  // Update chart with new data
 }
 
-
 updateChart() {
   if (this.chart) {
     this.chart.destroy();
@@ -545,15 +556,15 @@ updateChart() {
   this.chart = new Chart(this.completionChartRef.nativeElement, {
     type: 'bar',
     data: {
-      labels: ['Completed User Stories', 'Uncompleted User Stories'], // Both labels together
+      labels: ['Completed User Stories', 'Uncompleted User Stories'],
       datasets: [
         {
           label: 'User Stories',
-          data: [this.userStoryCompletionRate, this.userStoryUncompletedRate], // Both data points together
-          backgroundColor: ['#36A2EB', '#FF6384'], // Colors for each bar
+          data: [this.userStoryCompletionRate, this.userStoryUncompletedRate],
+          backgroundColor: ['#36A2EB', '#FF6384'],
           borderColor: '#000000',
           borderWidth: 3,
-          barThickness: 500 // Adjust as needed
+          barPercentage: 0.5, // Control the bar width within their respective categories
         }
       ]
     },
@@ -566,19 +577,20 @@ updateChart() {
           }
         }],
         xAxes: [{
-          // Additional xAxes configuration if needed
+          ticks: {
+            autoSkip: false,
+          }
         }]
       },
       responsive: true,
       maintainAspectRatio: false,
       legend: {
-        display: false // Hide the legend if only one dataset
+        display: false
       },
       tooltips: {
         callbacks: {
           label: function(tooltipItem, data) {
-            // const datasetLabel = data.datasets[tooltipItem.datasetIndex].label || '';
-            const value = parseFloat(tooltipItem.yLabel as string).toFixed(2); // Ensure yLabel is a number and limit to 2 decimal places
+            const value = parseFloat(tooltipItem.yLabel as string).toFixed(2);
             return `${value}% of total User Stories`;
           }
         }
@@ -589,7 +601,6 @@ updateChart() {
           const xAxis = chart.scales['x-axis-0'];
           const yAxis = chart.scales['y-axis-0'];
 
-          // Draw a line between the two bars
           const firstBarEnd = xAxis.getPixelForTick(0);
           const secondBarStart = xAxis.getPixelForTick(1);
 
@@ -599,7 +610,7 @@ updateChart() {
           ctx.beginPath();
           ctx.moveTo(middle, yAxis.top);
           ctx.lineTo(middle, yAxis.bottom);
-          ctx.strokeStyle = '#000000'; // Line color
+          ctx.strokeStyle = '#000000';
           ctx.lineWidth = 2;
           ctx.stroke();
           ctx.restore();
@@ -984,23 +995,70 @@ updateCollaborationChart(): void {
     }
   });
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+calculateActiveTasks(): void {
+  const activeTasks = this.tasks.filter(task => task.state === 'IN_PROGRESS').length;
+  const totalTasks = this.tasks.length;
+  const activeTasksPercentage = totalTasks > 0 ? (activeTasks / totalTasks) * 100 : 0;
+
+  this.updateActiveTasksChart(activeTasksPercentage);
+}
+
+updateActiveTasksChart(activeTasksPercentage: number): void {
+  if (this.activeTasksChart) {
+    this.activeTasksChart.destroy();
+  }
+
+  this.activeTasksChart = new Chart(this.activeTasksChartRef.nativeElement, {
+    type: 'doughnut',
+    data: {
+      labels: ['Active Tasks', 'Other Tasks'],
+      datasets: [
+        {
+          data: [activeTasksPercentage, 100 - activeTasksPercentage],
+          backgroundColor: ['#36A2EB', '#FF6384'],
+          borderColor: '#ffffff',
+          borderWidth: 3
+        }
+      ]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      legend: {
+        display: true, // Show the legend
+        position: 'right' // Position the legend to the right
+      },
+      tooltips: {
+        callbacks: {
+          label: function(tooltipItem, data) {
+            const dataset = data.datasets[tooltipItem.datasetIndex];
+            const index = tooltipItem.index;
+            const value = dataset.data[index];
+
+            // Explicitly cast 'value' to number to use toFixed
+            return `Number of ${data.labels[index]}: ${Number(value).toFixed(2)}% of all tasks`;
+          }
+        }
+      }
+    }
+  });
 }
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+}

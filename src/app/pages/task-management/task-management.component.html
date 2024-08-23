@@ -27,8 +27,8 @@
           </div>
           <div *ngFor="let task of tasks" class="card__row">
             <div class="item">{{task?.title}}</div>
-            <div class="item">{{task?.startedAt | date:'short'}}</div>
-            <div class="item">{{task?.endedAt | date:'short'}}</div>
+            <div class="item date-item">{{task?.startedAt | date:'shortDate'}}</div>
+            <div class="item date-item">{{task?.endedAt | date:'shortDate'}}</div>            
             <div class="item">
               <span [ngClass]="{
                   'status-planning': task.state === 'PLANNING',
@@ -41,14 +41,15 @@
               </span>
             </div>
             <div class="item">
-              <span [ngClass]="{
-                  'priority-high': task.priority === 'High',
-                  'priority-medium': task.priority === 'Medium',
-                  'priority-low': task.priority === 'Low'
-                }">
+              <span class="priority-label" [ngClass]="{
+                'priority-high': task.priority === 'High',
+                'priority-medium': task.priority === 'Medium',
+                'priority-low': task.priority === 'Low'
+              }">
                 {{task?.priority}}
               </span>
             </div>
+            
             <div class="item">
               <ul>
                 <li *ngFor="let collaborator of task.collaborators">
@@ -337,7 +338,7 @@
     <!-- Task List -->
     <div class="task-container">
       <div *ngFor="let task of tasks" class="task-card">
-        <button class="button-55" role="button" (click)="toggleTaskId(task.id)">{{ task.title }}</button>
+        <button class="button-555" role="button" (click)="toggleTaskId(task.id)">{{ task.title }}</button>
       </div>
     </div>
 
@@ -734,8 +735,12 @@
         <span class="color-box red"></span>
         Uncompleted User Stories
       </div>
-      <canvas #completionChart></canvas>
+      <div class="chart-container">
+        <canvas #completionChart></canvas>
+      </div>
     </div>
+    
+    
   <!-- </div> -->
 
   
@@ -778,10 +783,20 @@
   <p class="description">A visual representation of task distribution among collaborators in various projects</p>
 <div class="chart-container">
 
+  
   <canvas #collaborationChart></canvas>
 </div>
 </div> 
 
+<br>
+<br>
+<div class="rectangle">
+  <h2 class="title">Active Task Distribution</h2>
+  <p class="description">Displays the percentage of active tasks compared to total tasks</p>
+  <div class="chart-container"> 
+     <canvas #activeTasksChart width="400" height="400"></canvas>
+</div>
+</div>
 
 
 
