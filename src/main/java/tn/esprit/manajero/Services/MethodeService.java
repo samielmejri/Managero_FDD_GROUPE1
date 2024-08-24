@@ -13,27 +13,32 @@ import java.util.List;
 @AllArgsConstructor
 @Slf4j
 public class MethodeService implements IMethodeService {
-    MethodeRepository methodeRepository;
+
+    @Autowired
+    private final MethodeRepository methodeRepository;
+
     @Override
     public Methode addMethode(Methode methode) {
+        log.info("Attempting to save Methode: {}", methode);
+        Methode savedMethode = methodeRepository.save(methode);
+        log.info("Methode saved successfully with ID: {}", savedMethode.getId());
         return methodeRepository.save(methode);
-
-
     }
+
     @Override
     public List<Methode> getAllMethods() {
         return (List<Methode>) methodeRepository.findAll();
     }
     @Override
-    public Methode getMethodeById(Long idMethode) {
+    public Methode getMethodeById(String idMethode) {
         return methodeRepository.findById(idMethode).get();
     }
     @Override
-    public void deleteMethode(Long idMethode) {
+    public void deleteMethode(String idMethode) {
         methodeRepository.deleteById(idMethode);
     }
 
-    public Methode updateMethode(Long id, Methode newMethode) {
+    public Methode updateMethode(String id, Methode newMethode) {
         return methodeRepository.findById(id)
                 .map(methode -> {
                     // Update all fields as needed

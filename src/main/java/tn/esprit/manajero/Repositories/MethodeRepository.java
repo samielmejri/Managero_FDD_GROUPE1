@@ -6,5 +6,5 @@ import tn.esprit.manajero.Entities.Methode;
 
 @Repository
 
-public interface MethodeRepository extends MongoRepository<Methode,Long> {
+public interface MethodeRepository extends MongoRepository<Methode,String> {
 }

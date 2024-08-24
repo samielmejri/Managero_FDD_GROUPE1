@@ -28,17 +28,17 @@ public class MethodeController {
     }
 
     @GetMapping("/get/{idMethode}")
-    public Methode gettingMethode(@PathVariable("idMethode") Long idMethode){
+    public Methode gettingMethode(@PathVariable("idMethode") String idMethode){
         return methodeService.getMethodeById(idMethode);
     }
 
     @DeleteMapping("/delete/{idMethode}")
-    public void deletingMethode(@PathVariable("idMethode") Long idMethode){
+    public void deletingMethode(@PathVariable("idMethode") String idMethode){
         methodeService.deleteMethode(idMethode);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Methode> updateMethode(@PathVariable("id") Long id, @RequestBody Methode methode) {
+    public ResponseEntity<Methode> updateMethode(@PathVariable("id") String id, @RequestBody Methode methode) {
         Methode updatedMethode = methodeService.updateMethode(id, methode);
         if (updatedMethode != null) {
             return ResponseEntity.ok(updatedMethode);

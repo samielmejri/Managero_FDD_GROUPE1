@@ -19,10 +19,11 @@ import java.io.Serializable;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 @Document
 public class Methode implements Serializable {
     @Id
-    Long id;
+    private String id;
     String Introduction;
     String why;
     String what;

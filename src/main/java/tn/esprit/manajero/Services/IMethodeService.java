@@ -9,9 +9,9 @@ public interface IMethodeService {
 
     List<Methode> getAllMethods();
 
-    Methode getMethodeById(Long idMethode);
+    Methode getMethodeById(String idMethode);
 
-    void deleteMethode(Long idMethode);
+    void deleteMethode(String idMethode);
 
-    public Methode updateMethode(Long id, Methode methode);
+    public Methode updateMethode(String id, Methode methode);
 }
