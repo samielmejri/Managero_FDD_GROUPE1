@@ -10,7 +10,7 @@
     "experimentalDecorators": true,
     "target": "ES2022",
     "typeRoots": ["node_modules/@types"],
-    "types": ["chart.js"],
+    "types": ["jasmine", "node","chart.js"],
     "lib": [
       "es2017",
       "dom"

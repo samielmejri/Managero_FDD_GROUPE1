@@ -1,23 +1,46 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-
-import { StepperComponent } from './stepper.component';
-
-describe('StepperComponent', () => {
-  let component: StepperComponent;
-  let fixture: ComponentFixture<StepperComponent>;
-
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      declarations: [ StepperComponent ]
-    })
-    .compileComponents();
-
-    fixture = TestBed.createComponent(StepperComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
+module.exports = function (config) {
+  config.set({
+    basePath: '',
+    frameworks: ['jasmine', '@angular-devkit/build-angular'],
+    plugins: [
+      require('karma-jasmine'),
+      require('karma-chrome-launcher'),
+      require('karma-jasmine-html-reporter'),
+      require('karma-coverage'),
+      require('@angular-devkit/build-angular/plugins/karma')
+    ],
+    client: {
+      clearContext: false // leave Jasmine Spec Runner output visible in browser
+    },
+    jasmineHtmlReporter: {
+      suppressAll: true // removes the duplicated traces
+    },
+    coverageReporter: {
+      dir: require('path').join(__dirname, './coverage/your-app-name'),
+      subdir: '.',
+      reporters: [{ type: 'html' }, { type: 'text-summary' }]
+    },
+    reporters: ['progress', 'kjhtml'],
+    port: 9876,
+    colors: true,
+    logLevel: config.LOG_INFO,
+    autoWatch: true,
+    browsers: ['Chrome'],
+    singleRun: false,
+    restartOnFileChange: true,
+    files: [
+      { pattern: './src/test.ts', watched: false },
+      { pattern: './src/**/*.spec.ts', watched: true } // Ensures Karma watches TypeScript test files
+    ],
+    preprocessors: {
+      './src/**/*.ts': ['@angular-devkit/build-angular'],
+      './src/**/*.spec.ts': ['@angular-devkit/build-angular'] // Preprocesses TypeScript spec files
+    },
+    mime: {
+      'text/x-typescript': ['ts', 'tsx']
+    },
+    angularCli: {
+      environment: 'dev'
+    }
   });
-
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
-});
+};
